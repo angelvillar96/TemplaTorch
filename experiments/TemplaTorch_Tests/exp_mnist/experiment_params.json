@@ -1,0 +1,43 @@
+{
+  "dataset": {
+    "dataset_name": "mnist",
+    "shuffle_train": true,
+    "shuffle_eval": false
+  },
+  "model": {
+    "model_name": "ConvNet",
+    "ConvNet": {
+      "channels": [
+        1,
+        32,
+        64,
+        128
+      ],
+      "out_size": 10
+    }
+  },
+  "loss": {
+    "loss_type": "cross_entropy"
+  },
+  "training": {
+    "num_epochs": 100,
+    "save_frequency": 5,
+    "log_frequency": 100,
+    "batch_size": 32,
+    "lr": 0.001,
+    "optimizer": "adam",
+    "momentum": 0,
+    "weight_decay": 0,
+    "nesterov": false,
+    "scheduler": "exponential",
+    "lr_factor": 0.5,
+    "patience": 5,
+    "lr_warmup": true,
+    "warmup_steps": 0,
+    "warmup_epochs": 0
+  },
+  "_general": {
+    "created_time": "2022-04-21_12-07-12",
+    "last_loaded": "2022-04-21_12-07-12"
+  }
+}

@@ -2,9 +2,8 @@
 Template for custom datasets
 """
 
-import torch
-import torch.nn as nn
 from torch.utils.data import Dataset
+
 
 class SampleDataset(Dataset):
     """

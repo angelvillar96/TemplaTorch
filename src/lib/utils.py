@@ -7,6 +7,7 @@ Utils methods for bunch of purposes, including
 """
 
 import os
+import shutil
 import random
 import datetime
 import numpy as np
@@ -49,13 +50,20 @@ def create_directory(dir_path, dir_name=None):
     return
 
 
+def delete_directory(dir_path):
+    """
+    Deleting a directory and all its contents
+    """
+    if os.path.exists(dir_path):
+        shutil.rmtree(dir_path)
+    return
+
+
 def timestamp():
-    """ Obtaining the current timestamp in an human-readable way """
-
-    timestamp = str(datetime.datetime.now()).split('.')[0] \
-                                            .replace(' ', '_') \
-                                            .replace(':', '-')
-
+    """
+    Obtaining the current timestamp in an human-readable way
+    """
+    timestamp = str(datetime.datetime.now()).split('.')[0].replace(' ', '_').replace(':', '-')
     return timestamp
 
 
@@ -74,7 +82,6 @@ def log_architecture(model, exp_path, fname="model_architecture.txt"):
         f.write(f"Params: {num_params}")
         f.write("\n")
         f.write(str(model))
-
     return
 
 
@@ -87,6 +94,7 @@ class TensorboardWriter:
     logdir: string
         path where the tensorboard logs will be stored
     """
+
     def __init__(self, logdir):
         """ Initializing tensorboard writer """
         self.logdir = logdir
@@ -100,7 +108,7 @@ class TensorboardWriter:
 
     def add_scalars(self, plot_name, val_names, vals, step):
         """ Adding several values in one plot """
-        val_dict = {val_name:val for (val_name,val) in zip(val_names, vals)}
+        val_dict = {val_name: val for (val_name, val) in zip(val_names, vals)}
         self.writer.add_scalars(plot_name, val_dict, step)
         return
 
@@ -125,9 +133,9 @@ class TensorboardWriter:
         its independent plot and into a joined plot
         """
         if dir is not None:
-            dict = {f"{dir}/{key}": val[-1] for key,val in dict.items()}
+            dict = {f"{dir}/{key}": val[-1] for key, val in dict.items()}
         else:
-            dict = {key: val[-1] for key,val in dict.items()}
+            dict = {key: val[-1] for key, val in dict.items()}
 
         for key, val in dict.items():
             self.add_scalar(name=key, val=val, step=step)

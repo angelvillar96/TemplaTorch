@@ -115,7 +115,7 @@ class EarlyStop:
     patience: integer
         number of epochs without improvement to trigger early stopping
     """
-    
+
     def __init__(self, mode="min", delta=1e-6, patience=7):
         """ Early stopper initializer """
         assert mode in ["min", "max"]

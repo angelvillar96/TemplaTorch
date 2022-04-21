@@ -1,61 +1,89 @@
 """
 Methods to manage parameters and configurations
+
+TODO:
+ - Add support to change any values from the command line
 """
 
 import os
 import json
 
-from CONFIG import DEFAULTS
+from lib.logger import print_
+from lib.utils import timestamp
+from CONFIG import DEFAULTS, CONFIG
 
 
-def create_exp_config_file(exp_path):
+class Config(dict):
     """
-    Creating a JSON file with exp configs in the experiment path
     """
-    assert os.path.exists(exp_path), f"ERROR!: exp_path {exp_path} does not exists..."
+    _default_values = DEFAULTS
+    _help = "Potentially you can add here comments for what your configs are"
+    _config_groups = ["dataset", "model", "training", "loss"]
 
-    exp_config = os.path.join(exp_path, "experiment_params.json")
-    with open(exp_config, "w") as file:
-        json.dump(DEFAULTS, file)
+    def __init__(self, exp_path):
+        """ Populating the dictionary with the default values """
+        for key in self._default_values.keys():
+            self[key] = self._default_values[key]
+        self["_general"] = {}
+        self["_general"]["exp_path"] = exp_path
+        return
 
-    return
+    def create_exp_config_file(self, config=None):
+        """
+        Creating a JSON file with exp configs in the experiment path
+        """
+        if not os.path.exists(self["_general"]["exp_path"]):
+            raise FileNotFoundError(f"ERROR!: exp_path {self['_general']['exp_path']} does not exist...")
 
+        if config is not None:
+            config_file = os.path.join(CONFIG["paths"]["configs_path"], config)
+            if not os.path.exists(config_file):
+                raise FileNotFoundError(f"Given config file {config_file} does not exist...")
 
-def load_exp_config_file(exp_path):
-    """
-    Loading the JSON file with exp configs
-    """
+            with open(config_file) as file:
+                exp_path = self["_general"]["exp_path"]
+                self = json.load(file)
+                self["_general"] = {}
+                self["_general"]["exp_path"] = exp_path
+            print_(f"Creating experiment parameters file from config {config}...")
 
-    exp_config = os.path.join(exp_path, "experiment_params.json")
-    assert os.path.exists(exp_path), f"ERROR! exp_path {exp_config} does not exist..."
+        self["_general"]["created_time"] = timestamp()
+        self["_general"]["last_loaded"] = timestamp()
+        exp_config = os.path.join(self["_general"]["exp_path"], "experiment_params.json")
+        with open(exp_config, "w") as file:
+            json.dump(self, file)
+        return
 
-    with open(exp_config,) as file:
-        exp_params = json.load(file)
+    def load_exp_config_file(self):
+        """
+        Loading the JSON file with exp configs
+        """
+        exp_config = os.path.join(self["_general"]["exp_path"], "experiment_params.json")
+        if not os.path.exists(exp_config):
+            raise FileNotFoundError(f"ERROR! exp. configs file {exp_config} does not exist...")
 
-    return exp_params
+        with open(exp_config) as file:
+            self = json.load(file)
+        self["_general"]["last_loaded"] = timestamp()
+        return self
 
+    def update_config(self, exp_params):
+        """
+        Updating an experiments parameters file with newly added configurations from CONFIG.
+        """
+        # TODO: Add recursion to make it always work
+        for group in Config._config_groups:
+            for k in Config._default_values[group].keys():
+                if(k not in exp_params[group]):
+                    if(isinstance(Config._default_values[group][k], (dict))):
+                        exp_params[group][k] = {}
+                    else:
+                        exp_params[group][k] = Config._default_values[group][k]
 
-def update_config(exp_params):
-    """
-    Updating an experiments parameters file with new-configurations from CONFIG.
-    """
-
-    groups = ["dataset", "model", "training", "loss"]
-
-    # TODO: Add recursion to make it always work
-    # adding missing parameters to the exp_params dicitionary
-    for group in groups:
-        for k in DEFAULTS[group].keys():
-            if(k not in exp_params[group]):
-                if(isinstance(DEFAULTS[group][k], (dict))):
-                    exp_params[group][k] = {}
-                else:
-                    exp_params[group][k] = DEFAULTS[group][k]
-
-            if(isinstance(DEFAULTS[group][k], dict) ):
-                for q in DEFAULTS[group][k].keys():
-                    if(q not in exp_params[group][k]):
-                        exp_params[group][k][q] = DEFAULTS[group][k][q]
-    return exp_params
+                if(isinstance(Config._default_values[group][k], dict)):
+                    for q in Config._default_values[group][k].keys():
+                        if(q not in exp_params[group][k]):
+                            exp_params[group][k][q] = Config._default_values[group][k][q]
+        return exp_params
 
 #

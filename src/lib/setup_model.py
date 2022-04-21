@@ -4,14 +4,12 @@ Setting up the model, optimizers, loss functions, loading/saving parameters, ...
 
 import os
 import torch
-import torch.nn as nn
-import torch.optim as optim
 
-from lib.logger import print_, log_function
-from lib.schedulers import LRWarmUp, ExponentialLRSchedule, EarlyStop
+from lib.logger import log_function
+from lib.schedulers import LRWarmUp, ExponentialLRSchedule
 from lib.utils import create_directory
-
-MODELS = ["SampleModel"]
+import models
+from CONFIG import MODELS
 
 
 @log_function
@@ -29,11 +27,13 @@ def setup_model(model_params):
     model: torch.nn.Module
         instanciated model given the parameters
     """
-
     model_name = model_params["model_name"]
+    if model_name not in MODELS:
+        raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
+    cur_model_params = model_params[model_name]
 
-    if(model_name == "SampleModel"):
-        model = models.SampleModel()
+    if(model_name == "ConvNet"):
+        model = models.ConvNet(**cur_model_params)
     else:
         raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
 
@@ -62,7 +62,7 @@ def save_checkpoint(model, optimizer, scheduler, epoch, exp_path, finished=False
     if(savename is not None):
         checkpoint_name = savename
     elif(savename is None and finished is True):
-        checkpoint_name = f"checkpoint_epoch_final.pth"
+        checkpoint_name = "checkpoint_epoch_final.pth"
     else:
         checkpoint_name = f"checkpoint_epoch_{epoch}.pth"
 
@@ -93,7 +93,8 @@ def load_checkpoint(checkpoint_path, model, only_model=False, map_cpu=False, **k
     only_model: boolean
         if True, only model state dictionary is loaded
     """
-
+    if not os.path.exists(checkpoint_path):
+        raise FileNotFoundError(f"Checkpoint {checkpoint_path} does not exist ...")
     if(checkpoint_path is None):
         return model
 
@@ -105,18 +106,17 @@ def load_checkpoint(checkpoint_path, model, only_model=False, map_cpu=False, **k
     # loading model parameters. Try catch is used to allow different dicts
     try:
         model.load_state_dict(checkpoint['model_state_dict'])
-    except Exception as e:
+    except Exception:
         model.load_state_dict(checkpoint)
 
-    # returning only the model for transfer learning or returning also optimizer state
-    # for continuing training procedure
+    # returning only model for transfer learning or returning also optimizer for resuming training
     if(only_model):
         return model
 
     optimizer, scheduler = kwargs["optimizer"], kwargs["scheduler"]
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-    epoch = checkpoint["epoch"]
+    epoch = checkpoint["epoch"] + 1
 
     return model, optimizer, scheduler, epoch
 
@@ -191,13 +191,12 @@ def update_scheduler(scheduler, exp_params, control_metric=None, iter=-1, end_ep
         Triggers schedulers such as plateau or fixed-step
     """
     scheduler_type = exp_params["training"]["scheduler"]
-    if(scheduler_type == "plateau" and end_epoch==True):
+    if(scheduler_type == "plateau" and end_epoch):
         scheduler.step(control_metric)
-    elif(scheduler_type == "step" and end_epoch==True):
+    elif(scheduler_type == "step" and end_epoch):
         scheduler.step()
     elif(scheduler_type == "exponential"):
         scheduler.step(iter)
-
     return
 
 

@@ -2,7 +2,10 @@
 Methods for loading specific datasets, fitting data loaders and other
 """
 
-DATASETS = ["mnist"]
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+from CONFIG import CONFIG, DATASETS
+
 
 def load_data(exp_params, split="train", transform=None):
     """
@@ -24,22 +27,23 @@ def load_data(exp_params, split="train", transform=None):
     in_channels: integer
         number of channels in the dataset samples (e.g. 1 for B&W, 3 for RGB)
     """
-
     dataset_name = exp_params["dataset"]["dataset_name"]
+    if dataset_name not in DATASETS:
+        raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
 
     if(dataset_name == "mnist"):
+        train = (split == "train")
         dataset = datasets.MNIST(
                 root=CONFIG["paths"]["data_path"],
                 train=train,
                 download=True,
-                transform=transform
+                transform=transforms.ToTensor()
             )
-        in_channels = 3
+        dataset.in_channels = 3
     else:
-        raise NotImplementedError(f"""ERROR! Dataset'{dataset_name}' is not available.
-            Please use one of the following: {DATASETS}...""")
+        raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
 
-    return dataset, in_channels
+    return dataset
 
 
 def build_data_loader(dataset, batch_size=8, shuffle=False):
