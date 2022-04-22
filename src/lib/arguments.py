@@ -7,6 +7,7 @@ TODO:
 
 import os
 import argparse
+from lib.utils import split_path
 
 from CONFIG import CONFIG
 
@@ -48,8 +49,9 @@ def process_experiment_directory_argument(exp_directory):
     """
     was_relative = False
     exp_path = CONFIG["paths"]["experiments_path"]
-    if os.path.basename(exp_path) == exp_directory.split("/")[0]:
-        exp_directory = "/".join(exp_directory.split("/")[1:])
+    split_exp_dir = split_path(exp_directory)
+    if os.path.basename(exp_path) == split_exp_dir[0]:
+        exp_directory = "/".join(split_exp_dir[1:])
 
     if(exp_path not in exp_directory):
         was_relative = True
