@@ -38,9 +38,12 @@ DEFAULTS = {
             "out_size": 10
         }
     },
-    "loss": {
-        "loss_type": "cross_entropy"
-    },
+    "loss": [
+        {
+            "type": "cross_entropy",
+            "weight": 1
+        },
+    ],
     "training": {  # training related parameters
         "num_epochs": 100,      # number of epochs to train for
         "save_frequency": 5,    # saving a checkpoint after these eoochs ()

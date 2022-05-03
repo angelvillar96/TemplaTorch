@@ -87,18 +87,43 @@ def timestamp():
 @log_function
 def log_architecture(model, exp_path, fname="model_architecture.txt"):
     """
-    Printing architecture modules into a txt file (fname) located at the given path
+    Printing architecture modules into a txt file
     """
     assert fname[-4:] == ".txt", "ERROR! 'fname' must be a .txt file"
-
     savepath = os.path.join(exp_path, fname)
+
+    # getting all_params
     with open(savepath, "w") as f:
-        f.write("")
-    with open(savepath, "a") as f:
         num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        f.write(f"Total Params: {num_params}")
+
+    for i, layer in enumerate(model.children()):
+        if(isinstance(layer, torch.nn.Module)):
+            log_module(module=layer, exp_path=exp_path, fname=fname)
+    return
+
+
+def log_module(module, exp_path, fname="model_architecture.txt", append=True):
+    """
+    Printing architecture modules into a txt file
+    """
+    assert fname[-4:] == ".txt", "ERROR! 'fname' must be a .txt file"
+    savepath = os.path.join(exp_path, fname)
+
+    # writing from scratch or appending to existing file
+    if (append is False):
+        with open(savepath, "w") as f:
+            f.write("")
+    else:
+        with open(savepath, "a") as f:
+            f.write("\n\n")
+
+    # writing info
+    with open(savepath, "a") as f:
+        num_params = sum(p.numel() for p in module.parameters() if p.requires_grad)
         f.write(f"Params: {num_params}")
         f.write("\n")
-        f.write(str(model))
+        f.write(str(module))
     return
 
 
@@ -134,9 +159,9 @@ class TensorboardWriter:
         self.writer.add_image(fig_name, img_grid, global_step=step)
         return
 
-    def add_figure(self, tag, figure):
-        """ Adding a whole new figure to the tensorboard"""
-        self.writer.add_figure(tag=tag, figure=figure)
+    def add_figure(self, tag, figure, step):
+        """ Adding a whole new figure to the tensorboard """
+        self.writer.add_figure(tag=tag, figure=figure, global_step=step)
         return
 
     def add_graph(self, model, input):
@@ -150,15 +175,14 @@ class TensorboardWriter:
         its independent plot and into a joined plot
         """
         if dir is not None:
-            dict = {f"{dir}/{key}": val[-1] for key, val in dict.items()}
+            dict = {f"{dir}/{key}": val for key, val in dict.items()}
         else:
-            dict = {key: val[-1] for key, val in dict.items()}
+            dict = {key: val for key, val in dict.items()}
 
         for key, val in dict.items():
             self.add_scalar(name=key, val=val, step=step)
 
         plot_name = f"{dir}/{plot_name}" if dir is not None else key
-        self.add_scalars(plot_name, dict, step)
+        self.add_scalars(plot_name=plot_name, val_names=dict.keys(), vals=dict.values(), step=step)
         return
-
 #

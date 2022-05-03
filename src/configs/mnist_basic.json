@@ -16,9 +16,12 @@
       "out_size": 10
     }
   },
-  "loss": {
-    "loss_type": "cross_entropy"
-  },
+  "loss": [
+        {
+            "type": "cross_entropy",
+            "weight": 1
+        }
+    ],
   "training": {
     "num_epochs": 100,
     "save_frequency": 5,

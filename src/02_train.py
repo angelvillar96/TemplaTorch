@@ -4,13 +4,12 @@ Training and Validation a model
 
 import os
 from tqdm import tqdm
-import numpy as np
 import torch
-import torch.nn as nn
 
 from lib.arguments import get_directory_argument
 from lib.config import Config
 from lib.logger import Logger, print_, log_function, for_all_methods, log_info
+from lib.loss import LossTracker
 import lib.setup_model as setup_model
 import lib.utils as utils
 import data
@@ -79,7 +78,7 @@ class Trainer:
 
         # loading optimizer, scheduler and loss
         optimizer, scheduler = setup_model.setup_optimizer(exp_params=self.exp_params, model=model)
-        loss_function = nn.CrossEntropyLoss()
+        loss_tracker = LossTracker(loss_params=self.exp_params["loss"])
         epoch = 0
 
         # loading pretrained model and other necessary objects for resuming training or fine-tuning
@@ -100,7 +99,7 @@ class Trainer:
 
         self.model = model
         self.optimizer, self.scheduler, self.epoch = optimizer, scheduler, epoch
-        self.criterion = loss_function
+        self.loss_tracker = loss_tracker
         return
 
     def training_loop(self):
@@ -122,7 +121,7 @@ class Trainer:
 
             # adding to tensorboard plot containing both losses
             self.writer.add_scalars(
-                    plot_name='loss/CE_comb_loss',
+                    plot_name='Total Loss/CE_comb_loss',
                     val_names=["train_loss", "eval_loss"],
                     vals=[self.training_losses[-1], self.validation_losses[-1]],
                     step=epoch+1
@@ -164,40 +163,46 @@ class Trainer:
         """
         Training epoch loop
         """
-        epoch_losses = []
+        self.loss_tracker.reset()
         progress_bar = tqdm(enumerate(self.train_loader), total=len(self.train_loader))
 
         for i, (imgs, targets) in progress_bar:
+            iter_ = len(self.train_loader) * epoch + i
             imgs, targets = imgs.to(self.device), targets.to(self.device)
             preds = self.model(imgs)
 
-            loss = self.criterion(preds, targets)
-            epoch_losses.append(loss.item())
+            self.loss_tracker(preds=preds, targets=targets)
+            loss = self.loss_tracker.get_last_losses(total_only=True)
 
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
 
-            if(i % self.exp_params["training"]["log_frequency"] == 0):
-                iter_ = len(self.train_loader) * epoch + i
+            if(iter_ % self.exp_params["training"]["log_frequency"] == 0):
+                self.writer.log_full_dictionary(
+                        dict=self.loss_tracker.get_last_losses(),
+                        step=iter_,
+                        plot_name="Train Loss",
+                        dir="Train Loss Iter",
+                    )
                 self.writer.add_scalar(
-                        name='loss/CE_train_loss_iter',
-                        val=np.mean(epoch_losses),
+                        name="Learning Rate",
+                        val=self.optimizer.param_groups[0]['lr'],
                         step=iter_
                     )
-                log_info(message=f"Train iter {iter_}: loss={round(np.mean(epoch_losses),5 )}")
 
             # update progress bar
             progress_bar.set_description(f"Epoch {epoch+1} iter {i}: train loss {loss.item():.5f}. ")
 
-        train_loss = np.mean(epoch_losses)
-        self.training_losses.append(train_loss)
-        print_(f"    Train Loss: {train_loss}")
-        self.writer.add_scalar(
-                name='loss/CE_train_loss',
-                val=train_loss,
-                step=epoch+1
+        self.loss_tracker.aggregate()
+        average_loss_vals = self.loss_tracker.summary(log=True, get_results=True)
+        self.writer.log_full_dictionary(
+                dict=average_loss_vals,
+                step=epoch + 1,
+                plot_name="Train Loss",
+                dir="Train Loss",
             )
+        self.training_losses.append(average_loss_vals["_total"].item())
         return
 
     @torch.no_grad()
@@ -205,26 +210,25 @@ class Trainer:
         """
         Validation epoch
         """
-        epoch_losses = []
+        self.loss_tracker.reset()
         progress_bar = tqdm(enumerate(self.valid_loader), total=len(self.valid_loader))
 
         for i, (imgs, targets) in progress_bar:
             imgs, targets = imgs.to(self.device), targets.to(self.device)
             preds = self.model(imgs)
-            loss = self.criterion(preds, targets)
-            epoch_losses.append(loss.item())
-            progress_bar.set_description(f"Epoch {epoch+1} iter {i}: valid loss {loss.item():.5f}.")
+            self.loss_tracker(preds=preds, targets=targets)
+            loss = self.loss_tracker.get_last_losses(total_only=True)
+            progress_bar.set_description(f"Epoch {epoch+1} iter {i}: valid loss {loss.item():.5f}. ")
 
-        valid_loss = np.mean(epoch_losses)
-        self.validation_losses.append(valid_loss)
-        print_(f"    Valid Loss: {valid_loss}")
-
-        self.writer.add_scalar(
-                name='loss/CE_validation_loss',
-                val=valid_loss,
-                step=epoch+1
+        self.loss_tracker.aggregate()
+        average_loss_vals = self.loss_tracker.summary(log=True, get_results=True)
+        self.writer.log_full_dictionary(
+                dict=average_loss_vals,
+                step=epoch + 1,
+                plot_name="Valid Loss",
+                dir="Valid Loss",
             )
-        log_info(message=f"Validation iter {epoch+1}: loss={round(np.mean(epoch_losses),5 )}")
+        self.validation_losses.append(average_loss_vals["_total"].item())
         return
 
 
