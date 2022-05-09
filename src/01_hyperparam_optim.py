@@ -49,6 +49,7 @@ def objective(trial, optuna_path, logger, num_epochs=5):
     except:
         return 1e8
 
+    print_(f"Trial finished with metric: {metric}")
     return metric
 
 

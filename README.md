@@ -115,6 +115,53 @@ $ CUDA_VISIBLE_DEVICES=0 python src/03_evaluate.py -d experiments/TemplaTorch_Te
 
 ```
 
+
+### Hyper-Parameter Optimization
+
+TemplaTorch includes functionalities for hyper-parameter optimization using the [Optuna](https://optuna.org/) framework.
+
+```
+CUDA_VISIBLE_DEVICES=0 python src/01_hyperparam_optim.py -[-h] -d EXP_DIRECTORY [--num_epochs NUM_EPOCHS] [--num_trials NUM_TRIALS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d EXP_DIRECTORY, --exp_directory EXP_DIRECTORY
+                        Path to the experiment directory
+  --num_epochs NUM_EPOCHS
+                        Number of epochs of each trial
+  --num_trials NUM_TRIALS
+                        Number of trials to execute
+
+```
+
+The file `CONFIG.py` defines the parameters to be optimized, including the selection ranges, data-type, among other arguments.
+Any of the parameters in `experiment_parameters.json` can be optimized.
+
+The procedure for hyper-parameter optimization in TemplaTorch is the following:
+
+ 1. Add the parameters that you want to optimize to the configuration (`CONFIG.py`) file.
+
+ 2. Run the hyper-param optimization scrip: ```python src/01_hyperparam_optim.py -d EXP_DIR```. This creates a directory already including an `experiment_parameters.json` and a `optuna_values.json` configuration files, which contain the default experiment parameters and the arguments for the parameters to optimize, respectively.
+
+ 3. Modify the values in `experiment_parameters.json` and `optuna_values.json` to match your needs. For instance, add your desired ranges for the *learning rate* and *batch size*.
+
+ 4. Run again the hyper-param optimization scrip: ```python src/01_hyperparam_optim.py -d EXP_DIR --num_epochs NUM_EPOCHS --num_trials NUM_TRIALS```, which will run *NUM_TRIALS* Optuna Trials, for *NUM_EPOCHS* each, saving intermediate results.
+
+ 5. The results of the hyper-parameter optimization study will be stored on a *pickle* file. Additionally, intermediate results for all trials, as well as an SQL database, are saved in the experiment directory.
+
+
+
+ ##### Example
+
+ ```shell
+ $ CUDA_VISIBLE_DEVICES=0 python src/01_hyperparam_optim.py -d experiments/-d TemplaTorch_Tests/optuna_test/
+ $ CUDA_VISIBLE_DEVICES=0 python src/01_hyperparam_optim.py -d experiments/-d TemplaTorch_Tests/optuna_test/
+ ```
+
+Results of an actual Optuna study can be found in [this directory](TODO).
+
+
+
 ## Contact
 
 This repository is maintained by [Angel Villar-Corrales](http://angelvillarcorrales.com/templates/home.php),

@@ -7,8 +7,7 @@ Utils methods for bunch of purposes, including
 """
 
 import os
-from functools import reduce
-import operator
+import pickle
 import shutil
 import random
 import datetime
@@ -31,6 +30,20 @@ def set_random_seed(random_seed=None):
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)
     torch.cuda.manual_seed_all(random_seed)
+    return
+
+
+def load_pickle_file(path):
+    """ Loading pickle file """
+    with open(path, "rb") as a_file:
+        data = pickle.load(a_file)
+    return data
+
+
+def save_pickle_file(path, data):
+    """ Saving pickle file """
+    with open(path, "wb") as file:
+        pickle.dump(data, file)
     return
 
 
