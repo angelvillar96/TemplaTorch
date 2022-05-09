@@ -1,1 +1,47 @@
-{"dataset": {"dataset_name": "mnist", "shuffle_train": true, "shuffle_eval": false}, "model": {"model_name": "ConvNet", "ConvNet": {"channels": [1, 32, 64, 128], "out_size": 10}}, "loss": [{"type": "cross_entropy", "weight": 1}], "training": {"num_epochs": 10, "save_frequency": 5, "log_frequency": 1000000000.0, "batch_size": 22, "lr": 1.0079271475122846e-05, "optimizer": "adam", "momentum": 0, "weight_decay": 0, "nesterov": false, "scheduler": "exponential", "lr_factor": 0.011732694711764339, "patience": 2, "lr_warmup": true, "warmup_steps": 2000, "warmup_epochs": 2}, "_general": {"exp_path": "/home/villar/Documents/Work Stuff/TemplaTorch/experiments/TemplaTorch_Tests/optuna_test", "created_time": "2022-05-09_11-45-13", "last_loaded": "2022-05-09_11-47-13"}}
+{
+  "dataset": {
+    "dataset_name": "mnist",
+    "shuffle_train": true,
+    "shuffle_eval": false
+  },
+  "model": {
+    "model_name": "ConvNet",
+    "ConvNet": {
+      "channels": [
+        1,
+        32,
+        64,
+        128
+      ],
+      "out_size": 10
+    }
+  },
+  "loss": [
+    {
+      "type": "cross_entropy",
+      "weight": 1
+    }
+  ],
+  "training": {
+    "num_epochs": 10,
+    "save_frequency": 5,
+    "log_frequency": 1000000000,
+    "batch_size": 22,
+    "lr": 0.000010079271475122846,
+    "optimizer": "adam",
+    "momentum": 0,
+    "weight_decay": 0,
+    "nesterov": false,
+    "scheduler": "exponential",
+    "lr_factor": 0.011732694711764339,
+    "patience": 2,
+    "lr_warmup": true,
+    "warmup_steps": 2000,
+    "warmup_epochs": 2
+  },
+  "_general": {
+    "exp_path": "/home/villar/Documents/Work Stuff/TemplaTorch/experiments/TemplaTorch_Tests/optuna_test",
+    "created_time": "2022-05-09_11-45-13",
+    "last_loaded": "2022-05-09_11-47-13"
+  }
+}
