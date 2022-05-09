@@ -62,3 +62,50 @@ DEFAULTS = {
         "warmup_epochs": 2
     }
 }
+
+
+# ranges for optuna hyper-param study
+OPTUNA = {
+    "lr": {   # training parameters
+        "val": [1e-5, 1e-1],
+        "type": "float",
+        "categorical": False,
+        "log": True,
+        "path": ["training", "lr"]
+    },
+    "batch_size": {
+        "val": [4, 64],
+        "type": "int",
+        "categorical": False,
+        "log": False,
+        "path": ["training", "batch_size"]
+    },
+    "lr_factor": {
+        "val": [1e-2, 0.9],
+        "type": "float",
+        "categorical": False,
+        "log": True,
+        "path": ["training", "lr_factor"]
+    },
+    "patience": {
+        "val": [1, 5],
+        "type": "int",
+        "categorical": False,
+        "log": False,
+        "path": ["training", "patience"]
+    },
+    "weight_decay": {
+        "val": [0, 0],
+        "type": "float",
+        "categorical": False,
+        "log": True,
+        "path": ["training", "weight_decay"]
+    },
+    "lambda": {
+        "val": [1, 1],
+        "type": "cat_or_log",
+        "categorical": False,
+        "log": True,
+        "path": ["loss", 0, "weight"]
+    },
+}

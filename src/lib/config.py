@@ -28,12 +28,13 @@ class Config(dict):
         self["_general"]["exp_path"] = exp_path
         return
 
-    def create_exp_config_file(self, config=None):
+    def create_exp_config_file(self, exp_path=None, config=None):
         """
         Creating a JSON file with exp configs in the experiment path
         """
-        if not os.path.exists(self["_general"]["exp_path"]):
-            raise FileNotFoundError(f"ERROR!: exp_path {self['_general']['exp_path']} does not exist...")
+        exp_path = exp_path if exp_path is not None else self["_general"]["exp_path"]
+        if not os.path.exists(exp_path):
+            raise FileNotFoundError(f"ERROR!: exp_path {exp_path} does not exist...")
 
         if config is not None:
             config_file = os.path.join(CONFIG["paths"]["configs_path"], config)
@@ -41,7 +42,6 @@ class Config(dict):
                 raise FileNotFoundError(f"Given config file {config_file} does not exist...")
 
             with open(config_file) as file:
-                exp_path = self["_general"]["exp_path"]
                 self = json.load(file)
                 self["_general"] = {}
                 self["_general"]["exp_path"] = exp_path
@@ -49,15 +49,17 @@ class Config(dict):
 
         self["_general"]["created_time"] = timestamp()
         self["_general"]["last_loaded"] = timestamp()
-        exp_config = os.path.join(self["_general"]["exp_path"], "experiment_params.json")
+        exp_config = os.path.join(exp_path, "experiment_params.json")
         with open(exp_config, "w") as file:
             json.dump(self, file)
         return
 
-    def load_exp_config_file(self):
+    def load_exp_config_file(self, exp_path=None):
         """
         Loading the JSON file with exp configs
         """
+        if exp_path is not None:
+            self["_general"]["exp_path"] = exp_path
         exp_config = os.path.join(self["_general"]["exp_path"], "experiment_params.json")
         if not os.path.exists(exp_config):
             raise FileNotFoundError(f"ERROR! exp. configs file {exp_config} does not exist...")
@@ -85,5 +87,15 @@ class Config(dict):
                         if(q not in exp_params[group][k]):
                             exp_params[group][k][q] = Config._default_values[group][k][q]
         return exp_params
+
+    def save_exp_config_file(self, exp_path=None, exp_params=None):
+        """ Dumping experiment parameters into path """
+        exp_path = self["_general"]["exp_path"] if exp_path is None else exp_path
+        exp_params = self if exp_params is None else exp_params
+
+        exp_config = os.path.join(exp_path, "experiment_params.json")
+        with open(exp_config, "w") as file:
+            json.dump(exp_params, file)
+        return
 
 #

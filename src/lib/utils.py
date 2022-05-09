@@ -7,6 +7,8 @@ Utils methods for bunch of purposes, including
 """
 
 import os
+from functools import reduce
+import operator
 import shutil
 import random
 import datetime
@@ -124,6 +126,36 @@ def log_module(module, exp_path, fname="model_architecture.txt", append=True):
         f.write(f"Params: {num_params}")
         f.write("\n")
         f.write(str(module))
+    return
+
+
+def press_yes_to_continue(message, key="y"):
+    """ Asking the user for input to continut """
+    if isinstance(message, (list, tuple)):
+        for m in message:
+            print(m)
+    else:
+        print(message)
+    val = input(f"Press '{key}' to continue...")
+    if(val != key):
+        print("Exiting...")
+        exit()
+    return
+
+
+def get_from_dict(params, key_list):
+    """ Getting a value from a dictionary given a list with the keys to get there """
+    for key in key_list:
+        params = params[key]
+    return params
+
+
+def set_in_dict(params, key_list, value):
+    """ Updating a dictionary value, indexed by a list of keys to get there """
+    for key in key_list[:-1]:
+        # params = params.setdefault(key, {})
+        params = params[key]
+    params[key_list[-1]] = value
     return
 
 
