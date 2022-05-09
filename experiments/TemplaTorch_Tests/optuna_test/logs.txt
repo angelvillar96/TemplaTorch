@@ -1,0 +1,731 @@
+
+
+
+2022-05-09-11:45:16    NEW_EXP: Starting Hyper Parameter optimization procedure
+
+
+
+2022-05-09-11:45:16    NEW_EXP: Starting Hyper Parameter optimization procedure
+2022-05-09-11:45:16    INFO:    Number of Trials: 5
+2022-05-09-11:45:16    INFO:    Number of Epochs: 10
+2022-05-09-11:45:16    INFO: Starting Trial 0
+2022-05-09-11:45:16    INFO: Calling: create_directory...
+2022-05-09-11:45:16    INFO: Obtaining values for current trial
+2022-05-09-11:45:16    INFO:   --> Setting param lr: ['training', 'lr'] with value 0.0001604911627066934
+2022-05-09-11:45:16    INFO:   --> Setting param batch_size: ['training', 'batch_size'] with value 22
+2022-05-09-11:45:16    INFO:   --> Setting param lr_factor: ['training', 'lr_factor'] with value 0.06815419998793353
+2022-05-09-11:45:16    INFO:   --> Setting param patience: ['training', 'patience'] with value 1
+2022-05-09-11:45:16    INFO:   --> Setting param weight_decay: ['training', 'weight_decay'] with value 0
+2022-05-09-11:45:16    INFO:   --> Setting param lambda: ['loss', 0, 'weight'] with value 1
+2022-05-09-11:45:16    INFO: Calling: __init__...
+2022-05-09-11:45:16    INFO: Calling: create_directory...
+2022-05-09-11:45:16    INFO: Calling: create_directory...
+2022-05-09-11:45:16    INFO: Calling: create_directory...
+2022-05-09-11:45:16    INFO: Calling: load_data...
+2022-05-09-11:45:16    INFO: Calling: setup_model...
+2022-05-09-11:45:16    INFO: Calling: setup_model...
+2022-05-09-11:45:16    INFO: Calling: log_architecture...
+2022-05-09-11:45:18    INFO: Calling: setup_optimizer...
+2022-05-09-11:45:18    INFO: Calling: training_loop...
+2022-05-09-11:45:18    INFO: Epoch 0/10
+2022-05-09-11:45:18    INFO: Calling: valid_epoch...
+2022-05-09-11:45:19    INFO: LOSS VALUES:
+2022-05-09-11:45:19    INFO: --------
+2022-05-09-11:45:19    INFO:   cross_entropy:  2.30965
+2022-05-09-11:45:19    INFO:   _total:  2.30965
+2022-05-09-11:45:19    INFO: Calling: train_epoch...
+2022-05-09-11:45:29    INFO: LOSS VALUES:
+2022-05-09-11:45:29    INFO: --------
+2022-05-09-11:45:29    INFO:   cross_entropy:  0.45206
+2022-05-09-11:45:29    INFO:   _total:  0.45206
+2022-05-09-11:45:29    INFO: Epoch 1/10
+2022-05-09-11:45:29    INFO: Calling: valid_epoch...
+2022-05-09-11:45:30    INFO: LOSS VALUES:
+2022-05-09-11:45:30    INFO: --------
+2022-05-09-11:45:30    INFO:   cross_entropy:  0.17839
+2022-05-09-11:45:30    INFO:   _total:  0.17839
+2022-05-09-11:45:30    INFO: Calling: train_epoch...
+2022-05-09-11:45:40    INFO: LOSS VALUES:
+2022-05-09-11:45:40    INFO: --------
+2022-05-09-11:45:40    INFO:   cross_entropy:  0.12209
+2022-05-09-11:45:40    INFO:   _total:  0.12209
+2022-05-09-11:45:40    INFO: Epoch 2/10
+2022-05-09-11:45:40    INFO: Calling: valid_epoch...
+2022-05-09-11:45:41    INFO: LOSS VALUES:
+2022-05-09-11:45:41    INFO: --------
+2022-05-09-11:45:41    INFO:   cross_entropy:  0.10175
+2022-05-09-11:45:41    INFO:   _total:  0.10175
+2022-05-09-11:45:41    INFO: Calling: train_epoch...
+2022-05-09-11:45:52    INFO: LOSS VALUES:
+2022-05-09-11:45:52    INFO: --------
+2022-05-09-11:45:52    INFO:   cross_entropy:  0.07821
+2022-05-09-11:45:52    INFO:   _total:  0.07821
+2022-05-09-11:45:52    INFO: Epoch 3/10
+2022-05-09-11:45:52    INFO: Calling: valid_epoch...
+2022-05-09-11:45:53    INFO: LOSS VALUES:
+2022-05-09-11:45:53    INFO: --------
+2022-05-09-11:45:53    INFO:   cross_entropy:  0.06117
+2022-05-09-11:45:53    INFO:   _total:  0.06117
+2022-05-09-11:45:53    INFO: Calling: train_epoch...
+2022-05-09-11:46:03    INFO: LOSS VALUES:
+2022-05-09-11:46:03    INFO: --------
+2022-05-09-11:46:03    INFO:   cross_entropy:  0.05972
+2022-05-09-11:46:03    INFO:   _total:  0.05972
+2022-05-09-11:46:03    INFO: Epoch 4/10
+2022-05-09-11:46:03    INFO: Calling: valid_epoch...
+2022-05-09-11:46:04    INFO: LOSS VALUES:
+2022-05-09-11:46:04    INFO: --------
+2022-05-09-11:46:04    INFO:   cross_entropy:  0.05531
+2022-05-09-11:46:04    INFO:   _total:  0.05531
+2022-05-09-11:46:04    INFO: Calling: train_epoch...
+2022-05-09-11:46:15    INFO: LOSS VALUES:
+2022-05-09-11:46:15    INFO: --------
+2022-05-09-11:46:15    INFO:   cross_entropy:  0.04883
+2022-05-09-11:46:15    INFO:   _total:  0.04883
+2022-05-09-11:46:15    INFO: Epoch 5/10
+2022-05-09-11:46:15    INFO: Calling: valid_epoch...
+2022-05-09-11:46:16    INFO: LOSS VALUES:
+2022-05-09-11:46:16    INFO: --------
+2022-05-09-11:46:16    INFO:   cross_entropy:  0.05408
+2022-05-09-11:46:16    INFO:   _total:  0.05408
+2022-05-09-11:46:16    INFO: Calling: train_epoch...
+2022-05-09-11:46:26    INFO: LOSS VALUES:
+2022-05-09-11:46:26    INFO: --------
+2022-05-09-11:46:26    INFO:   cross_entropy:  0.04079
+2022-05-09-11:46:26    INFO:   _total:  0.04079
+2022-05-09-11:46:26    INFO: Saving model checkpoint
+2022-05-09-11:46:26    INFO: Calling: save_checkpoint...
+2022-05-09-11:46:26    INFO: Calling: create_directory...
+2022-05-09-11:46:26    INFO: Epoch 6/10
+2022-05-09-11:46:26    INFO: Calling: valid_epoch...
+2022-05-09-11:46:27    INFO: LOSS VALUES:
+2022-05-09-11:46:27    INFO: --------
+2022-05-09-11:46:27    INFO:   cross_entropy:  0.07563
+2022-05-09-11:46:27    INFO:   _total:  0.07563
+2022-05-09-11:46:27    INFO: Calling: train_epoch...
+2022-05-09-11:46:38    INFO: LOSS VALUES:
+2022-05-09-11:46:38    INFO: --------
+2022-05-09-11:46:38    INFO:   cross_entropy:  0.03508
+2022-05-09-11:46:38    INFO:   _total:  0.03508
+2022-05-09-11:46:38    INFO: Epoch 7/10
+2022-05-09-11:46:38    INFO: Calling: valid_epoch...
+2022-05-09-11:46:39    INFO: LOSS VALUES:
+2022-05-09-11:46:39    INFO: --------
+2022-05-09-11:46:39    INFO:   cross_entropy:  0.04118
+2022-05-09-11:46:39    INFO:   _total:  0.04118
+2022-05-09-11:46:39    INFO: Calling: train_epoch...
+2022-05-09-11:46:49    INFO: LOSS VALUES:
+2022-05-09-11:46:49    INFO: --------
+2022-05-09-11:46:49    INFO:   cross_entropy:  0.03101
+2022-05-09-11:46:49    INFO:   _total:  0.03101
+2022-05-09-11:46:49    INFO: Epoch 8/10
+2022-05-09-11:46:49    INFO: Calling: valid_epoch...
+2022-05-09-11:46:50    INFO: LOSS VALUES:
+2022-05-09-11:46:50    INFO: --------
+2022-05-09-11:46:50    INFO:   cross_entropy:  0.03974
+2022-05-09-11:46:50    INFO:   _total:  0.03974
+2022-05-09-11:46:50    INFO: Calling: train_epoch...
+2022-05-09-11:47:01    INFO: LOSS VALUES:
+2022-05-09-11:47:01    INFO: --------
+2022-05-09-11:47:01    INFO:   cross_entropy:  0.02636
+2022-05-09-11:47:01    INFO:   _total:  0.02636
+2022-05-09-11:47:01    INFO: Epoch 9/10
+2022-05-09-11:47:01    INFO: Calling: valid_epoch...
+2022-05-09-11:47:02    INFO: LOSS VALUES:
+2022-05-09-11:47:02    INFO: --------
+2022-05-09-11:47:02    INFO:   cross_entropy:  0.03916
+2022-05-09-11:47:02    INFO:   _total:  0.03916
+2022-05-09-11:47:02    INFO: Calling: train_epoch...
+2022-05-09-11:47:12    INFO: LOSS VALUES:
+2022-05-09-11:47:12    INFO: --------
+2022-05-09-11:47:12    INFO:   cross_entropy:  0.02329
+2022-05-09-11:47:12    INFO:   _total:  0.02329
+2022-05-09-11:47:12    INFO: Finished training procedure
+2022-05-09-11:47:12    INFO: Saving final checkpoint
+2022-05-09-11:47:12    INFO: Calling: save_checkpoint...
+2022-05-09-11:47:12    INFO: Calling: create_directory...
+2022-05-09-11:47:12    INFO: Calling: valid_epoch...
+2022-05-09-11:47:13    INFO: LOSS VALUES:
+2022-05-09-11:47:13    INFO: --------
+2022-05-09-11:47:13    INFO:   cross_entropy:  0.03063
+2022-05-09-11:47:13    INFO:   _total:  0.03063
+2022-05-09-11:47:13    INFO: Trial finished with metric: 0.03062889166176319
+2022-05-09-11:47:13    INFO: Starting Trial 1
+2022-05-09-11:47:13    INFO: Calling: create_directory...
+2022-05-09-11:47:13    INFO: Obtaining values for current trial
+2022-05-09-11:47:13    INFO:   --> Setting param lr: ['training', 'lr'] with value 1.0079271475122846e-05
+2022-05-09-11:47:13    INFO:   --> Setting param batch_size: ['training', 'batch_size'] with value 22
+2022-05-09-11:47:13    INFO:   --> Setting param lr_factor: ['training', 'lr_factor'] with value 0.011732694711764339
+2022-05-09-11:47:13    INFO:   --> Setting param patience: ['training', 'patience'] with value 2
+2022-05-09-11:47:13    INFO:   --> Setting param weight_decay: ['training', 'weight_decay'] with value 0
+2022-05-09-11:47:13    INFO:   --> Setting param lambda: ['loss', 0, 'weight'] with value 1
+2022-05-09-11:47:13    INFO: Calling: __init__...
+2022-05-09-11:47:13    INFO: Calling: create_directory...
+2022-05-09-11:47:13    INFO: Calling: create_directory...
+2022-05-09-11:47:13    INFO: Calling: create_directory...
+2022-05-09-11:47:13    INFO: Calling: load_data...
+2022-05-09-11:47:13    INFO: Calling: setup_model...
+2022-05-09-11:47:13    INFO: Calling: setup_model...
+2022-05-09-11:47:13    INFO: Calling: log_architecture...
+2022-05-09-11:47:13    INFO: Calling: setup_optimizer...
+2022-05-09-11:47:13    INFO: Calling: training_loop...
+2022-05-09-11:47:13    INFO: Epoch 0/10
+2022-05-09-11:47:13    INFO: Calling: valid_epoch...
+2022-05-09-11:47:14    INFO: LOSS VALUES:
+2022-05-09-11:47:14    INFO: --------
+2022-05-09-11:47:14    INFO:   cross_entropy:  2.30397
+2022-05-09-11:47:14    INFO:   _total:  2.30397
+2022-05-09-11:47:14    INFO: Calling: train_epoch...
+2022-05-09-11:47:25    INFO: LOSS VALUES:
+2022-05-09-11:47:25    INFO: --------
+2022-05-09-11:47:25    INFO:   cross_entropy:  1.50755
+2022-05-09-11:47:25    INFO:   _total:  1.50755
+2022-05-09-11:47:25    INFO: Epoch 1/10
+2022-05-09-11:47:25    INFO: Calling: valid_epoch...
+2022-05-09-11:47:26    INFO: LOSS VALUES:
+2022-05-09-11:47:26    INFO: --------
+2022-05-09-11:47:26    INFO:   cross_entropy:  1.05119
+2022-05-09-11:47:26    INFO:   _total:  1.05119
+2022-05-09-11:47:26    INFO: Calling: train_epoch...
+2022-05-09-11:47:36    INFO: LOSS VALUES:
+2022-05-09-11:47:36    INFO: --------
+2022-05-09-11:47:36    INFO:   cross_entropy:  0.90828
+2022-05-09-11:47:36    INFO:   _total:  0.90828
+2022-05-09-11:47:36    INFO: Epoch 2/10
+2022-05-09-11:47:36    INFO: Calling: valid_epoch...
+2022-05-09-11:47:37    INFO: LOSS VALUES:
+2022-05-09-11:47:37    INFO: --------
+2022-05-09-11:47:37    INFO:   cross_entropy:  0.70207
+2022-05-09-11:47:37    INFO:   _total:  0.70207
+2022-05-09-11:47:37    INFO: Calling: train_epoch...
+2022-05-09-11:47:48    INFO: LOSS VALUES:
+2022-05-09-11:47:48    INFO: --------
+2022-05-09-11:47:48    INFO:   cross_entropy:  0.65406
+2022-05-09-11:47:48    INFO:   _total:  0.65406
+2022-05-09-11:47:48    INFO: Epoch 3/10
+2022-05-09-11:47:48    INFO: Calling: valid_epoch...
+2022-05-09-11:47:49    INFO: LOSS VALUES:
+2022-05-09-11:47:49    INFO: --------
+2022-05-09-11:47:49    INFO:   cross_entropy:  0.51469
+2022-05-09-11:47:49    INFO:   _total:  0.51469
+2022-05-09-11:47:49    INFO: Calling: train_epoch...
+2022-05-09-11:48:00    INFO: LOSS VALUES:
+2022-05-09-11:48:00    INFO: --------
+2022-05-09-11:48:00    INFO:   cross_entropy:  0.50254
+2022-05-09-11:48:00    INFO:   _total:  0.50254
+2022-05-09-11:48:00    INFO: Epoch 4/10
+2022-05-09-11:48:00    INFO: Calling: valid_epoch...
+2022-05-09-11:48:01    INFO: LOSS VALUES:
+2022-05-09-11:48:01    INFO: --------
+2022-05-09-11:48:01    INFO:   cross_entropy:  0.39734
+2022-05-09-11:48:01    INFO:   _total:  0.39734
+2022-05-09-11:48:01    INFO: Calling: train_epoch...
+2022-05-09-11:48:11    INFO: LOSS VALUES:
+2022-05-09-11:48:11    INFO: --------
+2022-05-09-11:48:11    INFO:   cross_entropy:  0.40202
+2022-05-09-11:48:11    INFO:   _total:  0.40202
+2022-05-09-11:48:11    INFO: Epoch 5/10
+2022-05-09-11:48:11    INFO: Calling: valid_epoch...
+2022-05-09-11:48:12    INFO: LOSS VALUES:
+2022-05-09-11:48:12    INFO: --------
+2022-05-09-11:48:12    INFO:   cross_entropy:  0.31884
+2022-05-09-11:48:12    INFO:   _total:  0.31884
+2022-05-09-11:48:12    INFO: Calling: train_epoch...
+2022-05-09-11:48:23    INFO: LOSS VALUES:
+2022-05-09-11:48:23    INFO: --------
+2022-05-09-11:48:23    INFO:   cross_entropy:  0.33242
+2022-05-09-11:48:23    INFO:   _total:  0.33242
+2022-05-09-11:48:23    INFO: Saving model checkpoint
+2022-05-09-11:48:23    INFO: Calling: save_checkpoint...
+2022-05-09-11:48:23    INFO: Calling: create_directory...
+2022-05-09-11:48:23    INFO: Epoch 6/10
+2022-05-09-11:48:23    INFO: Calling: valid_epoch...
+2022-05-09-11:48:24    INFO: LOSS VALUES:
+2022-05-09-11:48:24    INFO: --------
+2022-05-09-11:48:24    INFO:   cross_entropy:  0.26897
+2022-05-09-11:48:24    INFO:   _total:  0.26897
+2022-05-09-11:48:24    INFO: Calling: train_epoch...
+2022-05-09-11:48:35    INFO: LOSS VALUES:
+2022-05-09-11:48:35    INFO: --------
+2022-05-09-11:48:35    INFO:   cross_entropy:  0.28289
+2022-05-09-11:48:35    INFO:   _total:  0.28289
+2022-05-09-11:48:35    INFO: Epoch 7/10
+2022-05-09-11:48:35    INFO: Calling: valid_epoch...
+2022-05-09-11:48:36    INFO: LOSS VALUES:
+2022-05-09-11:48:36    INFO: --------
+2022-05-09-11:48:36    INFO:   cross_entropy:  0.22654
+2022-05-09-11:48:36    INFO:   _total:  0.22654
+2022-05-09-11:48:36    INFO: Calling: train_epoch...
+2022-05-09-11:48:46    INFO: LOSS VALUES:
+2022-05-09-11:48:46    INFO: --------
+2022-05-09-11:48:46    INFO:   cross_entropy:  0.24481
+2022-05-09-11:48:46    INFO:   _total:  0.24481
+2022-05-09-11:48:46    INFO: Epoch 8/10
+2022-05-09-11:48:46    INFO: Calling: valid_epoch...
+2022-05-09-11:48:47    INFO: LOSS VALUES:
+2022-05-09-11:48:47    INFO: --------
+2022-05-09-11:48:47    INFO:   cross_entropy:  0.19492
+2022-05-09-11:48:47    INFO:   _total:  0.19492
+2022-05-09-11:48:47    INFO: Calling: train_epoch...
+2022-05-09-11:48:59    INFO: LOSS VALUES:
+2022-05-09-11:48:59    INFO: --------
+2022-05-09-11:48:59    INFO:   cross_entropy:  0.21638
+2022-05-09-11:48:59    INFO:   _total:  0.21638
+2022-05-09-11:48:59    INFO: Epoch 9/10
+2022-05-09-11:48:59    INFO: Calling: valid_epoch...
+2022-05-09-11:49:00    INFO: LOSS VALUES:
+2022-05-09-11:49:00    INFO: --------
+2022-05-09-11:49:00    INFO:   cross_entropy:  0.17691
+2022-05-09-11:49:00    INFO:   _total:  0.17691
+2022-05-09-11:49:00    INFO: Calling: train_epoch...
+2022-05-09-11:49:10    INFO: LOSS VALUES:
+2022-05-09-11:49:10    INFO: --------
+2022-05-09-11:49:10    INFO:   cross_entropy:  0.19401
+2022-05-09-11:49:10    INFO:   _total:  0.19401
+2022-05-09-11:49:10    INFO: Finished training procedure
+2022-05-09-11:49:10    INFO: Saving final checkpoint
+2022-05-09-11:49:10    INFO: Calling: save_checkpoint...
+2022-05-09-11:49:10    INFO: Calling: create_directory...
+2022-05-09-11:49:10    INFO: Calling: valid_epoch...
+2022-05-09-11:49:11    INFO: LOSS VALUES:
+2022-05-09-11:49:11    INFO: --------
+2022-05-09-11:49:11    INFO:   cross_entropy:  0.1565
+2022-05-09-11:49:11    INFO:   _total:  0.1565
+2022-05-09-11:49:11    INFO: Trial finished with metric: 0.15650342404842377
+2022-05-09-11:49:11    INFO: Starting Trial 2
+2022-05-09-11:49:11    INFO: Calling: create_directory...
+2022-05-09-11:49:11    INFO: Obtaining values for current trial
+2022-05-09-11:49:11    INFO:   --> Setting param lr: ['training', 'lr'] with value 0.01718334459288373
+2022-05-09-11:49:11    INFO:   --> Setting param batch_size: ['training', 'batch_size'] with value 36
+2022-05-09-11:49:11    INFO:   --> Setting param lr_factor: ['training', 'lr_factor'] with value 0.37668551306123854
+2022-05-09-11:49:11    INFO:   --> Setting param patience: ['training', 'patience'] with value 5
+2022-05-09-11:49:11    INFO:   --> Setting param weight_decay: ['training', 'weight_decay'] with value 0
+2022-05-09-11:49:11    INFO:   --> Setting param lambda: ['loss', 0, 'weight'] with value 1
+2022-05-09-11:49:11    INFO: Calling: __init__...
+2022-05-09-11:49:11    INFO: Calling: create_directory...
+2022-05-09-11:49:11    INFO: Calling: create_directory...
+2022-05-09-11:49:11    INFO: Calling: create_directory...
+2022-05-09-11:49:11    INFO: Calling: load_data...
+2022-05-09-11:49:11    INFO: Calling: setup_model...
+2022-05-09-11:49:11    INFO: Calling: setup_model...
+2022-05-09-11:49:11    INFO: Calling: log_architecture...
+2022-05-09-11:49:11    INFO: Calling: setup_optimizer...
+2022-05-09-11:49:11    INFO: Calling: training_loop...
+2022-05-09-11:49:11    INFO: Epoch 0/10
+2022-05-09-11:49:11    INFO: Calling: valid_epoch...
+2022-05-09-11:49:12    INFO: LOSS VALUES:
+2022-05-09-11:49:12    INFO: --------
+2022-05-09-11:49:12    INFO:   cross_entropy:  2.30487
+2022-05-09-11:49:12    INFO:   _total:  2.30487
+2022-05-09-11:49:12    INFO: Calling: train_epoch...
+2022-05-09-11:49:22    INFO: LOSS VALUES:
+2022-05-09-11:49:22    INFO: --------
+2022-05-09-11:49:22    INFO:   cross_entropy:  0.17509
+2022-05-09-11:49:22    INFO:   _total:  0.17509
+2022-05-09-11:49:22    INFO: Epoch 1/10
+2022-05-09-11:49:22    INFO: Calling: valid_epoch...
+2022-05-09-11:49:23    INFO: LOSS VALUES:
+2022-05-09-11:49:23    INFO: --------
+2022-05-09-11:49:23    INFO:   cross_entropy:  0.09877
+2022-05-09-11:49:23    INFO:   _total:  0.09877
+2022-05-09-11:49:23    INFO: Calling: train_epoch...
+2022-05-09-11:49:32    INFO: LOSS VALUES:
+2022-05-09-11:49:32    INFO: --------
+2022-05-09-11:49:32    INFO:   cross_entropy:  0.07515
+2022-05-09-11:49:32    INFO:   _total:  0.07515
+2022-05-09-11:49:32    INFO: Epoch 2/10
+2022-05-09-11:49:32    INFO: Calling: valid_epoch...
+2022-05-09-11:49:33    INFO: LOSS VALUES:
+2022-05-09-11:49:33    INFO: --------
+2022-05-09-11:49:33    INFO:   cross_entropy:  0.06821
+2022-05-09-11:49:33    INFO:   _total:  0.06821
+2022-05-09-11:49:33    INFO: Calling: train_epoch...
+2022-05-09-11:49:41    INFO: LOSS VALUES:
+2022-05-09-11:49:41    INFO: --------
+2022-05-09-11:49:41    INFO:   cross_entropy:  0.06169
+2022-05-09-11:49:41    INFO:   _total:  0.06169
+2022-05-09-11:49:41    INFO: Epoch 3/10
+2022-05-09-11:49:41    INFO: Calling: valid_epoch...
+2022-05-09-11:49:42    INFO: LOSS VALUES:
+2022-05-09-11:49:42    INFO: --------
+2022-05-09-11:49:42    INFO:   cross_entropy:  0.10203
+2022-05-09-11:49:42    INFO:   _total:  0.10203
+2022-05-09-11:49:42    INFO: Calling: train_epoch...
+2022-05-09-11:49:51    INFO: LOSS VALUES:
+2022-05-09-11:49:51    INFO: --------
+2022-05-09-11:49:51    INFO:   cross_entropy:  0.05708
+2022-05-09-11:49:51    INFO:   _total:  0.05708
+2022-05-09-11:49:51    INFO: Epoch 4/10
+2022-05-09-11:49:51    INFO: Calling: valid_epoch...
+2022-05-09-11:49:52    INFO: LOSS VALUES:
+2022-05-09-11:49:52    INFO: --------
+2022-05-09-11:49:52    INFO:   cross_entropy:  0.04807
+2022-05-09-11:49:52    INFO:   _total:  0.04807
+2022-05-09-11:49:52    INFO: Calling: train_epoch...
+2022-05-09-11:50:01    INFO: LOSS VALUES:
+2022-05-09-11:50:01    INFO: --------
+2022-05-09-11:50:01    INFO:   cross_entropy:  0.04661
+2022-05-09-11:50:01    INFO:   _total:  0.04661
+2022-05-09-11:50:01    INFO: Epoch 5/10
+2022-05-09-11:50:01    INFO: Calling: valid_epoch...
+2022-05-09-11:50:02    INFO: LOSS VALUES:
+2022-05-09-11:50:02    INFO: --------
+2022-05-09-11:50:02    INFO:   cross_entropy:  0.1427
+2022-05-09-11:50:02    INFO:   _total:  0.1427
+2022-05-09-11:50:02    INFO: Calling: train_epoch...
+2022-05-09-11:50:11    INFO: LOSS VALUES:
+2022-05-09-11:50:11    INFO: --------
+2022-05-09-11:50:11    INFO:   cross_entropy:  0.04667
+2022-05-09-11:50:11    INFO:   _total:  0.04667
+2022-05-09-11:50:11    INFO: Saving model checkpoint
+2022-05-09-11:50:11    INFO: Calling: save_checkpoint...
+2022-05-09-11:50:11    INFO: Calling: create_directory...
+2022-05-09-11:50:11    INFO: Epoch 6/10
+2022-05-09-11:50:11    INFO: Calling: valid_epoch...
+2022-05-09-11:50:12    INFO: LOSS VALUES:
+2022-05-09-11:50:12    INFO: --------
+2022-05-09-11:50:12    INFO:   cross_entropy:  0.07627
+2022-05-09-11:50:12    INFO:   _total:  0.07627
+2022-05-09-11:50:12    INFO: Calling: train_epoch...
+2022-05-09-11:50:20    INFO: LOSS VALUES:
+2022-05-09-11:50:20    INFO: --------
+2022-05-09-11:50:20    INFO:   cross_entropy:  0.04062
+2022-05-09-11:50:20    INFO:   _total:  0.04062
+2022-05-09-11:50:20    INFO: Epoch 7/10
+2022-05-09-11:50:20    INFO: Calling: valid_epoch...
+2022-05-09-11:50:21    INFO: LOSS VALUES:
+2022-05-09-11:50:21    INFO: --------
+2022-05-09-11:50:21    INFO:   cross_entropy:  0.06195
+2022-05-09-11:50:21    INFO:   _total:  0.06195
+2022-05-09-11:50:21    INFO: Calling: train_epoch...
+2022-05-09-11:50:30    INFO: LOSS VALUES:
+2022-05-09-11:50:30    INFO: --------
+2022-05-09-11:50:30    INFO:   cross_entropy:  0.03693
+2022-05-09-11:50:30    INFO:   _total:  0.03693
+2022-05-09-11:50:30    INFO: Epoch 8/10
+2022-05-09-11:50:30    INFO: Calling: valid_epoch...
+2022-05-09-11:50:31    INFO: LOSS VALUES:
+2022-05-09-11:50:31    INFO: --------
+2022-05-09-11:50:31    INFO:   cross_entropy:  0.06856
+2022-05-09-11:50:31    INFO:   _total:  0.06856
+2022-05-09-11:50:31    INFO: Calling: train_epoch...
+2022-05-09-11:50:40    INFO: LOSS VALUES:
+2022-05-09-11:50:40    INFO: --------
+2022-05-09-11:50:40    INFO:   cross_entropy:  0.03594
+2022-05-09-11:50:40    INFO:   _total:  0.03594
+2022-05-09-11:50:40    INFO: Epoch 9/10
+2022-05-09-11:50:40    INFO: Calling: valid_epoch...
+2022-05-09-11:50:41    INFO: LOSS VALUES:
+2022-05-09-11:50:41    INFO: --------
+2022-05-09-11:50:41    INFO:   cross_entropy:  0.05987
+2022-05-09-11:50:41    INFO:   _total:  0.05987
+2022-05-09-11:50:41    INFO: Calling: train_epoch...
+2022-05-09-11:50:49    INFO: LOSS VALUES:
+2022-05-09-11:50:49    INFO: --------
+2022-05-09-11:50:49    INFO:   cross_entropy:  0.03322
+2022-05-09-11:50:49    INFO:   _total:  0.03322
+2022-05-09-11:50:49    INFO: Finished training procedure
+2022-05-09-11:50:49    INFO: Saving final checkpoint
+2022-05-09-11:50:49    INFO: Calling: save_checkpoint...
+2022-05-09-11:50:49    INFO: Calling: create_directory...
+2022-05-09-11:50:49    INFO: Calling: valid_epoch...
+2022-05-09-11:50:50    INFO: LOSS VALUES:
+2022-05-09-11:50:50    INFO: --------
+2022-05-09-11:50:50    INFO:   cross_entropy:  0.06117
+2022-05-09-11:50:50    INFO:   _total:  0.06117
+2022-05-09-11:50:50    INFO: Trial finished with metric: 0.04807424917817116
+2022-05-09-11:50:50    INFO: Starting Trial 3
+2022-05-09-11:50:50    INFO: Calling: create_directory...
+2022-05-09-11:50:50    INFO: Obtaining values for current trial
+2022-05-09-11:50:50    INFO:   --> Setting param lr: ['training', 'lr'] with value 0.024737505577998455
+2022-05-09-11:50:50    INFO:   --> Setting param batch_size: ['training', 'batch_size'] with value 9
+2022-05-09-11:50:50    INFO:   --> Setting param lr_factor: ['training', 'lr_factor'] with value 0.014983680644532782
+2022-05-09-11:50:50    INFO:   --> Setting param patience: ['training', 'patience'] with value 5
+2022-05-09-11:50:50    INFO:   --> Setting param weight_decay: ['training', 'weight_decay'] with value 0
+2022-05-09-11:50:50    INFO:   --> Setting param lambda: ['loss', 0, 'weight'] with value 1
+2022-05-09-11:50:50    INFO: Calling: __init__...
+2022-05-09-11:50:50    INFO: Calling: create_directory...
+2022-05-09-11:50:50    INFO: Calling: create_directory...
+2022-05-09-11:50:50    INFO: Calling: create_directory...
+2022-05-09-11:50:50    INFO: Calling: load_data...
+2022-05-09-11:50:50    INFO: Calling: setup_model...
+2022-05-09-11:50:50    INFO: Calling: setup_model...
+2022-05-09-11:50:50    INFO: Calling: log_architecture...
+2022-05-09-11:50:50    INFO: Calling: setup_optimizer...
+2022-05-09-11:50:50    INFO: Calling: training_loop...
+2022-05-09-11:50:50    INFO: Epoch 0/10
+2022-05-09-11:50:50    INFO: Calling: valid_epoch...
+2022-05-09-11:50:52    INFO: LOSS VALUES:
+2022-05-09-11:50:52    INFO: --------
+2022-05-09-11:50:52    INFO:   cross_entropy:  2.30697
+2022-05-09-11:50:52    INFO:   _total:  2.30697
+2022-05-09-11:50:52    INFO: Calling: train_epoch...
+2022-05-09-11:51:11    INFO: LOSS VALUES:
+2022-05-09-11:51:11    INFO: --------
+2022-05-09-11:51:11    INFO:   cross_entropy:  0.24411
+2022-05-09-11:51:11    INFO:   _total:  0.24411
+2022-05-09-11:51:11    INFO: Epoch 1/10
+2022-05-09-11:51:11    INFO: Calling: valid_epoch...
+2022-05-09-11:51:13    INFO: LOSS VALUES:
+2022-05-09-11:51:13    INFO: --------
+2022-05-09-11:51:13    INFO:   cross_entropy:  0.39843
+2022-05-09-11:51:13    INFO:   _total:  0.39843
+2022-05-09-11:51:13    INFO: Calling: train_epoch...
+2022-05-09-11:51:32    INFO: LOSS VALUES:
+2022-05-09-11:51:32    INFO: --------
+2022-05-09-11:51:32    INFO:   cross_entropy:  0.14569
+2022-05-09-11:51:32    INFO:   _total:  0.14569
+2022-05-09-11:51:32    INFO: Epoch 2/10
+2022-05-09-11:51:32    INFO: Calling: valid_epoch...
+2022-05-09-11:51:33    INFO: LOSS VALUES:
+2022-05-09-11:51:33    INFO: --------
+2022-05-09-11:51:33    INFO:   cross_entropy:  0.10649
+2022-05-09-11:51:33    INFO:   _total:  0.10649
+2022-05-09-11:51:33    INFO: Calling: train_epoch...
+2022-05-09-11:51:52    INFO: LOSS VALUES:
+2022-05-09-11:51:52    INFO: --------
+2022-05-09-11:51:52    INFO:   cross_entropy:  0.12309
+2022-05-09-11:51:52    INFO:   _total:  0.12309
+2022-05-09-11:51:52    INFO: Epoch 3/10
+2022-05-09-11:51:52    INFO: Calling: valid_epoch...
+2022-05-09-11:51:54    INFO: LOSS VALUES:
+2022-05-09-11:51:54    INFO: --------
+2022-05-09-11:51:54    INFO:   cross_entropy:  0.20218
+2022-05-09-11:51:54    INFO:   _total:  0.20218
+2022-05-09-11:51:54    INFO: Calling: train_epoch...
+2022-05-09-11:52:13    INFO: LOSS VALUES:
+2022-05-09-11:52:13    INFO: --------
+2022-05-09-11:52:13    INFO:   cross_entropy:  0.11297
+2022-05-09-11:52:13    INFO:   _total:  0.11297
+2022-05-09-11:52:13    INFO: Epoch 4/10
+2022-05-09-11:52:13    INFO: Calling: valid_epoch...
+2022-05-09-11:52:14    INFO: LOSS VALUES:
+2022-05-09-11:52:14    INFO: --------
+2022-05-09-11:52:14    INFO:   cross_entropy:  0.08414
+2022-05-09-11:52:14    INFO:   _total:  0.08414
+2022-05-09-11:52:14    INFO: Calling: train_epoch...
+2022-05-09-11:52:34    INFO: LOSS VALUES:
+2022-05-09-11:52:34    INFO: --------
+2022-05-09-11:52:34    INFO:   cross_entropy:  0.10606
+2022-05-09-11:52:34    INFO:   _total:  0.10606
+2022-05-09-11:52:34    INFO: Epoch 5/10
+2022-05-09-11:52:34    INFO: Calling: valid_epoch...
+2022-05-09-11:52:35    INFO: LOSS VALUES:
+2022-05-09-11:52:35    INFO: --------
+2022-05-09-11:52:35    INFO:   cross_entropy:  0.11136
+2022-05-09-11:52:35    INFO:   _total:  0.11136
+2022-05-09-11:52:35    INFO: Calling: train_epoch...
+2022-05-09-11:52:55    INFO: LOSS VALUES:
+2022-05-09-11:52:55    INFO: --------
+2022-05-09-11:52:55    INFO:   cross_entropy:  0.09958
+2022-05-09-11:52:55    INFO:   _total:  0.09958
+2022-05-09-11:52:55    INFO: Saving model checkpoint
+2022-05-09-11:52:55    INFO: Calling: save_checkpoint...
+2022-05-09-11:52:55    INFO: Calling: create_directory...
+2022-05-09-11:52:55    INFO: Epoch 6/10
+2022-05-09-11:52:55    INFO: Calling: valid_epoch...
+2022-05-09-11:52:56    INFO: LOSS VALUES:
+2022-05-09-11:52:56    INFO: --------
+2022-05-09-11:52:56    INFO:   cross_entropy:  0.14111
+2022-05-09-11:52:56    INFO:   _total:  0.14111
+2022-05-09-11:52:56    INFO: Calling: train_epoch...
+2022-05-09-11:53:16    INFO: LOSS VALUES:
+2022-05-09-11:53:16    INFO: --------
+2022-05-09-11:53:16    INFO:   cross_entropy:  0.09535
+2022-05-09-11:53:16    INFO:   _total:  0.09535
+2022-05-09-11:53:16    INFO: Epoch 7/10
+2022-05-09-11:53:16    INFO: Calling: valid_epoch...
+2022-05-09-11:53:17    INFO: LOSS VALUES:
+2022-05-09-11:53:17    INFO: --------
+2022-05-09-11:53:17    INFO:   cross_entropy:  0.13796
+2022-05-09-11:53:17    INFO:   _total:  0.13796
+2022-05-09-11:53:17    INFO: Calling: train_epoch...
+2022-05-09-11:53:36    INFO: LOSS VALUES:
+2022-05-09-11:53:36    INFO: --------
+2022-05-09-11:53:36    INFO:   cross_entropy:  0.10205
+2022-05-09-11:53:36    INFO:   _total:  0.10205
+2022-05-09-11:53:36    INFO: Epoch 8/10
+2022-05-09-11:53:36    INFO: Calling: valid_epoch...
+2022-05-09-11:53:38    INFO: LOSS VALUES:
+2022-05-09-11:53:38    INFO: --------
+2022-05-09-11:53:38    INFO:   cross_entropy:  0.12604
+2022-05-09-11:53:38    INFO:   _total:  0.12604
+2022-05-09-11:53:38    INFO: Calling: train_epoch...
+2022-05-09-11:53:57    INFO: LOSS VALUES:
+2022-05-09-11:53:57    INFO: --------
+2022-05-09-11:53:57    INFO:   cross_entropy:  0.09453
+2022-05-09-11:53:57    INFO:   _total:  0.09453
+2022-05-09-11:53:57    INFO: Epoch 9/10
+2022-05-09-11:53:57    INFO: Calling: valid_epoch...
+2022-05-09-11:53:58    INFO: LOSS VALUES:
+2022-05-09-11:53:58    INFO: --------
+2022-05-09-11:53:58    INFO:   cross_entropy:  0.15212
+2022-05-09-11:53:58    INFO:   _total:  0.15212
+2022-05-09-11:53:58    INFO: Calling: train_epoch...
+2022-05-09-11:54:17    INFO: LOSS VALUES:
+2022-05-09-11:54:17    INFO: --------
+2022-05-09-11:54:17    INFO:   cross_entropy:  0.09168
+2022-05-09-11:54:17    INFO:   _total:  0.09168
+2022-05-09-11:54:17    INFO: Finished training procedure
+2022-05-09-11:54:17    INFO: Saving final checkpoint
+2022-05-09-11:54:17    INFO: Calling: save_checkpoint...
+2022-05-09-11:54:17    INFO: Calling: create_directory...
+2022-05-09-11:54:17    INFO: Calling: valid_epoch...
+2022-05-09-11:54:19    INFO: LOSS VALUES:
+2022-05-09-11:54:19    INFO: --------
+2022-05-09-11:54:19    INFO:   cross_entropy:  0.10233
+2022-05-09-11:54:19    INFO:   _total:  0.10233
+2022-05-09-11:54:19    INFO: Trial finished with metric: 0.08413863927125931
+2022-05-09-11:54:19    INFO: Starting Trial 4
+2022-05-09-11:54:19    INFO: Calling: create_directory...
+2022-05-09-11:54:19    INFO: Obtaining values for current trial
+2022-05-09-11:54:19    INFO:   --> Setting param lr: ['training', 'lr'] with value 0.0023062588785883486
+2022-05-09-11:54:19    INFO:   --> Setting param batch_size: ['training', 'batch_size'] with value 48
+2022-05-09-11:54:19    INFO:   --> Setting param lr_factor: ['training', 'lr_factor'] with value 0.09836141337055802
+2022-05-09-11:54:19    INFO:   --> Setting param patience: ['training', 'patience'] with value 5
+2022-05-09-11:54:19    INFO:   --> Setting param weight_decay: ['training', 'weight_decay'] with value 0
+2022-05-09-11:54:19    INFO:   --> Setting param lambda: ['loss', 0, 'weight'] with value 1
+2022-05-09-11:54:19    INFO: Calling: __init__...
+2022-05-09-11:54:19    INFO: Calling: create_directory...
+2022-05-09-11:54:19    INFO: Calling: create_directory...
+2022-05-09-11:54:19    INFO: Calling: create_directory...
+2022-05-09-11:54:19    INFO: Calling: load_data...
+2022-05-09-11:54:19    INFO: Calling: setup_model...
+2022-05-09-11:54:19    INFO: Calling: setup_model...
+2022-05-09-11:54:19    INFO: Calling: log_architecture...
+2022-05-09-11:54:19    INFO: Calling: setup_optimizer...
+2022-05-09-11:54:19    INFO: Calling: training_loop...
+2022-05-09-11:54:19    INFO: Epoch 0/10
+2022-05-09-11:54:19    INFO: Calling: valid_epoch...
+2022-05-09-11:54:20    INFO: LOSS VALUES:
+2022-05-09-11:54:20    INFO: --------
+2022-05-09-11:54:20    INFO:   cross_entropy:  2.30596
+2022-05-09-11:54:20    INFO:   _total:  2.30596
+2022-05-09-11:54:20    INFO: Calling: train_epoch...
+2022-05-09-11:54:28    INFO: LOSS VALUES:
+2022-05-09-11:54:28    INFO: --------
+2022-05-09-11:54:28    INFO:   cross_entropy:  0.17914
+2022-05-09-11:54:28    INFO:   _total:  0.17914
+2022-05-09-11:54:28    INFO: Epoch 1/10
+2022-05-09-11:54:28    INFO: Calling: valid_epoch...
+2022-05-09-11:54:29    INFO: LOSS VALUES:
+2022-05-09-11:54:29    INFO: --------
+2022-05-09-11:54:29    INFO:   cross_entropy:  0.07647
+2022-05-09-11:54:29    INFO:   _total:  0.07647
+2022-05-09-11:54:29    INFO: Calling: train_epoch...
+2022-05-09-11:54:37    INFO: LOSS VALUES:
+2022-05-09-11:54:37    INFO: --------
+2022-05-09-11:54:37    INFO:   cross_entropy:  0.05596
+2022-05-09-11:54:37    INFO:   _total:  0.05596
+2022-05-09-11:54:37    INFO: Epoch 2/10
+2022-05-09-11:54:37    INFO: Calling: valid_epoch...
+2022-05-09-11:54:38    INFO: LOSS VALUES:
+2022-05-09-11:54:38    INFO: --------
+2022-05-09-11:54:38    INFO:   cross_entropy:  0.04668
+2022-05-09-11:54:38    INFO:   _total:  0.04668
+2022-05-09-11:54:38    INFO: Calling: train_epoch...
+2022-05-09-11:54:46    INFO: LOSS VALUES:
+2022-05-09-11:54:46    INFO: --------
+2022-05-09-11:54:46    INFO:   cross_entropy:  0.04049
+2022-05-09-11:54:46    INFO:   _total:  0.04049
+2022-05-09-11:54:46    INFO: Epoch 3/10
+2022-05-09-11:54:46    INFO: Calling: valid_epoch...
+2022-05-09-11:54:46    INFO: LOSS VALUES:
+2022-05-09-11:54:46    INFO: --------
+2022-05-09-11:54:46    INFO:   cross_entropy:  0.04797
+2022-05-09-11:54:46    INFO:   _total:  0.04797
+2022-05-09-11:54:46    INFO: Calling: train_epoch...
+2022-05-09-11:54:54    INFO: LOSS VALUES:
+2022-05-09-11:54:54    INFO: --------
+2022-05-09-11:54:54    INFO:   cross_entropy:  0.03387
+2022-05-09-11:54:54    INFO:   _total:  0.03387
+2022-05-09-11:54:54    INFO: Epoch 4/10
+2022-05-09-11:54:54    INFO: Calling: valid_epoch...
+2022-05-09-11:54:55    INFO: LOSS VALUES:
+2022-05-09-11:54:55    INFO: --------
+2022-05-09-11:54:55    INFO:   cross_entropy:  0.04824
+2022-05-09-11:54:55    INFO:   _total:  0.04824
+2022-05-09-11:54:55    INFO: Calling: train_epoch...
+2022-05-09-11:55:03    INFO: LOSS VALUES:
+2022-05-09-11:55:03    INFO: --------
+2022-05-09-11:55:03    INFO:   cross_entropy:  0.0258
+2022-05-09-11:55:03    INFO:   _total:  0.0258
+2022-05-09-11:55:03    INFO: Epoch 5/10
+2022-05-09-11:55:03    INFO: Calling: valid_epoch...
+2022-05-09-11:55:04    INFO: LOSS VALUES:
+2022-05-09-11:55:04    INFO: --------
+2022-05-09-11:55:04    INFO:   cross_entropy:  0.03947
+2022-05-09-11:55:04    INFO:   _total:  0.03947
+2022-05-09-11:55:04    INFO: Calling: train_epoch...
+2022-05-09-11:55:12    INFO: LOSS VALUES:
+2022-05-09-11:55:12    INFO: --------
+2022-05-09-11:55:12    INFO:   cross_entropy:  0.02063
+2022-05-09-11:55:12    INFO:   _total:  0.02063
+2022-05-09-11:55:12    INFO: Saving model checkpoint
+2022-05-09-11:55:12    INFO: Calling: save_checkpoint...
+2022-05-09-11:55:12    INFO: Calling: create_directory...
+2022-05-09-11:55:12    INFO: Epoch 6/10
+2022-05-09-11:55:12    INFO: Calling: valid_epoch...
+2022-05-09-11:55:13    INFO: LOSS VALUES:
+2022-05-09-11:55:13    INFO: --------
+2022-05-09-11:55:13    INFO:   cross_entropy:  0.03982
+2022-05-09-11:55:13    INFO:   _total:  0.03982
+2022-05-09-11:55:13    INFO: Calling: train_epoch...
+2022-05-09-11:55:21    INFO: LOSS VALUES:
+2022-05-09-11:55:21    INFO: --------
+2022-05-09-11:55:21    INFO:   cross_entropy:  0.0176
+2022-05-09-11:55:21    INFO:   _total:  0.0176
+2022-05-09-11:55:21    INFO: Epoch 7/10
+2022-05-09-11:55:21    INFO: Calling: valid_epoch...
+2022-05-09-11:55:22    INFO: LOSS VALUES:
+2022-05-09-11:55:22    INFO: --------
+2022-05-09-11:55:22    INFO:   cross_entropy:  0.04836
+2022-05-09-11:55:22    INFO:   _total:  0.04836
+2022-05-09-11:55:22    INFO: Calling: train_epoch...
+2022-05-09-11:55:30    INFO: LOSS VALUES:
+2022-05-09-11:55:30    INFO: --------
+2022-05-09-11:55:30    INFO:   cross_entropy:  0.01463
+2022-05-09-11:55:30    INFO:   _total:  0.01463
+2022-05-09-11:55:30    INFO: Epoch 8/10
+2022-05-09-11:55:30    INFO: Calling: valid_epoch...
+2022-05-09-11:55:31    INFO: LOSS VALUES:
+2022-05-09-11:55:31    INFO: --------
+2022-05-09-11:55:31    INFO:   cross_entropy:  0.04476
+2022-05-09-11:55:31    INFO:   _total:  0.04476
+2022-05-09-11:55:31    INFO: Calling: train_epoch...
+2022-05-09-11:55:39    INFO: LOSS VALUES:
+2022-05-09-11:55:39    INFO: --------
+2022-05-09-11:55:39    INFO:   cross_entropy:  0.01265
+2022-05-09-11:55:39    INFO:   _total:  0.01265
+2022-05-09-11:55:39    INFO: Epoch 9/10
+2022-05-09-11:55:39    INFO: Calling: valid_epoch...
+2022-05-09-11:55:40    INFO: LOSS VALUES:
+2022-05-09-11:55:40    INFO: --------
+2022-05-09-11:55:40    INFO:   cross_entropy:  0.05187
+2022-05-09-11:55:40    INFO:   _total:  0.05187
+2022-05-09-11:55:40    INFO: Calling: train_epoch...
+2022-05-09-11:55:48    INFO: LOSS VALUES:
+2022-05-09-11:55:48    INFO: --------
+2022-05-09-11:55:48    INFO:   cross_entropy:  0.01126
+2022-05-09-11:55:48    INFO:   _total:  0.01126
+2022-05-09-11:55:48    INFO: Finished training procedure
+2022-05-09-11:55:48    INFO: Saving final checkpoint
+2022-05-09-11:55:48    INFO: Calling: save_checkpoint...
+2022-05-09-11:55:48    INFO: Calling: create_directory...
+2022-05-09-11:55:48    INFO: Calling: valid_epoch...
+2022-05-09-11:55:49    INFO: LOSS VALUES:
+2022-05-09-11:55:49    INFO: --------
+2022-05-09-11:55:49    INFO:   cross_entropy:  0.04622
+2022-05-09-11:55:49    INFO:   _total:  0.04622
+2022-05-09-11:55:49    INFO: Trial finished with metric: 0.03946871683001518
+2022-05-09-11:55:49    INFO: Study statistics: 
+2022-05-09-11:55:49    INFO:     Number of finished trials: 5
+2022-05-09-11:55:49    INFO:     Number of complete trials: 5
+2022-05-09-11:55:49    INFO: 
+2022-05-09-11:55:49    INFO: Best trial: Trial #0
+2022-05-09-11:55:49    INFO:   Value: 0.03062889166176319
+2022-05-09-11:55:49    INFO:   Params: 
+2022-05-09-11:55:49    INFO:     batch_size: 22
+2022-05-09-11:55:49    INFO:     lr: 0.0001604911627066934
+2022-05-09-11:55:49    INFO:     lr_factor: 0.06815419998793353
+2022-05-09-11:55:49    INFO:     patience: 1

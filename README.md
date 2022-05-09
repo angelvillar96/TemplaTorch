@@ -158,7 +158,7 @@ The procedure for hyper-parameter optimization in TemplaTorch is the following:
  $ CUDA_VISIBLE_DEVICES=0 python src/01_hyperparam_optim.py -d experiments/-d TemplaTorch_Tests/optuna_test/
  ```
 
-Results of an actual Optuna study can be found in [this directory](TODO).
+Results of an actual Optuna study can be found in [this directory](https://github.com/angelvillar96/TemplaTorch/tree/master/experiments/TemplaTorch_Tests/optuna_test).
 
 
 
