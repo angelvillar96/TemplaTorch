@@ -6,8 +6,10 @@ in the experiment directory. Each experiment has its own independent logs
 import os
 import traceback
 from datetime import datetime
+from lib.utils import get_current_git_hash
 
 LOGGER = None
+
 
 def log_function(func):
     """
@@ -36,7 +38,7 @@ def for_all_methods(decorator):
     Decorator that applies a decorator to all methods inside a class
     """
     def decorate(cls):
-        for attr in cls.__dict__: # there's propably a better way to do this
+        for attr in cls.__dict__:  # there's propably a better way to do this
             if callable(getattr(cls, attr)):
                 setattr(cls, attr, decorator(getattr(cls, attr)))
         return cls
@@ -53,10 +55,12 @@ def print_(message, message_type="info"):
         LOGGER.log_info(message, message_type)
     return
 
+
 def log_info(message, message_type="info"):
     if(LOGGER is not None):
         LOGGER.log_info(message, message_type)
     return
+
 
 class Logger():
     """
@@ -83,6 +87,11 @@ class Logger():
 
         return
 
+    def log_git_hash(self):
+        """ Logging git hash"""
+        hash = get_current_git_hash()
+        log_info(f"Using git sha: {hash}")
+        return
 
     def log_info(self, message, message_type="info", **kwargs):
         """
@@ -126,7 +135,6 @@ class Logger():
             pre_string = "\n\n\n"
         form_message = f"{pre_string}{cur_time}    {message_type.upper()}: {message}\n"
         return form_message
-
 
     def _get_datetime(self):
         """

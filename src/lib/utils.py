@@ -7,6 +7,7 @@ Utils methods for bunch of purposes, including
 """
 
 import os
+import git
 import pickle
 import shutil
 import random
@@ -51,6 +52,17 @@ def clear_cmd():
     """Clearning command line window"""
     os.system('cls' if os.name == 'nt' else 'clear')
     return
+
+
+def get_current_git_hash():
+    """ Obtaining the hexadecimal last commited git hash """
+    try:
+        repo = git.Repo(search_parent_directories=True)
+        sha = repo.head.object.hexsha
+    except:
+        print("Current codebase does not take part of a Git project...")
+        sha = None
+    return sha
 
 
 @log_function
