@@ -3,9 +3,10 @@ Setting up the model, optimizers, loss functions, loading/saving parameters, ...
 """
 
 import os
+import traceback
 import torch
 
-from lib.logger import log_function
+from lib.logger import log_function, print_
 from lib.schedulers import LRWarmUp, ExponentialLRSchedule
 from lib.utils import create_directory
 import models
@@ -38,6 +39,40 @@ def setup_model(model_params):
         raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
 
     return model
+
+
+def emergency_save(f):
+    """
+    Decorator for saving a model in case of exception, either from code or triggered.
+    Use for decorating the training loop:
+        @setup_model.emergency_save
+        def train_loop(self):
+    """
+
+    def try_call_except(*args, **kwargs):
+        """ Wrapping function and saving checkpoint in case of exception """
+        try:
+            return f(*args, **kwargs)
+        except (Exception, KeyboardInterrupt):
+            print_("There has been an exception. Saving emergency checkpoint...")
+            self_ = args[0]
+            if hasattr(self_, "model") and hasattr(self_, "optimizer"):
+                fname = f"emergency_checkpoint_epoch_{self_.epoch}.pth"
+                save_checkpoint(
+                    model=self_.model,
+                    optimizer=self_.optimizer,
+                    scheduler=self_.scheduler,
+                    epoch=self_.epoch,
+                    exp_path=self_.exp_path,
+                    savedir="models",
+                    savename=fname
+                )
+                print_(f"  --> Saved emergency checkpoint {fname}")
+            message = traceback.format_exc()
+            print_(message, message_type="error")
+            exit()
+
+    return try_call_except
 
 
 @log_function

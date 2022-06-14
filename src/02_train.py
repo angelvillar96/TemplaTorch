@@ -10,6 +10,7 @@ from lib.arguments import get_directory_argument
 from lib.config import Config
 from lib.logger import Logger, print_, log_function, for_all_methods, log_info
 from lib.loss import LossTracker
+from lib.setup_model import emergency_save
 import lib.setup_model as setup_model
 import lib.utils as utils
 import data
@@ -102,6 +103,7 @@ class Trainer:
         self.loss_tracker = loss_tracker
         return
 
+    @emergency_save
     def training_loop(self):
         """
         Repearting the process validation epoch - train epoch for the

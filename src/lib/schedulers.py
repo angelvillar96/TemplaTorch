@@ -158,3 +158,34 @@ class EarlyStop:
         stop_training = True if(self.counter >= self.patience) else False
 
         return stop_training
+
+
+class Freezer:
+    """
+    Class for freezing and unfreezing nn.Module given number of epochs
+
+    Args:
+    -----
+    module: nn.Module
+        nn.Module to freeze or unfreeze
+    frozen_epochs: integer
+        Number of initial epochs in which the model is kept frozen
+    """
+
+    def __init__(self, module, frozen_epochs=0):
+        """ Module initializer """
+        self.module = module
+        self.frozen_epochs = frozen_epochs
+        self.is_frozen = False
+
+    def __call__(self, epoch):
+        """ """
+        if epoch < self.frozen_epochs and self.is_frozen is False:
+            print_(f"  --> Still in frozen epochs  {epoch} < {self.frozen_epochs}. Freezing module...")
+            model_utils.freeze_params(self.module)
+            self.is_frozen = True
+        elif epoch >= self.frozen_epochs and self.is_frozen is True:
+            print_(f"  --> Finished frozen epochs {epoch} = {self.frozen_epochs}. Unfreezing module...")
+            model_utils.unfreeze_params(self.module)
+            self.is_frozen = False
+        return
