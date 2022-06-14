@@ -4,6 +4,7 @@ for improving optimization
 """
 
 from lib.logger import print_
+import models.model_utils as model_utils
 
 
 class ExponentialLRSchedule:
