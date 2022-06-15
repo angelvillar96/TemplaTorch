@@ -17,14 +17,10 @@ import data
 
 @for_all_methods(log_function)
 class Evaluator:
-    """
-    Class for evaluating a model
-    """
+    """ Class for evaluating a model """
 
     def __init__(self, exp_path, checkpoint):
-        """
-        Initializing the trainer object
-        """
+        """ Initializing the evaluator object """
         self.exp_path = exp_path
         self.cfg = Config(exp_path)
         self.exp_params = self.cfg.load_exp_config_file()
@@ -38,9 +34,7 @@ class Evaluator:
         return
 
     def load_data(self):
-        """
-        Loading dataset and fitting data-loader for iterating in a batch-like fashion
-        """
+        """ Loading dataset and fitting data-loader for iterating in a batch-like fashion """
         batch_size = self.exp_params["training"]["batch_size"]
         shuffle_eval = self.exp_params["dataset"]["shuffle_eval"]
         test_set = data.load_data(exp_params=self.exp_params, split="test")
@@ -52,9 +46,7 @@ class Evaluator:
         return
 
     def setup_model(self):
-        """
-        Initializing model, optimizer, loss function and other related objects
-        """
+        """ Initializing model and loading pretrained paramters """
         torch.backends.cudnn.fastest = True
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -73,9 +65,7 @@ class Evaluator:
 
     @torch.no_grad()
     def evaluate(self):
-        """
-        Evaluating model epoch loop
-        """
+        """ Evaluating model epoch loop """
         progress_bar = tqdm(enumerate(self.test_loader), total=len(self.test_loader))
 
         # iterating test set and accumulating the results

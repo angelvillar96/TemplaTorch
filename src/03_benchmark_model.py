@@ -17,14 +17,10 @@ import data
 
 @for_all_methods(log_function)
 class Benchmarker:
-    """
-    Class for evaluating a model
-    """
+    """ Class for benchmarking a model """
 
     def __init__(self, exp_path, checkpoint):
-        """
-        Initializing the trainer object
-        """
+        """ Initializing the benchmarker object """
         self.exp_path = exp_path
         self.cfg = Config(exp_path)
         self.exp_params = self.cfg.load_exp_config_file()
