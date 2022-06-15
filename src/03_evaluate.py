@@ -97,7 +97,7 @@ if __name__ == "__main__":
     utils.clear_cmd()
     exp_path, args = get_directory_argument()
     logger = Logger(exp_path=exp_path)
-    logger.log_info("Starting training procedure", message_type="new_exp")
+    logger.log_info("Starting evaluation procedure", message_type="new_exp")
     logger.log_git_hash()
 
     print_("Initializing Evaluator...")
