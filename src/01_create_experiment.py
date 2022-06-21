@@ -22,6 +22,9 @@ def initialize_experiment():
     exp_dir, config, exp_name = args.exp_directory, args.config, args.name
     exp_name = f"experiment_{timestamp()}" if exp_name is None or len(exp_name) < 1 else exp_name
     exp_path = os.path.join(CONFIG["paths"]["experiments_path"], exp_dir, exp_name)
+    if os.path.exists(exp_path):
+        print(f"Experiment {exp_name} already in experiment directory {exp_dir}...")
+        exit()
 
     # creating directories
     create_directory(exp_path)

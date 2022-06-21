@@ -78,7 +78,7 @@ class Trainer:
         model = model.eval().to(self.device)
 
         # loading optimizer, scheduler and loss
-        optimizer, scheduler = setup_model.setup_optimizer(exp_params=self.exp_params, model=model)
+        optimizer, scheduler = setup_model.setup_optimization(exp_params=self.exp_params, model=model)
         loss_tracker = LossTracker(loss_params=self.exp_params["loss"])
         epoch = 0
 

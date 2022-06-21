@@ -19,9 +19,9 @@ CONFIG = {
 
 # Supported datasets, models, metrics, and so on
 DATASETS = ["mnist"]
+MODELS = ["ConvNet"]
 LOSSES = ["mse", "l2", "mae", "l1", "cross_entropy", "ce"]
 METRICS = ["accuracy"]
-MODELS = ["ConvNet"]
 
 
 # Specific configurations and default values

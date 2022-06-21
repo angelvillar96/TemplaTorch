@@ -157,7 +157,7 @@ def load_checkpoint(checkpoint_path, model, only_model=False, map_cpu=False, **k
 
 
 @log_function
-def setup_optimizer(exp_params, model):
+def setup_optimization(exp_params, model):
     """
     Initializing the optimizer object used to update the model parameters
     Args:
@@ -166,6 +166,7 @@ def setup_optimizer(exp_params, model):
         parameters corresponding to the different experiment
     model: nn.Module
         instanciated neural network model
+
     Returns:
     --------
     optimizer: Torch Optim object
@@ -174,35 +175,74 @@ def setup_optimizer(exp_params, model):
         learning rate scheduler object used to decrease the lr after some epochs
     """
 
+    # setting up optimizer and LR-scheduler
+    optimizer = setup_optimizer(parameters=model.parameters(), exp_params=exp_params)
+    scheduler = setup_scheduler(exp_params=exp_params, optimizer=optimizer)
+
+    return optimizer, scheduler
+
+
+def setup_optimizer(parameters, exp_params):
+    """ Instanciating a new optimizer """
     lr = exp_params["training"]["lr"]
-    lr_factor = exp_params["training"]["lr_factor"]
-    patience = exp_params["training"]["patience"]
     momentum = exp_params["training"]["momentum"]
     optimizer = exp_params["training"]["optimizer"]
     nesterov = exp_params["training"]["nesterov"]
-    scheduler = exp_params["training"]["scheduler"]
 
     # SGD-based optimizer
     if(optimizer == "adam"):
-        optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+        optimizer = torch.optim.Adam(parameters, lr=lr)
+    elif(optimizer == "adamw"):
+        optimizer = torch.optim.AdamW(parameters, lr=lr)
     else:
-        optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=momentum,
+        optimizer = torch.optim.SGD(parameters, lr=lr, momentum=momentum,
                                     nesterov=nesterov, weight_decay=0.0005)
 
-    # LR-scheduler
+    return optimizer
+
+
+def setup_scheduler(exp_params, optimizer):
+    """ Instanciating a new scheduler """
+    lr = exp_params["training"]["lr"]
+    lr_factor = exp_params["training"]["lr_factor"]
+    patience = exp_params["training"]["patience"]
+    scheduler = exp_params["training"]["scheduler"]
+
     if(scheduler == "plateau"):
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=patience,
-                                                               factor=lr_factor, min_lr=1e-8,
-                                                               mode="min", verbose=True)
+        print_("Setting up Plateau LR-Scheduler:")
+        print_(f"  --> Patience: {patience}")
+        print_(f"  --> Factor:   {lr_factor}")
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+                optimizer=optimizer,
+                patience=patience,
+                factor=lr_factor,
+                min_lr=1e-8,
+                mode="min",
+                verbose=True
+            )
     elif(scheduler == "step"):
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, gamma=lr_factor,
-                                                    step_size=patience)
+        print_("Setting up Step LR-Scheduler")
+        print_(f"  --> Step Size: {patience}")
+        print_(f"  --> Factor:    {lr_factor}")
+        scheduler = torch.optim.lr_scheduler.StepLR(
+                optimizer=optimizer,
+                gamma=lr_factor,
+                step_size=patience
+            )
     elif(scheduler == "exponential"):
-        scheduler = ExponentialLRSchedule(optimizer, init_lr=lr, gamma=lr_factor)
+        print_("Setting up Exponential LR-Scheduler")
+        print_(f"  --> Init LR: {lr}")
+        print_(f"  --> Factor:  {lr_factor}")
+        scheduler = ExponentialLRSchedule(
+                optimizer=optimizer,
+                init_lr=lr,
+                gamma=lr_factor
+            )
     else:
+        print_("Not using any LR-Scheduler")
         scheduler = None
 
-    return optimizer, scheduler
+    return scheduler
 
 
 def update_scheduler(scheduler, exp_params, control_metric=None, iter=-1, end_epoch=False):

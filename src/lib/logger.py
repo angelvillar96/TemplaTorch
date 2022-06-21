@@ -4,9 +4,9 @@ in the experiment directory. Each experiment has its own independent logs
 """
 
 import os
+import git
 import traceback
 from datetime import datetime
-from lib.utils import get_current_git_hash
 
 LOGGER = None
 
@@ -60,6 +60,17 @@ def log_info(message, message_type="info"):
     if(LOGGER is not None):
         LOGGER.log_info(message, message_type)
     return
+
+
+def get_current_git_hash():
+    """ Obtaining the hexadecimal last commited git hash """
+    try:
+        repo = git.Repo(search_parent_directories=True)
+        sha = repo.head.object.hexsha
+    except:
+        print("Current codebase does not take part of a Git project...")
+        sha = None
+    return sha
 
 
 class Logger():

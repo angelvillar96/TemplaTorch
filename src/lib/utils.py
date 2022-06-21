@@ -54,17 +54,6 @@ def clear_cmd():
     return
 
 
-def get_current_git_hash():
-    """ Obtaining the hexadecimal last commited git hash """
-    try:
-        repo = git.Repo(search_parent_directories=True)
-        sha = repo.head.object.hexsha
-    except:
-        print("Current codebase does not take part of a Git project...")
-        sha = None
-    return sha
-
-
 @log_function
 def create_directory(dir_path, dir_name=None):
     """

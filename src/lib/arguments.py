@@ -23,6 +23,7 @@ def create_experiment_arguments():
     parser.add_argument("--config", help="Name of the predetermined 'config' to use")
     args = parser.parse_args()
 
+    args.exp_directory = process_experiment_directory_argument(args.exp_directory, create=True)
     args.config = check_config(args.config)
     return args
 
