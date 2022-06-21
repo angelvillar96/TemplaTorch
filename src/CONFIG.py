@@ -36,7 +36,8 @@ DEFAULTS = {
         "ConvNet": {
             "channels": [1, 32, 64, 128],
             "out_size": 10
-        }
+        },
+        "AutoEncoder": {}
     },
     "loss": [
         {

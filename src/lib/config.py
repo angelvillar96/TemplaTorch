@@ -10,7 +10,7 @@ import json
 
 from lib.logger import print_
 from lib.utils import timestamp
-from CONFIG import DEFAULTS, CONFIG
+from CONFIG import DEFAULTS, CONFIG, MODELS
 
 
 class Config(dict):
@@ -20,13 +20,37 @@ class Config(dict):
     _help = "Potentially you can add here comments for what your configs are"
     _config_groups = ["dataset", "model", "training", "loss"]
 
-    def __init__(self, exp_path):
+    def __init__(self, exp_path, model_name):
         """ Populating the dictionary with the default values """
+        if model_name is not None and model_name not in MODELS:
+            raise NotImplementedError(f"Given model name {model_name} not in models: {MODELS}...")
+
         for key in self._default_values.keys():
-            self[key] = self._default_values[key]
+            if key == "model":
+                self[key] = self._get_model_dict(model_name)
+            else:
+                self[key] = self._default_values[key]
         self["_general"] = {}
         self["_general"]["exp_path"] = exp_path
         return
+
+    def _get_model_dict(self, model_name):
+        """
+        Obtaining a dictionary with the model parameters only relevant to the given model name
+        """
+        model_params = {}
+        default_model_params = self._default_values["model"]
+        for key, val in default_model_params.items():
+            if model_name is None:
+                model_params[key] = val
+            elif isinstance(val, dict) and key == model_name:
+                model_params[key] = val
+            elif not isinstance(val, dict):
+                model_params[key] = val
+
+        if model_name is not None:
+            model_params["model_name"] = model_name
+        return model_params
 
     def create_exp_config_file(self, exp_path=None, config=None):
         """

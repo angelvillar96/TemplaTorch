@@ -20,6 +20,7 @@ def create_experiment_arguments():
     parser.add_argument("-d", "--exp_directory", help="Directory where the experiment"
                         "folder will be created", required=True, default="test_dir")
     parser.add_argument("--name", help="Name to give to the experiment")
+    parser.add_argument("--model_name", help="Model name keep in the exp_params")
     parser.add_argument("--config", help="Name of the predetermined 'config' to use")
     args = parser.parse_args()
 

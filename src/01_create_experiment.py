@@ -19,7 +19,7 @@ def initialize_experiment():
     """
     # reading command line args
     args = create_experiment_arguments()
-    exp_dir, config, exp_name = args.exp_directory, args.config, args.name
+    exp_dir, config, exp_name, model_name = args.exp_directory, args.config, args.name, args.model_name
     exp_name = f"experiment_{timestamp()}" if exp_name is None or len(exp_name) < 1 else exp_name
     exp_path = os.path.join(CONFIG["paths"]["experiments_path"], exp_dir, exp_name)
     if os.path.exists(exp_path):
@@ -33,7 +33,7 @@ def initialize_experiment():
     create_directory(dir_path=exp_path, dir_name="tboard_logs")
 
     try:
-        cfg = Config(exp_path=exp_path)
+        cfg = Config(exp_path=exp_path, model_name=model_name)
         cfg.create_exp_config_file(config=config)
     except FileNotFoundError as e:
         print_("An error has occurred...\n Removing experiment directory")
