@@ -61,7 +61,8 @@ def emergency_save(f):
                 save_checkpoint(
                     model=self_.model,
                     optimizer=self_.optimizer,
-                    scheduler=self_.scheduler,
+                    scheduler=self_.warmup_scheduler.scheduler,
+                    lr_warmup=self_.warmup_scheduler.lr_warmup,
                     epoch=self_.epoch,
                     exp_path=self_.exp_path,
                     savedir="models",
@@ -76,11 +77,12 @@ def emergency_save(f):
 
 
 @log_function
-def save_checkpoint(model, optimizer, scheduler, epoch, exp_path, finished=False,
-                    savedir="models", savename=None):
+def save_checkpoint(model, optimizer, scheduler, lr_warmup, epoch, exp_path,
+                    finished=False, savedir="models", savename=None):
     """
     Saving a checkpoint in the models directory of the experiment. This checkpoint
     contains state_dicts for the mode, optimizer and lr_scheduler
+
     Args:
     -----
     model: torch Module
@@ -110,8 +112,9 @@ def save_checkpoint(model, optimizer, scheduler, epoch, exp_path, finished=False
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
-            "scheduler_state_dict": scheduler_data
-            }, savepath)
+            "scheduler_state_dict": scheduler_data,
+            "lr_warmup": lr_warmup
+        }, savepath)
 
     return
 
@@ -149,12 +152,19 @@ def load_checkpoint(checkpoint_path, model, only_model=False, map_cpu=False, **k
     if(only_model):
         return model
 
+    # loading saved state for optimizer, scheduler, and lr warmup
     optimizer, scheduler = kwargs["optimizer"], kwargs["scheduler"]
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+    if scheduler is not None:
+        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+    if "lr_warmup" in kwargs:
+        lr_warmup = kwargs["lr_warmup"]
+        lr_warmup.load_state_dict(checkpoint['lr_warmup'])
+    else:
+        lr_warmup = None
     epoch = checkpoint["epoch"] + 1
 
-    return model, optimizer, scheduler, epoch
+    return model, optimizer, scheduler, lr_warmup, epoch
 
 
 @log_function

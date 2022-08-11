@@ -271,7 +271,7 @@ class Trainer:
 
         # logging metrics to tensorboard
         self.metric_tracker.aggregate()
-        metrics = self.metric_tracker.summary(verbose=False, only_mean=True)
+        metrics = self.metric_tracker.summary(verbose=False)
         self.writer.log_full_dictionary(
                 dict=metrics,
                 step=epoch + 1,
@@ -313,7 +313,7 @@ class Trainer:
 
         # logging metrics to tensorboard
         self.metric_tracker.aggregate()
-        metrics = self.metric_tracker.summary(verbose=False, only_mean=True)
+        metrics = self.metric_tracker.summary(verbose=False)
         self.writer.log_full_dictionary(
                 dict=metrics,
                 step=epoch + 1,

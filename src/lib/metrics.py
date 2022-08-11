@@ -5,6 +5,7 @@ Computation of different metrics
 import os
 import json
 import torch
+from lib.logger import print_, log_info
 from lib.utils import create_directory
 from CONFIG import METRICS, METRIC_SETS
 
@@ -49,12 +50,13 @@ class MetricTracker:
             self.results[metric] = metric_computer.aggregate()
         return
 
-    def summary(self, get_results=True):
+    def summary(self, get_results=True, verbose=True):
         """ Printing and fetching the results """
-        print("RESULTS:")
-        print("--------")
+        fprint = print_ if verbose is True else log_info
+        fprint("RESULTS:")
+        fprint("--------")
         for metric in self.metric_computers.keys():
-            print(f"  {metric}:  {round(self.results[metric], 3)}")
+            fprint(f"  {metric}:  {round(self.results[metric], 3)}")
         return self.results
 
     def save_results(self, exp_path, checkpoint_name):
@@ -68,7 +70,7 @@ class MetricTracker:
         return
 
 
-def get_metric(self, metric):
+def get_metric(metric):
     """ """
     if metric == "accuracy":
         metric_computer = Accuracy()

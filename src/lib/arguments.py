@@ -4,6 +4,8 @@ Methods for processing command line arguments
 
 import os
 import argparse
+
+from configs import get_available_configs
 from lib.utils import split_path
 
 from CONFIG import CONFIG, MODELS
@@ -13,17 +15,18 @@ def create_experiment_arguments():
     """
     Processing arguments for 01_*
     """
+    configs = get_available_configs()
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--exp_directory", help="Directory where the experiment"
                         "folder will be created", required=True, default="test_dir")
     parser.add_argument("--name", help="Name to give to the experiment")
     parser.add_argument("--model_name", help=f"Model name to keep in the exp_params: {MODELS}")
-    parser.add_argument("--config", help="Name of the predetermined 'config' to use")
+    parser.add_argument("--config", help=f"Name of the predetermined 'config' to use: {configs}")
     args = parser.parse_args()
 
     args.exp_directory = process_experiment_directory_argument(args.exp_directory, create=True)
     args.config = check_config(args.config)
-    if args.model_name not in MODELS:
+    if args.model_name not in MODELS and args.config is None:
         raise ValueError(f"Unrecognized model {args.model_name}. Use one of {MODELS}...")
     return args
 
