@@ -66,13 +66,17 @@ Simple, yet effective, template for quick deep learning prototyping and experime
 ### Creating an Experiment
 
 ```shell
-$ python src/01_create_experiment.py [-h] -d EXP_DIRECTORY [--name NAME] [--config CONFIG]
+$ python src/01_create_experiment.py [-h] -d EXP_DIRECTORY [--name NAME] [--model_name MODEL_NAME] [--config CONFIG]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d EXP_DIRECTORY, --exp_directory EXP_DIRECTORY Directory where the experiment folder will be created
+  -d EXP_DIRECTORY, --exp_directory EXP_DIRECTORY
+                        Directory where the experimentfolder will be created
   --name NAME           Name to give to the experiment
-  --config CONFIG       Name of the predetermined 'config' to use
+  --model_name MODEL_NAME
+                        Model name to keep in the exp_params: ['ConvNet']
+  --config CONFIG       Name of the predetermined 'config' to use: ['mnist_convnet']
+
 ```
 
 Creating an experiment automatically generates a directory in the specified EXP_DIRECTORY, containing a *JSON* file with the experiment parameters and sub-directories for the models, plot, and Tensorboard logs.
