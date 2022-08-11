@@ -20,7 +20,7 @@ class Config(dict):
     _help = "Potentially you can add here comments for what your configs are"
     _config_groups = ["dataset", "model", "training", "loss", "metrics"]
 
-    def __init__(self, exp_path, model_name):
+    def __init__(self, exp_path, model_name=None):
         """ Populating the dictionary with the default values """
         if model_name is not None and model_name not in MODELS:
             raise NotImplementedError(f"Given model name {model_name} not in models: {MODELS}...")

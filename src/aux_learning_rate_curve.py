@@ -25,14 +25,13 @@ def main(exp_path):
 
     # loading data. We only need to know the number of batches per epoch
     batch_size = exp_params["training"]["batch_size"]
-    dataset_name = exp_params["dataset"]["dataset_name"]
-    train_set = data.load_data(dataset_name=dataset_name, split="train")
+    train_set = data.load_data(exp_params=exp_params, split="train")
     train_loader = data.build_data_loader(dataset=train_set, batch_size=batch_size)
     num_iters = len(train_loader)
 
-    # dummy model, optimizer and scheduler
+    # dummy model, optimizer, scheduler, and lr_warmup
     model = nn.Linear(2, 2)
-    optimizer, scheduler, lr_warmup = setup_model.setup_optimizer(
+    optimizer, scheduler, lr_warmup = setup_model.setup_optimization(
             exp_params=exp_params,
             model=model
         )
@@ -76,7 +75,7 @@ def main(exp_path):
         f"Warmup: {warmup}  Steps {warmup_steps}  Epochs {warmup_epochs} \n"
         f"Scheduler: {scheduler}  LR-Factor: {lr_factor}  Patience: {patience}  Sch. Steps {scheduler_steps}"
     )
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     plt.savefig(savepath)
     return
 
