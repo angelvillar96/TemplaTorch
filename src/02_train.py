@@ -10,6 +10,8 @@ from lib.arguments import get_directory_argument
 from lib.config import Config
 from lib.logger import Logger, print_, log_function, for_all_methods, log_info
 from lib.loss import LossTracker
+from lib.metrics import MetricTracker
+from lib.schedulers import WarmupVSScehdule, EarlyStop
 from lib.setup_model import emergency_save
 import lib.setup_model as setup_model
 import lib.utils as utils
@@ -20,6 +22,19 @@ import data
 class Trainer:
     """
     Class for training and validating a model
+
+    Args:
+    -----
+    exp_path: string
+        Path to the experiment directory from which to read the experiment parameters,
+        and where to store logs, plots and checkpoints
+    checkpoint: string/None
+        Name of a model checkpoint stored in the models/ directory of the experiment directory.
+        If given, the model is initialized with the parameters of such checkpoint.
+        This can be used to continue training or for transfer learning.
+    resume_training: bool
+        If True, saved checkpoint states from the optimizer, scheduler, ... are restored
+        in order to continue training from the checkpoint
     """
 
     def __init__(self, exp_path, checkpoint=None, resume_training=False):
@@ -32,6 +47,7 @@ class Trainer:
         self.checkpoint = checkpoint
         self.resume_training = resume_training
 
+        # setting paths and creating subdirectories
         self.plots_path = os.path.join(self.exp_path, "plots")
         utils.create_directory(self.plots_path)
         self.models_path = os.path.join(self.exp_path, "models")
@@ -58,11 +74,15 @@ class Trainer:
                 batch_size=batch_size,
                 shuffle=shuffle_train
             )
+        print_(f"  --> Length training set: {len(train_set)}")
+        print_(f"  --> Num. Batches train: {len(self.train_loader)}")
         self.valid_loader = data.build_data_loader(
                 dataset=valid_set,
                 batch_size=batch_size,
                 shuffle=shuffle_eval
             )
+        print_(f"  --> Length validation set: {len(valid_set)}")
+        print_(f"  --> Num. Batches validation: {len(self.valid_loader)}")
         return
 
     def setup_model(self):
@@ -78,29 +98,46 @@ class Trainer:
         model = model.eval().to(self.device)
 
         # loading optimizer, scheduler and loss
-        optimizer, scheduler = setup_model.setup_optimization(exp_params=self.exp_params, model=model)
-        loss_tracker = LossTracker(loss_params=self.exp_params["loss"])
+        optimizer, scheduler, lr_warmup = setup_model.setup_optimization(
+                exp_params=self.exp_params,
+                model=model
+            )
         epoch = 0
 
         # loading pretrained model and other necessary objects for resuming training or fine-tuning
         if self.checkpoint is not None:
-            print_(f"Loading pretrained parameters from checkpoint {self.checkpoint}...")
+            print_(f"  --> Loading pretrained parameters from checkpoint {self.checkpoint}...")
             loaded_objects = setup_model.load_checkpoint(
                     checkpoint_path=os.path.join(self.models_path, self.checkpoint),
                     model=model,
                     only_model=not self.resume_training,
                     optimizer=optimizer,
-                    scheduler=scheduler
+                    scheduler=scheduler,
+                    lr_warmup=lr_warmup
                 )
             if self.resume_training:
-                model, optimizer, scheduler, epoch = loaded_objects
-                print_(f"Resuming training from epoch {epoch}...")
+                model, optimizer, scheduler, lr_warmup, epoch = loaded_objects
+                print_(f"  --> Resuming training from epoch {epoch}...")
             else:
                 model = loaded_objects
 
+        # training and evaluation objects
         self.model = model
-        self.optimizer, self.scheduler, self.epoch = optimizer, scheduler, epoch
-        self.loss_tracker = loss_tracker
+        self.epoch = epoch
+        self.optimizer = optimizer
+        self.scheduler = scheduler
+        self.loss_tracker = LossTracker(loss_params=self.exp_params["loss"])
+        self.metric_tracker = MetricTracker(metrics=self.exp_params["metrics"]["metrics"])
+        self.warmup_scheduler = WarmupVSScehdule(
+                optimizer=self.optimizer,
+                lr_warmup=lr_warmup,
+                scheduler=scheduler
+            )
+        self.early_stopping = EarlyStop(
+                mode="min",
+                use_early_stop=self.exp_params["training"]["early_stopping"],
+                patience=self.exp_params["training"]["early_stopping_patience"]
+            )
         return
 
     @emergency_save
@@ -113,13 +150,20 @@ class Trainer:
         save_frequency = self.exp_params["training"]["save_frequency"]
 
         # iterating for the desired number of epochs
-        epoch = self.epoch
         for epoch in range(self.epoch, num_epochs):
+            self.epoch = epoch
             log_info(message=f"Epoch {epoch}/{num_epochs}")
             self.model.eval()
             self.valid_epoch(epoch)
             self.model.train()
             self.train_epoch(epoch)
+            stop_training = self.early_stopping(
+                    value=self.validation_losses[-1],
+                    writer=self.writer,
+                    epoch=epoch
+                )
+            if stop_training:
+                break
 
             # adding to tensorboard plot containing both losses
             self.writer.add_scalars(
@@ -129,20 +173,33 @@ class Trainer:
                     step=epoch+1
                 )
 
-            # updating learning rate scheduler if loss increases or plateaus
-            setup_model.update_scheduler(
-                    scheduler=self.scheduler,
+            # updating learning rate scheduler or lr-warmup
+            self.warmup_scheduler(
+                    iter=-1,
+                    epoch=epoch,
                     exp_params=self.exp_params,
+                    end_epoch=True,
                     control_metric=self.validation_losses[-1]
                 )
 
-            # saving model checkpoint if reached saving frequency
-            if(epoch % save_frequency == 0 and epoch != 0):
+            # saving backup model checkpoint and (if reached saving frequency) epoch checkpoint
+            setup_model.save_checkpoint(  # Gets overriden every epoch: checkpoint_last_saved.pth
+                    model=self.model,
+                    optimizer=self.optimizer,
+                    scheduler=self.warmup_scheduler.scheduler,
+                    lr_warmup=self.warmup_scheduler.lr_warmup,
+                    epoch=epoch,
+                    exp_path=self.exp_path,
+                    savedir="models",
+                    savename="checkpoint_last_saved.pth"
+                )
+            if(epoch % save_frequency == 0 and epoch != 0):  # checkpoint_epoch_xx.pth
                 print_("Saving model checkpoint")
                 setup_model.save_checkpoint(
                         model=self.model,
                         optimizer=self.optimizer,
-                        scheduler=self.scheduler,
+                        scheduler=self.warmup_scheduler.scheduler,
+                        lr_warmup=self.warmup_scheduler.lr_warmup,
                         epoch=epoch,
                         exp_path=self.exp_path,
                         savedir="models"
@@ -153,11 +210,12 @@ class Trainer:
         setup_model.save_checkpoint(
                 model=self.model,
                 optimizer=self.optimizer,
-                scheduler=self.scheduler,
+                scheduler=self.warmup_scheduler.scheduler,
+                lr_warmup=self.warmup_scheduler.lr_warmup,
                 epoch=epoch,
                 exp_path=self.exp_path,
                 savedir="models",
-                finished=True
+                finished=not stop_training
             )
         return
 
@@ -166,20 +224,24 @@ class Trainer:
         Training epoch loop
         """
         self.loss_tracker.reset()
+        self.metric_tracker.reset()
         progress_bar = tqdm(enumerate(self.train_loader), total=len(self.train_loader))
 
         for i, (imgs, targets) in progress_bar:
             iter_ = len(self.train_loader) * epoch + i
+            # forward pass
             imgs, targets = imgs.to(self.device), targets.to(self.device)
             preds = self.model(imgs)
 
+            # loss, metrics and optimization
             self.loss_tracker(preds=preds, targets=targets)
             loss = self.loss_tracker.get_last_losses(total_only=True)
-
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
+            self.metric_tracker.accumulate(preds=preds, targets=targets)
 
+            # logging and plots
             if(iter_ % self.exp_params["training"]["log_frequency"] == 0):
                 self.writer.log_full_dictionary(
                         dict=self.loss_tracker.get_last_losses(),
@@ -188,7 +250,7 @@ class Trainer:
                         dir="Train Loss Iter",
                     )
                 self.writer.add_scalar(
-                        name="Learning Rate",
+                        name="Learning/Learning Rate",
                         val=self.optimizer.param_groups[0]['lr'],
                         step=iter_
                     )
@@ -196,6 +258,7 @@ class Trainer:
             # update progress bar
             progress_bar.set_description(f"Epoch {epoch+1} iter {i}: train loss {loss.item():.5f}. ")
 
+        # logging loss to tensorboard
         self.loss_tracker.aggregate()
         average_loss_vals = self.loss_tracker.summary(log=True, get_results=True)
         self.writer.log_full_dictionary(
@@ -205,6 +268,16 @@ class Trainer:
                 dir="Train Loss",
             )
         self.training_losses.append(average_loss_vals["_total"].item())
+
+        # logging metrics to tensorboard
+        self.metric_tracker.aggregate()
+        metrics = self.metric_tracker.summary(verbose=False, only_mean=True)
+        self.writer.log_full_dictionary(
+                dict=metrics,
+                step=epoch + 1,
+                plot_name="Train Metrics",
+                dir="Train Metrics",
+            )
         return
 
     @torch.no_grad()
@@ -213,15 +286,21 @@ class Trainer:
         Validation epoch
         """
         self.loss_tracker.reset()
+        self.metric_tracker.reset()
         progress_bar = tqdm(enumerate(self.valid_loader), total=len(self.valid_loader))
 
         for i, (imgs, targets) in progress_bar:
+            # forward pass
             imgs, targets = imgs.to(self.device), targets.to(self.device)
             preds = self.model(imgs)
+
+            # loss, metrics and loggging
             self.loss_tracker(preds=preds, targets=targets)
             loss = self.loss_tracker.get_last_losses(total_only=True)
+            self.metric_tracker.accumulate(preds=preds, targets=targets)
             progress_bar.set_description(f"Epoch {epoch+1} iter {i}: valid loss {loss.item():.5f}. ")
 
+        # logging valid loss to tensorboard
         self.loss_tracker.aggregate()
         average_loss_vals = self.loss_tracker.summary(log=True, get_results=True)
         self.writer.log_full_dictionary(
@@ -231,6 +310,16 @@ class Trainer:
                 dir="Valid Loss",
             )
         self.validation_losses.append(average_loss_vals["_total"].item())
+
+        # logging metrics to tensorboard
+        self.metric_tracker.aggregate()
+        metrics = self.metric_tracker.summary(verbose=False, only_mean=True)
+        self.writer.log_full_dictionary(
+                dict=metrics,
+                step=epoch + 1,
+                plot_name="Valid Metrics",
+                dir="Valid Metrics",
+            )
         return
 
 

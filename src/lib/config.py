@@ -18,7 +18,7 @@ class Config(dict):
     """
     _default_values = DEFAULTS
     _help = "Potentially you can add here comments for what your configs are"
-    _config_groups = ["dataset", "model", "training", "loss"]
+    _config_groups = ["dataset", "model", "training", "loss", "metrics"]
 
     def __init__(self, exp_path, model_name):
         """ Populating the dictionary with the default values """

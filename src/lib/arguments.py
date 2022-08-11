@@ -1,15 +1,12 @@
 """
 Methods for processing command line arguments
-
-TODO:
-  - Add resume training and checkpoint parameters
 """
 
 import os
 import argparse
 from lib.utils import split_path
 
-from CONFIG import CONFIG
+from CONFIG import CONFIG, MODELS
 
 
 def create_experiment_arguments():
@@ -20,12 +17,14 @@ def create_experiment_arguments():
     parser.add_argument("-d", "--exp_directory", help="Directory where the experiment"
                         "folder will be created", required=True, default="test_dir")
     parser.add_argument("--name", help="Name to give to the experiment")
-    parser.add_argument("--model_name", help="Model name keep in the exp_params")
+    parser.add_argument("--model_name", help=f"Model name to keep in the exp_params: {MODELS}")
     parser.add_argument("--config", help="Name of the predetermined 'config' to use")
     args = parser.parse_args()
 
     args.exp_directory = process_experiment_directory_argument(args.exp_directory, create=True)
     args.config = check_config(args.config)
+    if args.model_name not in MODELS:
+        raise ValueError(f"Unrecognized model {args.model_name}. Use one of {MODELS}...")
     return args
 
 

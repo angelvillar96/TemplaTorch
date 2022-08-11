@@ -30,7 +30,7 @@ class Evaluator:
         utils.create_directory(self.plots_path)
         self.models_path = os.path.join(self.exp_path, "models")
         utils.create_directory(self.models_path)
-        self.metric_tracker = MetricTracker(metrics=["accuracy"])
+        self.metric_tracker = MetricTracker(metrics=self.exp_params["metrics"]["metrics"])
         return
 
     def load_data(self):
@@ -43,6 +43,8 @@ class Evaluator:
                 batch_size=batch_size,
                 shuffle=shuffle_eval
             )
+        print_(f"  --> Length test set: {len(test_set)}")
+        print_(f"  --> Num. Batches test: {len(self.test_loader)}")
         return
 
     def setup_model(self):
@@ -61,6 +63,7 @@ class Evaluator:
                 model=self.model,
                 only_model=True
             )
+        self.model = self.model.eval()
         return
 
     @torch.no_grad()
@@ -72,8 +75,7 @@ class Evaluator:
         for i, (imgs, targets) in progress_bar:
             imgs, targets = imgs.to(self.device), targets.to(self.device)
             preds = self.model(imgs)
-            pred_labels = torch.argmax(preds, dim=-1)
-            self.metric_tracker.accumulate(preds=pred_labels, targets=targets)
+            self.metric_tracker.accumulate(preds=preds, targets=targets)
 
             progress_bar.set_description(f"Iter {i}/{len(self.test_loader)}")
 

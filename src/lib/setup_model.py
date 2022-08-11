@@ -76,7 +76,8 @@ def emergency_save(f):
 
 
 @log_function
-def save_checkpoint(model, optimizer, scheduler, epoch, exp_path, finished=False, savedir="models", savename=None):
+def save_checkpoint(model, optimizer, scheduler, epoch, exp_path, finished=False,
+                    savedir="models", savename=None):
     """
     Saving a checkpoint in the models directory of the experiment. This checkpoint
     contains state_dicts for the mode, optimizer and lr_scheduler
@@ -173,13 +174,16 @@ def setup_optimization(exp_params, model):
         Initialized optimizer
     scheduler: Torch Optim object
         learning rate scheduler object used to decrease the lr after some epochs
+    lr_warmup: LRWarmUp Object
+        Module that takes care of the learning rate warmup functionalities
     """
 
     # setting up optimizer and LR-scheduler
     optimizer = setup_optimizer(parameters=model.parameters(), exp_params=exp_params)
     scheduler = setup_scheduler(exp_params=exp_params, optimizer=optimizer)
+    lr_warmup = setup_lr_warmup(exp_params=exp_params)
 
-    return optimizer, scheduler
+    return optimizer, scheduler, lr_warmup
 
 
 def setup_optimizer(parameters, exp_params):
@@ -191,12 +195,27 @@ def setup_optimizer(parameters, exp_params):
 
     # SGD-based optimizer
     if(optimizer == "adam"):
+        print_("Using the Adam optimizer")
+        print_(f"  --> Learning rate: {lr}")
         optimizer = torch.optim.Adam(parameters, lr=lr)
     elif(optimizer == "adamw"):
+        print_("Using the AdamW optimizer")
+        print_(f"  --> Learning rate: {lr}")
         optimizer = torch.optim.AdamW(parameters, lr=lr)
     else:
-        optimizer = torch.optim.SGD(parameters, lr=lr, momentum=momentum,
-                                    nesterov=nesterov, weight_decay=0.0005)
+        weight_decay = exp_params["training"].get("weight_decay", 0.0005)
+        print_("Using the AdamW optimizer")
+        print_(f"  --> Learning rate: {lr}")
+        print_(f"  --> Momentum:      {momentum}")
+        print_(f"  --> Nesterov:      {nesterov}")
+        print_(f"  --> Weight decay:  {weight_decay}")
+        optimizer = torch.optim.SGD(
+                parameters,
+                lr=lr,
+                momentum=momentum,
+                nesterov=nesterov,
+                weight_decay=weight_decay
+            )
 
     return optimizer
 
@@ -229,6 +248,17 @@ def setup_scheduler(exp_params, optimizer):
                 gamma=lr_factor,
                 step_size=patience
             )
+    elif(scheduler == "multi_step"):
+        print_("Setting up MultiStepLR LR-Scheduler")
+        print_(f"  --> Milestones: {patience}")
+        print_(f"  --> Factor:     {lr_factor}")
+        if not isinstance(patience, list):
+            raise ValueError(f"Milestones ({patience}) must be a list of increasing integers...")
+        scheduler = torch.optim.lr_scheduler.MultiStepLR(
+                optimizer=optimizer,
+                gamma=lr_factor,
+                milestones=patience
+            )
     elif(scheduler == "exponential"):
         print_("Setting up Exponential LR-Scheduler")
         print_(f"  --> Init LR: {lr}")
@@ -245,38 +275,8 @@ def setup_scheduler(exp_params, optimizer):
     return scheduler
 
 
-def update_scheduler(scheduler, exp_params, control_metric=None, iter=-1, end_epoch=False):
-    """
-    Updating the learning rate scheduler
-
-    Args:
-    -----
-    scheduler: torch.optim
-        scheduler to evaluate
-    exp_params: dictionary
-        dictionary containing the experiment parameters
-    control_metric: float/torch Tensor
-        Last computed validation metric.
-        Needed for plateau scheduler
-    iter: float
-        number of optimization step.
-        Needed for cyclic, cosine and exponential schedulers
-    end_epoch: boolean
-        True after finishing a validation epoch or certain number of iterations.
-        Triggers schedulers such as plateau or fixed-step
-    """
-    scheduler_type = exp_params["training"]["scheduler"]
-    if(scheduler_type == "plateau" and end_epoch):
-        scheduler.step(control_metric)
-    elif(scheduler_type == "step" and end_epoch):
-        scheduler.step()
-    elif(scheduler_type == "exponential"):
-        scheduler.step(iter)
-    return
-
-
 @log_function
-def setup_lr_warmup(params):
+def setup_lr_warmup(exp_params):
     """
     Seting up the learning rate warmup handler given experiment params
 
@@ -300,14 +300,19 @@ def setup_lr_warmup(params):
         ...
         lr_warmup(iter=cur_iter, epoch=cur_epoch, optimizer=optimizer)  # updating lr
     """
-    use_warmup = params["lr_warmup"]
-    lr = params["lr"]
+    use_warmup = exp_params["training"]["lr_warmup"]
+    lr = exp_params["training"]["lr"]
     if(use_warmup):
-        warmup_steps = params["warmup_steps"]
-        warmup_epochs = params["warmup_epochs"]
+        warmup_steps = exp_params["training"]["warmup_steps"]
+        warmup_epochs = exp_params["training"]["warmup_epochs"]
         lr_warmup = LRWarmUp(init_lr=lr, warmup_steps=warmup_steps, max_epochs=warmup_epochs)
+        print_("Setting up learning rate warmup:")
+        print_(f"  Target LR:     {lr}")
+        print_(f"  Warmup Steps:  {warmup_steps}")
+        print_(f"  Warmup Epochs: {warmup_epochs}")
     else:
         lr_warmup = LRWarmUp(init_lr=lr, warmup_steps=-1, max_epochs=-1)
+        print_("Not using learning rate warmup...")
     return lr_warmup
 
 

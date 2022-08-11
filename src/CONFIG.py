@@ -21,7 +21,11 @@ CONFIG = {
 DATASETS = ["mnist"]
 MODELS = ["ConvNet"]
 LOSSES = ["mse", "l2", "mae", "l1", "cross_entropy", "ce"]
-METRICS = ["accuracy"]
+METRICS = ["accuracy", "mse"]
+METRIC_SETS = {
+    "classification": ["accuracy"],
+    "regression": ["mse"]
+}
 
 
 # Specific configurations and default values
@@ -36,8 +40,7 @@ DEFAULTS = {
         "ConvNet": {
             "channels": [1, 32, 64, 128],
             "out_size": 10
-        },
-        "AutoEncoder": {}
+        }
     },
     "loss": [
         {
@@ -45,6 +48,9 @@ DEFAULTS = {
             "weight": 1
         },
     ],
+    "metrics": {
+        "metrics": "classification"
+    },
     "training": {  # training related parameters
         "num_epochs": 100,      # number of epochs to train for
         "save_frequency": 5,    # saving a checkpoint after these eoochs ()
@@ -58,9 +64,11 @@ DEFAULTS = {
         "scheduler": "exponential",  # learning rate scheduler parameters
         "lr_factor": 0.5,            # Meaning depends on scheduler. See lib/model_setup.py
         "patience": 5,
-        "lr_warmup": True,       # learning rate warmup parameters (2 epochs or 200 iters default)
+        "lr_warmup": True,       # learning rate warmup parameters (2 epochs or 2000 iters default)
         "warmup_steps": 2000,
-        "warmup_epochs": 2
+        "warmup_epochs": 2,
+        "early_stopping": True,
+        "early_stopping_patience": 10
     }
 }
 
