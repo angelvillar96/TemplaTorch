@@ -79,3 +79,61 @@ def unfreeze_params(model):
     for param in model.parameters():
         param.requires_grad = True
     return model
+
+
+class GradientInspector:
+    """
+    Module that computes some statistics from the gradients of one parameter,
+    and logs the stats into the Tensorboard
+
+    Args:
+    -----
+    writer: TensorboardWriter
+        TensorboardWriter object used to log into the Tensorboard
+    layers: list of nn.Module
+        Layers whose gradients are processed and logged into the Tensorboard
+    names: list of strings
+        Name given to each of the layers to track
+    stats: list
+        List with the stats to track. Possible stats are: ['Min', 'Max', 'Mean', 'Var', 'Norm']
+    """
+
+    STATS = ["Min", "Max", "Mean", "Var", "Norm"]
+    FUNCS = {
+        "Min": torch.min,
+        "Max": torch.max,
+        "Mean": torch.mean,
+        "Var": torch.var,
+        "Norm": torch.norm,
+    }
+
+    def __init__(self, writer, layers, names, stats=None):
+        """ Module initializer """
+        stats = stats if stats is not None else GradientInspector.STATS
+        for stat in stats:
+            assert stat in GradientInspector.STATS, f"{stat = } not included in {self.STATS = }"
+        assert isinstance(layers, list), f"Layers is not list, but {type(layers)}..."
+        assert len(layers) == len(names), f"{len(layers) = } and {len(names) = } must be the same..."
+        for layer in layers:
+            assert isinstance(layer, torch.nn.Module), f"Layer is not nn.Module, but {type(layer)}..."
+            assert hasattr(layer, "weight"), "Layer does not have attribute 'weight'"
+
+        self.writer = writer
+        self.layers = layers
+        self.names = names
+        self.stats = stats
+
+        print("Initializing Gradient-Inspector:")
+        print(f"  --> Tracking stats {stats} of gradients in the following layers")
+        for name, layer in zip(names, layers):
+            print(f"    --> {name}: {layer}")
+        return
+
+    def __call__(self, step):
+        """ Computing gradient stats and logging into Tensorboard """
+        for layer, name in zip(self.layers, self.names):
+            grad = layer.weight.grad
+            for stat in self.stats:
+                func = self.FUNCS[stat]
+                self.writer.add_scalar(f"Grad Stats {name}/{stat} Grad", func(grad).item(), step)
+        return
