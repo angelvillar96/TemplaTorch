@@ -5,6 +5,7 @@ Creating experiment directory and initalizing it with defauls
 """
 
 import os
+import traceback
 from lib.arguments import create_experiment_arguments
 from lib.config import Config
 from lib.logger import Logger, print_
@@ -33,12 +34,14 @@ def initialize_experiment():
     create_directory(dir_path=exp_path, dir_name="tboard_logs")
 
     try:
-        cfg = Config(exp_path=exp_path, model_name=model_name)
-        cfg.create_exp_config_file(config=config)
-    except FileNotFoundError as e:
+        cfg = Config()
+        cfg.create_exp_config_file(exp_path=exp_path, model_name=model_name, config=config)
+        print_(f"Experiment {exp_name} created successfully")
+    except Exception:
         print_("An error has occurred...\n Removing experiment directory")
         delete_directory(dir_path=exp_path)
-        print(e)
+        message = traceback.format_exc()
+        print(message)
 
     return
 

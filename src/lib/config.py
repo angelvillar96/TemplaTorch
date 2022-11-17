@@ -15,16 +15,34 @@ from CONFIG import DEFAULTS, CONFIG, MODELS
 
 class Config(dict):
     """
+    Module that creates, saves, and loads the experiemnts_parameters json/dictionary
+    associated to each experiment.
     """
+
     _default_values = DEFAULTS
     _help = "Potentially you can add here comments for what your configs are"
     _config_groups = ["dataset", "model", "training", "loss", "metrics"]
 
-    def __init__(self, exp_path, model_name=None):
-        """ Populating the dictionary with the default values """
+    def create_exp_config_file(self, exp_path=None, model_name=None, config=None):
+        """
+        Creating a JSON file with exp configs in the experiment path
+        """
         if model_name is not None and model_name not in MODELS:
             raise NotImplementedError(f"Given model name {model_name} not in models: {MODELS}...")
 
+        # creating from predetermined config
+        if config is not None:
+            config_file = os.path.join(CONFIG["paths"]["configs_path"], config)
+            if not os.path.exists(config_file):
+                raise FileNotFoundError(f"Given config file {config_file} does not exist...")
+
+            with open(config_file) as file:
+                self = json.load(file)
+                self["_general"] = {}
+                self["_general"]["exp_path"] = exp_path
+            print_(f"Creating experiment parameters file from config {config}...")
+
+        # creating from defaults, given the model name
         for key in self._default_values.keys():
             if key == "model":
                 self[key] = self._get_model_dict(model_name)
@@ -32,6 +50,12 @@ class Config(dict):
                 self[key] = self._default_values[key]
         self["_general"] = {}
         self["_general"]["exp_path"] = exp_path
+        self["_general"]["created_time"] = timestamp()
+
+        # storing on experiment directory
+        exp_config = os.path.join(exp_path, "experiment_params.json")
+        with open(exp_config, "w") as file:
+            json.dump(self, file)
         return
 
     def _get_model_dict(self, model_name):
@@ -52,45 +76,16 @@ class Config(dict):
             model_params["model_name"] = model_name
         return model_params
 
-    def create_exp_config_file(self, exp_path=None, config=None):
-        """
-        Creating a JSON file with exp configs in the experiment path
-        """
-        exp_path = exp_path if exp_path is not None else self["_general"]["exp_path"]
-        if not os.path.exists(exp_path):
-            raise FileNotFoundError(f"ERROR!: exp_path {exp_path} does not exist...")
-
-        if config is not None:
-            config_file = os.path.join(CONFIG["paths"]["configs_path"], config)
-            if not os.path.exists(config_file):
-                raise FileNotFoundError(f"Given config file {config_file} does not exist...")
-
-            with open(config_file) as file:
-                self = json.load(file)
-                self["_general"] = {}
-                self["_general"]["exp_path"] = exp_path
-            print_(f"Creating experiment parameters file from config {config}...")
-
-        self["_general"]["created_time"] = timestamp()
-        self["_general"]["last_loaded"] = timestamp()
-        exp_config = os.path.join(exp_path, "experiment_params.json")
-        with open(exp_config, "w") as file:
-            json.dump(self, file)
-        return
-
     def load_exp_config_file(self, exp_path=None):
         """
         Loading the JSON file with exp configs
         """
-        if exp_path is not None:
-            self["_general"]["exp_path"] = exp_path
-        exp_config = os.path.join(self["_general"]["exp_path"], "experiment_params.json")
+        exp_config = os.path.join(exp_path, "experiment_params.json")
         if not os.path.exists(exp_config):
             raise FileNotFoundError(f"ERROR! exp. configs file {exp_config} does not exist...")
 
         with open(exp_config) as file:
             self = json.load(file)
-        self["_general"]["last_loaded"] = timestamp()
         return self
 
     def update_config(self, exp_params):
