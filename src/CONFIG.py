@@ -18,8 +18,11 @@ CONFIG = {
 
 
 # Supported datasets, models, metrics, and so on
-DATASETS = ["mnist"]
+DATASETS = ["SampleDataset"]
+AUGMENTATIONS = ["mirror", "noise", "color_jitter", "rotate", "scale"]
+
 MODELS = ["ConvNet"]
+
 LOSSES = ["mse", "l2", "mae", "l1", "cross_entropy", "ce"]
 METRICS = ["accuracy", "mse"]
 METRIC_SETS = {
@@ -31,9 +34,27 @@ METRIC_SETS = {
 # Specific configurations and default values
 DEFAULTS = {
     "dataset": {
-        "dataset_name": "mnist",
+        "dataset_name": "SampleDataset",
         "shuffle_train": True,
-        "shuffle_eval": False
+        "shuffle_eval": False,
+        "augment_params": {
+            "use_augments": ["mirror", "rotate", "noise"],
+            "mirror": {
+                "mirror_prob": 0.5,
+                "on_train": True,
+                "on_eval": False,
+            },
+            "rotate": {
+                "rotate_degrees": 20,
+                "on_train": True,
+                "on_eval": False,
+            },
+            "noise": {
+                "noise_std": 0.15,
+                "on_train": True,
+                "on_eval": False,
+            }
+        }
     },
     "model": {
         "model_name": "ConvNet",

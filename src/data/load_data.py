@@ -2,12 +2,14 @@
 Methods for loading specific datasets, fitting data loaders and other
 """
 
-from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+
+from lib.augmentations import Augmentator
+from data import SampleDataset
 from CONFIG import CONFIG, DATASETS
 
 
-def load_data(exp_params, split="train", transform=None):
+def load_data(exp_params, split="train"):
     """
     Loading a dataset given the parameters
 
@@ -17,8 +19,6 @@ def load_data(exp_params, split="train", transform=None):
         dict with the experiment specific parameters
     split: string
         Split from the dataset to obtain (e.g., 'train' or 'test')
-    transform: Torch Transforms
-        Compose of torchvision transforms to apply to the data
 
     Returns:
     --------
@@ -31,15 +31,16 @@ def load_data(exp_params, split="train", transform=None):
     if dataset_name not in DATASETS:
         raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
 
-    if(dataset_name == "mnist"):
-        train = (split == "train")
-        dataset = datasets.MNIST(
+    # setting up augmentations
+    augmentator = Augmentator(augment_params=exp_params["dataset"]["augment_params"])
+
+    # instanciating dataset
+    if(dataset_name == "SampleDataset"):
+        dataset = SampleDataset(
                 root=CONFIG["paths"]["data_path"],
-                train=train,
-                download=True,
-                transform=transforms.ToTensor()
+                split=split,
+                augmentator=augmentator
             )
-        dataset.in_channels = 3
     else:
         raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
 
