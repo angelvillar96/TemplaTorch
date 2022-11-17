@@ -122,7 +122,7 @@ class LRWarmUp:
 
     def __call__(self, iter, epoch, optimizer):
         """ Computing actual learning rate and updating optimizer """
-        if(iter > self.warmup_steps):
+        if(iter >= self.warmup_steps):
             if(self.active):
                 self.final_step = iter
                 self.active = False

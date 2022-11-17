@@ -21,8 +21,8 @@ class BaseEvaluator:
     def __init__(self, exp_path, checkpoint):
         """ Initializing the evaluator object """
         self.exp_path = exp_path
-        self.cfg = Config(exp_path)
-        self.exp_params = self.cfg.load_exp_config_file()
+        self.cfg = Config()
+        self.exp_params = self.cfg.load_exp_config_file(exp_path)
         self.checkpoint = checkpoint
 
         self.plots_path = os.path.join(self.exp_path, "plots")

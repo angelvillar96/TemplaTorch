@@ -224,6 +224,15 @@ class BaseTrainer:
         for i, (imgs, targets) in progress_bar:
             iter_ = len(self.train_loader) * epoch + i
 
+            # updating learning rate scheduler or lr-warmup
+            self.warmup_scheduler(
+                    iter=iter_,
+                    epoch=epoch,
+                    exp_params=self.exp_params,
+                    end_epoch=False,
+                    control_metric=self.validation_losses[-1]
+                )
+
             # forward pass
             _, loss = self.forward_loss_metric(
                     imgs=imgs,

@@ -1,542 +1,325 @@
 
 
 
-2022-08-11-10:54:27    NEW_EXP: Starting training procedure
-2022-08-11-10:54:27    INFO: Using git sha: 5c0c0d043c5d74daa87a1adfcac87e78279a9677
-2022-08-11-10:54:27    INFO: Calling: __init__...
-2022-08-11-10:54:27    INFO: Calling: create_directory...
-2022-08-11-10:54:27    INFO: Calling: create_directory...
-2022-08-11-10:54:27    INFO: Calling: create_directory...
-2022-08-11-10:54:27    INFO: Calling: load_data...
-2022-08-11-10:54:27    INFO:   --> Length training set: 60000
-2022-08-11-10:54:27    INFO:   --> Num. Batches train: 938
-2022-08-11-10:54:27    INFO:   --> Length validation set: 10000
-2022-08-11-10:54:27    INFO:   --> Num. Batches validation: 157
-2022-08-11-10:54:27    INFO: Calling: setup_model...
-2022-08-11-10:54:27    INFO: Calling: setup_model...
-2022-08-11-10:54:27    INFO: Calling: log_architecture...
-2022-08-11-10:54:29    INFO: Calling: setup_optimization...
-2022-08-11-10:54:29    INFO: Using the Adam optimizer
-2022-08-11-10:54:29    INFO:   --> Learning rate: 0.0003
-2022-08-11-10:54:29    INFO: Setting up Step LR-Scheduler
-2022-08-11-10:54:29    INFO:   --> Step Size: 12
-2022-08-11-10:54:29    INFO:   --> Factor:    0.3333
-2022-08-11-10:54:29    INFO: Calling: setup_lr_warmup...
-2022-08-11-10:54:29    INFO: Not using learning rate warmup...
-2022-08-11-10:54:29    INFO: Setting up Early Stopping
-2022-08-11-10:54:29    INFO:   --> Patience 10
-2022-08-11-10:54:29    INFO:   --> Mode min
-2022-08-11-10:54:29    INFO: Calling: try_call_except...
-2022-08-11-10:54:29    INFO: Epoch 0/50
-2022-08-11-10:54:29    INFO: Calling: valid_epoch...
-2022-08-11-10:54:30    INFO: LOSS VALUES:
-2022-08-11-10:54:30    INFO: --------
-2022-08-11-10:54:30    INFO:   cross_entropy:  2.30752
-2022-08-11-10:54:30    INFO:   _total:  2.30752
-2022-08-11-10:54:30    INFO: RESULTS:
-2022-08-11-10:54:30    INFO: --------
-2022-08-11-10:54:30    INFO:   accuracy:  0.096
-2022-08-11-10:54:30    INFO: Calling: train_epoch...
-2022-08-11-10:54:38    INFO: LOSS VALUES:
-2022-08-11-10:54:38    INFO: --------
-2022-08-11-10:54:38    INFO:   cross_entropy:  0.45059
-2022-08-11-10:54:38    INFO:   _total:  0.45059
-2022-08-11-10:54:38    INFO: RESULTS:
-2022-08-11-10:54:38    INFO: --------
-2022-08-11-10:54:38    INFO:   accuracy:  0.912
-2022-08-11-10:54:38    INFO: Finished learning rate warmup period:
-2022-08-11-10:54:38    INFO:   --> Reached epoch 0 >= -1
-2022-08-11-10:54:38    INFO:   --> Reached at iter -1
-2022-08-11-10:54:38    INFO: Calling: save_checkpoint...
-2022-08-11-10:54:38    INFO: Calling: create_directory...
-2022-08-11-10:54:38    INFO: Epoch 1/50
-2022-08-11-10:54:38    INFO: Calling: valid_epoch...
-2022-08-11-10:54:39    INFO: LOSS VALUES:
-2022-08-11-10:54:39    INFO: --------
-2022-08-11-10:54:39    INFO:   cross_entropy:  0.14193
-2022-08-11-10:54:39    INFO:   _total:  0.14193
-2022-08-11-10:54:39    INFO: RESULTS:
-2022-08-11-10:54:39    INFO: --------
-2022-08-11-10:54:39    INFO:   accuracy:  0.97
-2022-08-11-10:54:39    INFO: Calling: train_epoch...
-2022-08-11-10:54:46    INFO: LOSS VALUES:
-2022-08-11-10:54:46    INFO: --------
-2022-08-11-10:54:46    INFO:   cross_entropy:  0.1164
-2022-08-11-10:54:46    INFO:   _total:  0.1164
-2022-08-11-10:54:46    INFO: RESULTS:
-2022-08-11-10:54:46    INFO: --------
-2022-08-11-10:54:46    INFO:   accuracy:  0.974
-2022-08-11-10:54:46    INFO: Calling: save_checkpoint...
-2022-08-11-10:54:46    INFO: Calling: create_directory...
-2022-08-11-10:54:46    INFO: Epoch 2/50
-2022-08-11-10:54:46    INFO: Calling: valid_epoch...
-2022-08-11-10:54:47    INFO: LOSS VALUES:
-2022-08-11-10:54:47    INFO: --------
-2022-08-11-10:54:47    INFO:   cross_entropy:  0.11473
-2022-08-11-10:54:47    INFO:   _total:  0.11473
-2022-08-11-10:54:47    INFO: RESULTS:
-2022-08-11-10:54:47    INFO: --------
-2022-08-11-10:54:47    INFO:   accuracy:  0.97
-2022-08-11-10:54:47    INFO: Calling: train_epoch...
-2022-08-11-10:54:54    INFO: LOSS VALUES:
-2022-08-11-10:54:54    INFO: --------
-2022-08-11-10:54:54    INFO:   cross_entropy:  0.07646
-2022-08-11-10:54:54    INFO:   _total:  0.07646
-2022-08-11-10:54:54    INFO: RESULTS:
-2022-08-11-10:54:54    INFO: --------
-2022-08-11-10:54:54    INFO:   accuracy:  0.982
-2022-08-11-10:54:54    INFO: Calling: save_checkpoint...
-2022-08-11-10:54:54    INFO: Calling: create_directory...
-2022-08-11-10:54:54    INFO: Epoch 3/50
-2022-08-11-10:54:54    INFO: Calling: valid_epoch...
-2022-08-11-10:54:55    INFO: LOSS VALUES:
-2022-08-11-10:54:55    INFO: --------
-2022-08-11-10:54:55    INFO:   cross_entropy:  0.07634
-2022-08-11-10:54:55    INFO:   _total:  0.07634
-2022-08-11-10:54:55    INFO: RESULTS:
-2022-08-11-10:54:55    INFO: --------
-2022-08-11-10:54:55    INFO:   accuracy:  0.982
-2022-08-11-10:54:55    INFO: Calling: train_epoch...
-2022-08-11-10:55:03    INFO: LOSS VALUES:
-2022-08-11-10:55:03    INFO: --------
-2022-08-11-10:55:03    INFO:   cross_entropy:  0.05724
-2022-08-11-10:55:03    INFO:   _total:  0.05724
-2022-08-11-10:55:03    INFO: RESULTS:
-2022-08-11-10:55:03    INFO: --------
-2022-08-11-10:55:03    INFO:   accuracy:  0.986
-2022-08-11-10:55:03    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:03    INFO: Calling: create_directory...
-2022-08-11-10:55:03    INFO: Epoch 4/50
-2022-08-11-10:55:03    INFO: Calling: valid_epoch...
-2022-08-11-10:55:04    INFO: LOSS VALUES:
-2022-08-11-10:55:04    INFO: --------
-2022-08-11-10:55:04    INFO:   cross_entropy:  0.06594
-2022-08-11-10:55:04    INFO:   _total:  0.06594
-2022-08-11-10:55:04    INFO: RESULTS:
-2022-08-11-10:55:04    INFO: --------
-2022-08-11-10:55:04    INFO:   accuracy:  0.982
-2022-08-11-10:55:04    INFO: Calling: train_epoch...
-2022-08-11-10:55:11    INFO: LOSS VALUES:
-2022-08-11-10:55:11    INFO: --------
-2022-08-11-10:55:11    INFO:   cross_entropy:  0.04665
-2022-08-11-10:55:11    INFO:   _total:  0.04665
-2022-08-11-10:55:11    INFO: RESULTS:
-2022-08-11-10:55:11    INFO: --------
-2022-08-11-10:55:11    INFO:   accuracy:  0.988
-2022-08-11-10:55:11    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:11    INFO: Calling: create_directory...
-2022-08-11-10:55:11    INFO: Epoch 5/50
-2022-08-11-10:55:11    INFO: Calling: valid_epoch...
-2022-08-11-10:55:12    INFO: LOSS VALUES:
-2022-08-11-10:55:12    INFO: --------
-2022-08-11-10:55:12    INFO:   cross_entropy:  0.07542
-2022-08-11-10:55:12    INFO:   _total:  0.07542
-2022-08-11-10:55:12    INFO: RESULTS:
-2022-08-11-10:55:12    INFO: --------
-2022-08-11-10:55:12    INFO:   accuracy:  0.978
-2022-08-11-10:55:12    INFO: Calling: train_epoch...
-2022-08-11-10:55:19    INFO: LOSS VALUES:
-2022-08-11-10:55:19    INFO: --------
-2022-08-11-10:55:19    INFO:   cross_entropy:  0.03821
-2022-08-11-10:55:19    INFO:   _total:  0.03821
-2022-08-11-10:55:19    INFO: RESULTS:
-2022-08-11-10:55:19    INFO: --------
-2022-08-11-10:55:19    INFO:   accuracy:  0.99
-2022-08-11-10:55:19    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:19    INFO: Calling: create_directory...
-2022-08-11-10:55:19    INFO: Saving model checkpoint
-2022-08-11-10:55:19    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:19    INFO: Calling: create_directory...
-2022-08-11-10:55:19    INFO: Epoch 6/50
-2022-08-11-10:55:19    INFO: Calling: valid_epoch...
-2022-08-11-10:55:20    INFO: LOSS VALUES:
-2022-08-11-10:55:20    INFO: --------
-2022-08-11-10:55:20    INFO:   cross_entropy:  0.05615
-2022-08-11-10:55:20    INFO:   _total:  0.05615
-2022-08-11-10:55:20    INFO: RESULTS:
-2022-08-11-10:55:20    INFO: --------
-2022-08-11-10:55:20    INFO:   accuracy:  0.983
-2022-08-11-10:55:20    INFO: Calling: train_epoch...
-2022-08-11-10:55:28    INFO: LOSS VALUES:
-2022-08-11-10:55:28    INFO: --------
-2022-08-11-10:55:28    INFO:   cross_entropy:  0.03278
-2022-08-11-10:55:28    INFO:   _total:  0.03278
-2022-08-11-10:55:28    INFO: RESULTS:
-2022-08-11-10:55:28    INFO: --------
-2022-08-11-10:55:28    INFO:   accuracy:  0.992
-2022-08-11-10:55:28    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:28    INFO: Calling: create_directory...
-2022-08-11-10:55:28    INFO: Epoch 7/50
-2022-08-11-10:55:28    INFO: Calling: valid_epoch...
-2022-08-11-10:55:29    INFO: LOSS VALUES:
-2022-08-11-10:55:29    INFO: --------
-2022-08-11-10:55:29    INFO:   cross_entropy:  0.06704
-2022-08-11-10:55:29    INFO:   _total:  0.06704
-2022-08-11-10:55:29    INFO: RESULTS:
-2022-08-11-10:55:29    INFO: --------
-2022-08-11-10:55:29    INFO:   accuracy:  0.978
-2022-08-11-10:55:29    INFO: Calling: train_epoch...
-2022-08-11-10:55:36    INFO: LOSS VALUES:
-2022-08-11-10:55:36    INFO: --------
-2022-08-11-10:55:36    INFO:   cross_entropy:  0.0286
-2022-08-11-10:55:36    INFO:   _total:  0.0286
-2022-08-11-10:55:36    INFO: RESULTS:
-2022-08-11-10:55:36    INFO: --------
-2022-08-11-10:55:36    INFO:   accuracy:  0.993
-2022-08-11-10:55:36    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:36    INFO: Calling: create_directory...
-2022-08-11-10:55:36    INFO: Epoch 8/50
-2022-08-11-10:55:36    INFO: Calling: valid_epoch...
-2022-08-11-10:55:37    INFO: LOSS VALUES:
-2022-08-11-10:55:37    INFO: --------
-2022-08-11-10:55:37    INFO:   cross_entropy:  0.06683
-2022-08-11-10:55:37    INFO:   _total:  0.06683
-2022-08-11-10:55:37    INFO: RESULTS:
-2022-08-11-10:55:37    INFO: --------
-2022-08-11-10:55:37    INFO:   accuracy:  0.979
-2022-08-11-10:55:37    INFO: Calling: train_epoch...
-2022-08-11-10:55:44    INFO: LOSS VALUES:
-2022-08-11-10:55:44    INFO: --------
-2022-08-11-10:55:44    INFO:   cross_entropy:  0.02382
-2022-08-11-10:55:44    INFO:   _total:  0.02382
-2022-08-11-10:55:44    INFO: RESULTS:
-2022-08-11-10:55:44    INFO: --------
-2022-08-11-10:55:44    INFO:   accuracy:  0.994
-2022-08-11-10:55:44    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:44    INFO: Calling: create_directory...
-2022-08-11-10:55:44    INFO: Epoch 9/50
-2022-08-11-10:55:44    INFO: Calling: valid_epoch...
-2022-08-11-10:55:45    INFO: LOSS VALUES:
-2022-08-11-10:55:45    INFO: --------
-2022-08-11-10:55:45    INFO:   cross_entropy:  0.04524
-2022-08-11-10:55:45    INFO:   _total:  0.04524
-2022-08-11-10:55:45    INFO: RESULTS:
-2022-08-11-10:55:45    INFO: --------
-2022-08-11-10:55:45    INFO:   accuracy:  0.986
-2022-08-11-10:55:45    INFO: Calling: train_epoch...
-2022-08-11-10:55:53    INFO: LOSS VALUES:
-2022-08-11-10:55:53    INFO: --------
-2022-08-11-10:55:53    INFO:   cross_entropy:  0.02044
-2022-08-11-10:55:53    INFO:   _total:  0.02044
-2022-08-11-10:55:53    INFO: RESULTS:
-2022-08-11-10:55:53    INFO: --------
-2022-08-11-10:55:53    INFO:   accuracy:  0.995
-2022-08-11-10:55:53    INFO: Calling: save_checkpoint...
-2022-08-11-10:55:53    INFO: Calling: create_directory...
-2022-08-11-10:55:53    INFO: Epoch 10/50
-2022-08-11-10:55:53    INFO: Calling: valid_epoch...
-2022-08-11-10:55:54    INFO: LOSS VALUES:
-2022-08-11-10:55:54    INFO: --------
-2022-08-11-10:55:54    INFO:   cross_entropy:  0.03691
-2022-08-11-10:55:54    INFO:   _total:  0.03691
-2022-08-11-10:55:54    INFO: RESULTS:
-2022-08-11-10:55:54    INFO: --------
-2022-08-11-10:55:54    INFO:   accuracy:  0.99
-2022-08-11-10:55:54    INFO: Calling: train_epoch...
-2022-08-11-10:56:01    INFO: LOSS VALUES:
-2022-08-11-10:56:01    INFO: --------
-2022-08-11-10:56:01    INFO:   cross_entropy:  0.01843
-2022-08-11-10:56:01    INFO:   _total:  0.01843
-2022-08-11-10:56:01    INFO: RESULTS:
-2022-08-11-10:56:01    INFO: --------
-2022-08-11-10:56:01    INFO:   accuracy:  0.996
-2022-08-11-10:56:01    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:01    INFO: Calling: create_directory...
-2022-08-11-10:56:01    INFO: Saving model checkpoint
-2022-08-11-10:56:01    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:01    INFO: Calling: create_directory...
-2022-08-11-10:56:01    INFO: Epoch 11/50
-2022-08-11-10:56:01    INFO: Calling: valid_epoch...
-2022-08-11-10:56:02    INFO: LOSS VALUES:
-2022-08-11-10:56:02    INFO: --------
-2022-08-11-10:56:02    INFO:   cross_entropy:  0.04103
-2022-08-11-10:56:02    INFO:   _total:  0.04103
-2022-08-11-10:56:02    INFO: RESULTS:
-2022-08-11-10:56:02    INFO: --------
-2022-08-11-10:56:02    INFO:   accuracy:  0.987
-2022-08-11-10:56:02    INFO: Calling: train_epoch...
-2022-08-11-10:56:09    INFO: LOSS VALUES:
-2022-08-11-10:56:09    INFO: --------
-2022-08-11-10:56:09    INFO:   cross_entropy:  0.0162
-2022-08-11-10:56:09    INFO:   _total:  0.0162
-2022-08-11-10:56:09    INFO: RESULTS:
-2022-08-11-10:56:09    INFO: --------
-2022-08-11-10:56:09    INFO:   accuracy:  0.997
-2022-08-11-10:56:09    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:09    INFO: Calling: create_directory...
-2022-08-11-10:56:09    INFO: Epoch 12/50
-2022-08-11-10:56:09    INFO: Calling: valid_epoch...
-2022-08-11-10:56:10    INFO: LOSS VALUES:
-2022-08-11-10:56:10    INFO: --------
-2022-08-11-10:56:10    INFO:   cross_entropy:  0.03423
-2022-08-11-10:56:10    INFO:   _total:  0.03423
-2022-08-11-10:56:10    INFO: RESULTS:
-2022-08-11-10:56:10    INFO: --------
-2022-08-11-10:56:10    INFO:   accuracy:  0.989
-2022-08-11-10:56:10    INFO: Calling: train_epoch...
-2022-08-11-10:56:18    INFO: LOSS VALUES:
-2022-08-11-10:56:18    INFO: --------
-2022-08-11-10:56:18    INFO:   cross_entropy:  0.01375
-2022-08-11-10:56:18    INFO:   _total:  0.01375
-2022-08-11-10:56:18    INFO: RESULTS:
-2022-08-11-10:56:18    INFO: --------
-2022-08-11-10:56:18    INFO:   accuracy:  0.997
-2022-08-11-10:56:18    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:18    INFO: Calling: create_directory...
-2022-08-11-10:56:18    INFO: Epoch 13/50
-2022-08-11-10:56:18    INFO: Calling: valid_epoch...
-2022-08-11-10:56:18    INFO: LOSS VALUES:
-2022-08-11-10:56:18    INFO: --------
-2022-08-11-10:56:18    INFO:   cross_entropy:  0.05276
-2022-08-11-10:56:18    INFO:   _total:  0.05276
-2022-08-11-10:56:18    INFO: RESULTS:
-2022-08-11-10:56:18    INFO: --------
-2022-08-11-10:56:18    INFO:   accuracy:  0.982
-2022-08-11-10:56:18    INFO: Calling: train_epoch...
-2022-08-11-10:56:26    INFO: LOSS VALUES:
-2022-08-11-10:56:26    INFO: --------
-2022-08-11-10:56:26    INFO:   cross_entropy:  0.00768
-2022-08-11-10:56:26    INFO:   _total:  0.00768
-2022-08-11-10:56:26    INFO: RESULTS:
-2022-08-11-10:56:26    INFO: --------
-2022-08-11-10:56:26    INFO:   accuracy:  0.999
-2022-08-11-10:56:26    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:26    INFO: Calling: create_directory...
-2022-08-11-10:56:26    INFO: Epoch 14/50
-2022-08-11-10:56:26    INFO: Calling: valid_epoch...
-2022-08-11-10:56:27    INFO: LOSS VALUES:
-2022-08-11-10:56:27    INFO: --------
-2022-08-11-10:56:27    INFO:   cross_entropy:  0.02801
-2022-08-11-10:56:27    INFO:   _total:  0.02801
-2022-08-11-10:56:27    INFO: RESULTS:
-2022-08-11-10:56:27    INFO: --------
-2022-08-11-10:56:27    INFO:   accuracy:  0.991
-2022-08-11-10:56:27    INFO: Calling: train_epoch...
-2022-08-11-10:56:34    INFO: LOSS VALUES:
-2022-08-11-10:56:34    INFO: --------
-2022-08-11-10:56:34    INFO:   cross_entropy:  0.00576
-2022-08-11-10:56:34    INFO:   _total:  0.00576
-2022-08-11-10:56:34    INFO: RESULTS:
-2022-08-11-10:56:34    INFO: --------
-2022-08-11-10:56:34    INFO:   accuracy:  1.0
-2022-08-11-10:56:34    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:34    INFO: Calling: create_directory...
-2022-08-11-10:56:34    INFO: Epoch 15/50
-2022-08-11-10:56:34    INFO: Calling: valid_epoch...
-2022-08-11-10:56:35    INFO: LOSS VALUES:
-2022-08-11-10:56:35    INFO: --------
-2022-08-11-10:56:35    INFO:   cross_entropy:  0.02717
-2022-08-11-10:56:35    INFO:   _total:  0.02717
-2022-08-11-10:56:35    INFO: RESULTS:
-2022-08-11-10:56:35    INFO: --------
-2022-08-11-10:56:35    INFO:   accuracy:  0.991
-2022-08-11-10:56:35    INFO: Calling: train_epoch...
-2022-08-11-10:56:43    INFO: LOSS VALUES:
-2022-08-11-10:56:43    INFO: --------
-2022-08-11-10:56:43    INFO:   cross_entropy:  0.00523
-2022-08-11-10:56:43    INFO:   _total:  0.00523
-2022-08-11-10:56:43    INFO: RESULTS:
-2022-08-11-10:56:43    INFO: --------
-2022-08-11-10:56:43    INFO:   accuracy:  1.0
-2022-08-11-10:56:43    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:43    INFO: Calling: create_directory...
-2022-08-11-10:56:43    INFO: Saving model checkpoint
-2022-08-11-10:56:43    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:43    INFO: Calling: create_directory...
-2022-08-11-10:56:43    INFO: Epoch 16/50
-2022-08-11-10:56:43    INFO: Calling: valid_epoch...
-2022-08-11-10:56:43    INFO: LOSS VALUES:
-2022-08-11-10:56:43    INFO: --------
-2022-08-11-10:56:43    INFO:   cross_entropy:  0.032
-2022-08-11-10:56:43    INFO:   _total:  0.032
-2022-08-11-10:56:43    INFO: RESULTS:
-2022-08-11-10:56:43    INFO: --------
-2022-08-11-10:56:43    INFO:   accuracy:  0.989
-2022-08-11-10:56:43    INFO: Calling: train_epoch...
-2022-08-11-10:56:51    INFO: LOSS VALUES:
-2022-08-11-10:56:51    INFO: --------
-2022-08-11-10:56:51    INFO:   cross_entropy:  0.00485
-2022-08-11-10:56:51    INFO:   _total:  0.00485
-2022-08-11-10:56:51    INFO: RESULTS:
-2022-08-11-10:56:51    INFO: --------
-2022-08-11-10:56:51    INFO:   accuracy:  1.0
-2022-08-11-10:56:51    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:51    INFO: Calling: create_directory...
-2022-08-11-10:56:51    INFO: Epoch 17/50
-2022-08-11-10:56:51    INFO: Calling: valid_epoch...
-2022-08-11-10:56:52    INFO: LOSS VALUES:
-2022-08-11-10:56:52    INFO: --------
-2022-08-11-10:56:52    INFO:   cross_entropy:  0.02951
-2022-08-11-10:56:52    INFO:   _total:  0.02951
-2022-08-11-10:56:52    INFO: RESULTS:
-2022-08-11-10:56:52    INFO: --------
-2022-08-11-10:56:52    INFO:   accuracy:  0.991
-2022-08-11-10:56:52    INFO: Calling: train_epoch...
-2022-08-11-10:56:59    INFO: LOSS VALUES:
-2022-08-11-10:56:59    INFO: --------
-2022-08-11-10:56:59    INFO:   cross_entropy:  0.00463
-2022-08-11-10:56:59    INFO:   _total:  0.00463
-2022-08-11-10:56:59    INFO: RESULTS:
-2022-08-11-10:56:59    INFO: --------
-2022-08-11-10:56:59    INFO:   accuracy:  1.0
-2022-08-11-10:56:59    INFO: Calling: save_checkpoint...
-2022-08-11-10:56:59    INFO: Calling: create_directory...
-2022-08-11-10:56:59    INFO: Epoch 18/50
-2022-08-11-10:56:59    INFO: Calling: valid_epoch...
-2022-08-11-10:57:00    INFO: LOSS VALUES:
-2022-08-11-10:57:00    INFO: --------
-2022-08-11-10:57:00    INFO:   cross_entropy:  0.02919
-2022-08-11-10:57:00    INFO:   _total:  0.02919
-2022-08-11-10:57:00    INFO: RESULTS:
-2022-08-11-10:57:00    INFO: --------
-2022-08-11-10:57:00    INFO:   accuracy:  0.992
-2022-08-11-10:57:00    INFO: Calling: train_epoch...
-2022-08-11-10:57:08    INFO: LOSS VALUES:
-2022-08-11-10:57:08    INFO: --------
-2022-08-11-10:57:08    INFO:   cross_entropy:  0.00392
-2022-08-11-10:57:08    INFO:   _total:  0.00392
-2022-08-11-10:57:08    INFO: RESULTS:
-2022-08-11-10:57:08    INFO: --------
-2022-08-11-10:57:08    INFO:   accuracy:  1.0
-2022-08-11-10:57:08    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:08    INFO: Calling: create_directory...
-2022-08-11-10:57:08    INFO: Epoch 19/50
-2022-08-11-10:57:08    INFO: Calling: valid_epoch...
-2022-08-11-10:57:09    INFO: LOSS VALUES:
-2022-08-11-10:57:09    INFO: --------
-2022-08-11-10:57:09    INFO:   cross_entropy:  0.03058
-2022-08-11-10:57:09    INFO:   _total:  0.03058
-2022-08-11-10:57:09    INFO: RESULTS:
-2022-08-11-10:57:09    INFO: --------
-2022-08-11-10:57:09    INFO:   accuracy:  0.991
-2022-08-11-10:57:09    INFO: Calling: train_epoch...
-2022-08-11-10:57:16    INFO: LOSS VALUES:
-2022-08-11-10:57:16    INFO: --------
-2022-08-11-10:57:16    INFO:   cross_entropy:  0.00369
-2022-08-11-10:57:16    INFO:   _total:  0.00369
-2022-08-11-10:57:16    INFO: RESULTS:
-2022-08-11-10:57:16    INFO: --------
-2022-08-11-10:57:16    INFO:   accuracy:  1.0
-2022-08-11-10:57:16    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:16    INFO: Calling: create_directory...
-2022-08-11-10:57:16    INFO: Epoch 20/50
-2022-08-11-10:57:16    INFO: Calling: valid_epoch...
-2022-08-11-10:57:17    INFO: LOSS VALUES:
-2022-08-11-10:57:17    INFO: --------
-2022-08-11-10:57:17    INFO:   cross_entropy:  0.03359
-2022-08-11-10:57:17    INFO:   _total:  0.03359
-2022-08-11-10:57:17    INFO: RESULTS:
-2022-08-11-10:57:17    INFO: --------
-2022-08-11-10:57:17    INFO:   accuracy:  0.989
-2022-08-11-10:57:17    INFO: Calling: train_epoch...
-2022-08-11-10:57:24    INFO: LOSS VALUES:
-2022-08-11-10:57:24    INFO: --------
-2022-08-11-10:57:24    INFO:   cross_entropy:  0.00333
-2022-08-11-10:57:24    INFO:   _total:  0.00333
-2022-08-11-10:57:24    INFO: RESULTS:
-2022-08-11-10:57:24    INFO: --------
-2022-08-11-10:57:24    INFO:   accuracy:  1.0
-2022-08-11-10:57:24    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:24    INFO: Calling: create_directory...
-2022-08-11-10:57:24    INFO: Saving model checkpoint
-2022-08-11-10:57:24    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:24    INFO: Calling: create_directory...
-2022-08-11-10:57:24    INFO: Epoch 21/50
-2022-08-11-10:57:24    INFO: Calling: valid_epoch...
-2022-08-11-10:57:25    INFO: LOSS VALUES:
-2022-08-11-10:57:25    INFO: --------
-2022-08-11-10:57:25    INFO:   cross_entropy:  0.03737
-2022-08-11-10:57:25    INFO:   _total:  0.03737
-2022-08-11-10:57:25    INFO: RESULTS:
-2022-08-11-10:57:25    INFO: --------
-2022-08-11-10:57:25    INFO:   accuracy:  0.988
-2022-08-11-10:57:25    INFO: Calling: train_epoch...
-2022-08-11-10:57:33    INFO: LOSS VALUES:
-2022-08-11-10:57:33    INFO: --------
-2022-08-11-10:57:33    INFO:   cross_entropy:  0.00284
-2022-08-11-10:57:33    INFO:   _total:  0.00284
-2022-08-11-10:57:33    INFO: RESULTS:
-2022-08-11-10:57:33    INFO: --------
-2022-08-11-10:57:33    INFO:   accuracy:  1.0
-2022-08-11-10:57:33    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:33    INFO: Calling: create_directory...
-2022-08-11-10:57:33    INFO: Epoch 22/50
-2022-08-11-10:57:33    INFO: Calling: valid_epoch...
-2022-08-11-10:57:34    INFO: LOSS VALUES:
-2022-08-11-10:57:34    INFO: --------
-2022-08-11-10:57:34    INFO:   cross_entropy:  0.02918
-2022-08-11-10:57:34    INFO:   _total:  0.02918
-2022-08-11-10:57:34    INFO: RESULTS:
-2022-08-11-10:57:34    INFO: --------
-2022-08-11-10:57:34    INFO:   accuracy:  0.991
-2022-08-11-10:57:34    INFO: Calling: train_epoch...
-2022-08-11-10:57:41    INFO: LOSS VALUES:
-2022-08-11-10:57:41    INFO: --------
-2022-08-11-10:57:41    INFO:   cross_entropy:  0.00266
-2022-08-11-10:57:41    INFO:   _total:  0.00266
-2022-08-11-10:57:41    INFO: RESULTS:
-2022-08-11-10:57:41    INFO: --------
-2022-08-11-10:57:41    INFO:   accuracy:  1.0
-2022-08-11-10:57:41    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:41    INFO: Calling: create_directory...
-2022-08-11-10:57:41    INFO: Epoch 23/50
-2022-08-11-10:57:41    INFO: Calling: valid_epoch...
-2022-08-11-10:57:42    INFO: LOSS VALUES:
-2022-08-11-10:57:42    INFO: --------
-2022-08-11-10:57:42    INFO:   cross_entropy:  0.02906
-2022-08-11-10:57:42    INFO:   _total:  0.02906
-2022-08-11-10:57:42    INFO: RESULTS:
-2022-08-11-10:57:42    INFO: --------
-2022-08-11-10:57:42    INFO:   accuracy:  0.99
-2022-08-11-10:57:42    INFO: Calling: train_epoch...
-2022-08-11-10:57:49    INFO: LOSS VALUES:
-2022-08-11-10:57:49    INFO: --------
-2022-08-11-10:57:49    INFO:   cross_entropy:  0.00229
-2022-08-11-10:57:49    INFO:   _total:  0.00229
-2022-08-11-10:57:49    INFO: RESULTS:
-2022-08-11-10:57:49    INFO: --------
-2022-08-11-10:57:49    INFO:   accuracy:  1.0
-2022-08-11-10:57:49    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:49    INFO: Calling: create_directory...
-2022-08-11-10:57:49    INFO: Epoch 24/50
-2022-08-11-10:57:49    INFO: Calling: valid_epoch...
-2022-08-11-10:57:50    INFO: LOSS VALUES:
-2022-08-11-10:57:50    INFO: --------
-2022-08-11-10:57:50    INFO:   cross_entropy:  0.03223
-2022-08-11-10:57:50    INFO:   _total:  0.03223
-2022-08-11-10:57:50    INFO: RESULTS:
-2022-08-11-10:57:50    INFO: --------
-2022-08-11-10:57:50    INFO:   accuracy:  0.991
-2022-08-11-10:57:50    INFO: Calling: train_epoch...
-2022-08-11-10:57:58    INFO: LOSS VALUES:
-2022-08-11-10:57:58    INFO: --------
-2022-08-11-10:57:58    INFO:   cross_entropy:  0.00225
-2022-08-11-10:57:58    INFO:   _total:  0.00225
-2022-08-11-10:57:58    INFO: RESULTS:
-2022-08-11-10:57:58    INFO: --------
-2022-08-11-10:57:58    INFO:   accuracy:  1.0
-2022-08-11-10:57:58    INFO: Calling: save_checkpoint...
-2022-08-11-10:57:58    INFO: Calling: create_directory...
-2022-08-11-10:57:58    INFO: Epoch 25/50
-2022-08-11-10:57:58    INFO: Calling: valid_epoch...
-2022-08-11-10:57:59    INFO: LOSS VALUES:
-2022-08-11-10:57:59    INFO: --------
-2022-08-11-10:57:59    INFO:   cross_entropy:  0.03065
-2022-08-11-10:57:59    INFO:   _total:  0.03065
-2022-08-11-10:57:59    INFO: RESULTS:
-2022-08-11-10:57:59    INFO: --------
-2022-08-11-10:57:59    INFO:   accuracy:  0.99
-2022-08-11-10:57:59    INFO: Calling: train_epoch...
-2022-08-11-10:58:06    INFO: LOSS VALUES:
-2022-08-11-10:58:06    INFO: --------
-2022-08-11-10:58:06    INFO:   cross_entropy:  0.00145
-2022-08-11-10:58:06    INFO:   _total:  0.00145
-2022-08-11-10:58:06    INFO: RESULTS:
-2022-08-11-10:58:06    INFO: --------
-2022-08-11-10:58:06    INFO:   accuracy:  1.0
-2022-08-11-10:58:06    INFO: It has been 10 epochs without improvement
-2022-08-11-10:58:06    INFO:   --> Trigering early stopping
-2022-08-11-10:58:06    INFO: Finished training procedure
-2022-08-11-10:58:06    INFO: Saving final checkpoint
-2022-08-11-10:58:06    INFO: Calling: save_checkpoint...
-2022-08-11-10:58:06    INFO: Calling: create_directory...
+2022-11-17-12:40:14    NEW_EXP: Starting training procedure
+2022-11-17-12:40:14    INFO: Using git sha: ec6b7e5d397cfd82e755f41768bf7e9f2255ecf3
+2022-11-17-12:40:14    INFO: Calling: __init__...
+2022-11-17-12:40:14    INFO: Calling: create_directory...
+2022-11-17-12:40:14    INFO: Calling: create_directory...
+2022-11-17-12:40:14    INFO: Calling: create_directory...
+2022-11-17-12:40:14    INFO: Calling: load_data...
+2022-11-17-12:40:14    INFO:   --> Length training set: 60000
+2022-11-17-12:40:14    INFO:   --> Num. Batches train: 469
+2022-11-17-12:40:14    INFO:   --> Length validation set: 10000
+2022-11-17-12:40:14    INFO:   --> Num. Batches validation: 79
+2022-11-17-12:40:14    INFO: Calling: setup_model...
+2022-11-17-12:40:14    INFO: Calling: setup_model...
+2022-11-17-12:40:14    INFO: Calling: log_architecture...
+2022-11-17-12:40:16    INFO: Calling: setup_optimization...
+2022-11-17-12:40:16    INFO: Using the Adam optimizer
+2022-11-17-12:40:16    INFO:   --> Learning rate: 0.001
+2022-11-17-12:40:16    INFO: Setting up Exponential LR-Scheduler
+2022-11-17-12:40:16    INFO:   --> Init LR: 0.001
+2022-11-17-12:40:16    INFO:   --> Factor:  0.5
+2022-11-17-12:40:16    INFO: Calling: setup_lr_warmup...
+2022-11-17-12:40:16    INFO: Setting up learning rate warmup:
+2022-11-17-12:40:16    INFO:   Target LR:     0.001
+2022-11-17-12:40:16    INFO:   Warmup Steps:  2000
+2022-11-17-12:40:16    INFO:   Warmup Epochs: 2
+2022-11-17-12:40:16    INFO: Setting up Early Stopping
+2022-11-17-12:40:16    INFO:   --> Patience 10
+2022-11-17-12:40:16    INFO:   --> Mode min
+2022-11-17-12:40:16    INFO: Calling: try_call_except...
+2022-11-17-12:40:16    INFO: Epoch 0/100
+2022-11-17-12:40:16    INFO: Calling: eval...
+2022-11-17-12:40:16    INFO: Calling: valid_epoch...
+2022-11-17-12:40:17    INFO: LOSS VALUES:
+2022-11-17-12:40:17    INFO: --------
+2022-11-17-12:40:17    INFO:   cross_entropy:  2.30778
+2022-11-17-12:40:17    INFO:   _total:  2.30778
+2022-11-17-12:40:17    INFO: RESULTS:
+2022-11-17-12:40:17    INFO: --------
+2022-11-17-12:40:17    INFO:   accuracy:  0.101
+2022-11-17-12:40:17    INFO: Calling: train...
+2022-11-17-12:40:17    INFO: Calling: train_epoch...
+2022-11-17-12:40:34    INFO: LOSS VALUES:
+2022-11-17-12:40:34    INFO: --------
+2022-11-17-12:40:34    INFO:   cross_entropy:  0.40035
+2022-11-17-12:40:34    INFO:   _total:  0.40035
+2022-11-17-12:40:34    INFO: RESULTS:
+2022-11-17-12:40:34    INFO: --------
+2022-11-17-12:40:34    INFO:   accuracy:  0.91
+2022-11-17-12:40:34    INFO: Calling: save_checkpoint...
+2022-11-17-12:40:34    INFO: Calling: create_directory...
+2022-11-17-12:40:34    INFO: Epoch 1/100
+2022-11-17-12:40:34    INFO: Calling: eval...
+2022-11-17-12:40:34    INFO: Calling: valid_epoch...
+2022-11-17-12:40:35    INFO: LOSS VALUES:
+2022-11-17-12:40:35    INFO: --------
+2022-11-17-12:40:35    INFO:   cross_entropy:  0.11814
+2022-11-17-12:40:35    INFO:   _total:  0.11814
+2022-11-17-12:40:35    INFO: RESULTS:
+2022-11-17-12:40:35    INFO: --------
+2022-11-17-12:40:35    INFO:   accuracy:  0.967
+2022-11-17-12:40:35    INFO: Calling: train...
+2022-11-17-12:40:35    INFO: Calling: train_epoch...
+2022-11-17-12:40:52    INFO: LOSS VALUES:
+2022-11-17-12:40:52    INFO: --------
+2022-11-17-12:40:52    INFO:   cross_entropy:  0.11191
+2022-11-17-12:40:52    INFO:   _total:  0.11191
+2022-11-17-12:40:52    INFO: RESULTS:
+2022-11-17-12:40:52    INFO: --------
+2022-11-17-12:40:52    INFO:   accuracy:  0.971
+2022-11-17-12:40:52    INFO: Calling: save_checkpoint...
+2022-11-17-12:40:52    INFO: Calling: create_directory...
+2022-11-17-12:40:52    INFO: Epoch 2/100
+2022-11-17-12:40:52    INFO: Calling: eval...
+2022-11-17-12:40:52    INFO: Calling: valid_epoch...
+2022-11-17-12:40:53    INFO: LOSS VALUES:
+2022-11-17-12:40:53    INFO: --------
+2022-11-17-12:40:53    INFO:   cross_entropy:  0.08219
+2022-11-17-12:40:53    INFO:   _total:  0.08219
+2022-11-17-12:40:53    INFO: RESULTS:
+2022-11-17-12:40:53    INFO: --------
+2022-11-17-12:40:53    INFO:   accuracy:  0.974
+2022-11-17-12:40:53    INFO: Calling: train...
+2022-11-17-12:40:53    INFO: Calling: train_epoch...
+2022-11-17-12:41:10    INFO: LOSS VALUES:
+2022-11-17-12:41:10    INFO: --------
+2022-11-17-12:41:10    INFO:   cross_entropy:  0.08125
+2022-11-17-12:41:10    INFO:   _total:  0.08125
+2022-11-17-12:41:10    INFO: RESULTS:
+2022-11-17-12:41:10    INFO: --------
+2022-11-17-12:41:10    INFO:   accuracy:  0.979
+2022-11-17-12:41:10    INFO: Finished learning rate warmup period:
+2022-11-17-12:41:10    INFO:   --> Reached epoch 2 >= 2
+2022-11-17-12:41:10    INFO:   --> Reached at iter -1
+2022-11-17-12:41:10    INFO: Calling: save_checkpoint...
+2022-11-17-12:41:10    INFO: Calling: create_directory...
+2022-11-17-12:41:10    INFO: Epoch 3/100
+2022-11-17-12:41:10    INFO: Calling: eval...
+2022-11-17-12:41:10    INFO: Calling: valid_epoch...
+2022-11-17-12:41:11    INFO: LOSS VALUES:
+2022-11-17-12:41:11    INFO: --------
+2022-11-17-12:41:11    INFO:   cross_entropy:  0.04365
+2022-11-17-12:41:11    INFO:   _total:  0.04365
+2022-11-17-12:41:11    INFO: RESULTS:
+2022-11-17-12:41:11    INFO: --------
+2022-11-17-12:41:11    INFO:   accuracy:  0.987
+2022-11-17-12:41:11    INFO: Calling: train...
+2022-11-17-12:41:11    INFO: Calling: train_epoch...
+2022-11-17-12:41:28    INFO: LOSS VALUES:
+2022-11-17-12:41:28    INFO: --------
+2022-11-17-12:41:28    INFO:   cross_entropy:  0.06713
+2022-11-17-12:41:28    INFO:   _total:  0.06713
+2022-11-17-12:41:28    INFO: RESULTS:
+2022-11-17-12:41:28    INFO: --------
+2022-11-17-12:41:28    INFO:   accuracy:  0.981
+2022-11-17-12:41:28    INFO: Calling: save_checkpoint...
+2022-11-17-12:41:28    INFO: Calling: create_directory...
+2022-11-17-12:41:28    INFO: Epoch 4/100
+2022-11-17-12:41:28    INFO: Calling: eval...
+2022-11-17-12:41:28    INFO: Calling: valid_epoch...
+2022-11-17-12:41:29    INFO: LOSS VALUES:
+2022-11-17-12:41:29    INFO: --------
+2022-11-17-12:41:29    INFO:   cross_entropy:  0.06357
+2022-11-17-12:41:29    INFO:   _total:  0.06357
+2022-11-17-12:41:29    INFO: RESULTS:
+2022-11-17-12:41:29    INFO: --------
+2022-11-17-12:41:29    INFO:   accuracy:  0.981
+2022-11-17-12:41:29    INFO: Calling: train...
+2022-11-17-12:41:29    INFO: Calling: train_epoch...
+2022-11-17-12:41:46    INFO: LOSS VALUES:
+2022-11-17-12:41:46    INFO: --------
+2022-11-17-12:41:46    INFO:   cross_entropy:  0.05672
+2022-11-17-12:41:46    INFO:   _total:  0.05672
+2022-11-17-12:41:46    INFO: RESULTS:
+2022-11-17-12:41:46    INFO: --------
+2022-11-17-12:41:46    INFO:   accuracy:  0.984
+2022-11-17-12:41:46    INFO: Calling: save_checkpoint...
+2022-11-17-12:41:46    INFO: Calling: create_directory...
+2022-11-17-12:41:46    INFO: Epoch 5/100
+2022-11-17-12:41:46    INFO: Calling: eval...
+2022-11-17-12:41:46    INFO: Calling: valid_epoch...
+2022-11-17-12:41:47    INFO: LOSS VALUES:
+2022-11-17-12:41:47    INFO: --------
+2022-11-17-12:41:47    INFO:   cross_entropy:  0.04314
+2022-11-17-12:41:47    INFO:   _total:  0.04314
+2022-11-17-12:41:47    INFO: RESULTS:
+2022-11-17-12:41:47    INFO: --------
+2022-11-17-12:41:47    INFO:   accuracy:  0.987
+2022-11-17-12:41:47    INFO: Calling: train...
+2022-11-17-12:41:47    INFO: Calling: train_epoch...
+2022-11-17-12:42:05    INFO: LOSS VALUES:
+2022-11-17-12:42:05    INFO: --------
+2022-11-17-12:42:05    INFO:   cross_entropy:  0.05047
+2022-11-17-12:42:05    INFO:   _total:  0.05047
+2022-11-17-12:42:05    INFO: RESULTS:
+2022-11-17-12:42:05    INFO: --------
+2022-11-17-12:42:05    INFO:   accuracy:  0.985
+2022-11-17-12:42:05    INFO: Calling: save_checkpoint...
+2022-11-17-12:42:05    INFO: Calling: create_directory...
+2022-11-17-12:42:05    INFO: Saving model checkpoint
+2022-11-17-12:42:05    INFO: Calling: save_checkpoint...
+2022-11-17-12:42:05    INFO: Calling: create_directory...
+2022-11-17-12:42:05    INFO: Epoch 6/100
+2022-11-17-12:42:05    INFO: Calling: eval...
+2022-11-17-12:42:05    INFO: Calling: valid_epoch...
+2022-11-17-12:42:05    INFO: LOSS VALUES:
+2022-11-17-12:42:05    INFO: --------
+2022-11-17-12:42:05    INFO:   cross_entropy:  0.06369
+2022-11-17-12:42:05    INFO:   _total:  0.06369
+2022-11-17-12:42:05    INFO: RESULTS:
+2022-11-17-12:42:05    INFO: --------
+2022-11-17-12:42:05    INFO:   accuracy:  0.981
+2022-11-17-12:42:05    INFO: Calling: train...
+2022-11-17-12:42:05    INFO: Calling: train_epoch...
+2022-11-17-12:42:22    INFO: LOSS VALUES:
+2022-11-17-12:42:22    INFO: --------
+2022-11-17-12:42:22    INFO:   cross_entropy:  0.04651
+2022-11-17-12:42:22    INFO:   _total:  0.04651
+2022-11-17-12:42:22    INFO: RESULTS:
+2022-11-17-12:42:22    INFO: --------
+2022-11-17-12:42:22    INFO:   accuracy:  0.987
+2022-11-17-12:42:22    INFO: Calling: save_checkpoint...
+2022-11-17-12:42:22    INFO: Calling: create_directory...
+2022-11-17-12:42:22    INFO: Epoch 7/100
+2022-11-17-12:42:22    INFO: Calling: eval...
+2022-11-17-12:42:22    INFO: Calling: valid_epoch...
+2022-11-17-12:42:23    INFO: LOSS VALUES:
+2022-11-17-12:42:23    INFO: --------
+2022-11-17-12:42:23    INFO:   cross_entropy:  0.06498
+2022-11-17-12:42:23    INFO:   _total:  0.06498
+2022-11-17-12:42:23    INFO: RESULTS:
+2022-11-17-12:42:23    INFO: --------
+2022-11-17-12:42:23    INFO:   accuracy:  0.98
+2022-11-17-12:42:23    INFO: Calling: train...
+2022-11-17-12:42:23    INFO: Calling: train_epoch...
+2022-11-17-12:42:40    INFO: LOSS VALUES:
+2022-11-17-12:42:40    INFO: --------
+2022-11-17-12:42:40    INFO:   cross_entropy:  0.04252
+2022-11-17-12:42:40    INFO:   _total:  0.04252
+2022-11-17-12:42:40    INFO: RESULTS:
+2022-11-17-12:42:40    INFO: --------
+2022-11-17-12:42:40    INFO:   accuracy:  0.988
+2022-11-17-12:42:40    INFO: Calling: save_checkpoint...
+2022-11-17-12:42:40    INFO: Calling: create_directory...
+2022-11-17-12:42:40    INFO: Epoch 8/100
+2022-11-17-12:42:40    INFO: Calling: eval...
+2022-11-17-12:42:40    INFO: Calling: valid_epoch...
+2022-11-17-12:42:41    INFO: LOSS VALUES:
+2022-11-17-12:42:41    INFO: --------
+2022-11-17-12:42:41    INFO:   cross_entropy:  0.06917
+2022-11-17-12:42:41    INFO:   _total:  0.06917
+2022-11-17-12:42:41    INFO: RESULTS:
+2022-11-17-12:42:41    INFO: --------
+2022-11-17-12:42:41    INFO:   accuracy:  0.978
+2022-11-17-12:42:41    INFO: Calling: train...
+2022-11-17-12:42:41    INFO: Calling: train_epoch...
+2022-11-17-12:42:58    INFO: LOSS VALUES:
+2022-11-17-12:42:58    INFO: --------
+2022-11-17-12:42:58    INFO:   cross_entropy:  0.0394
+2022-11-17-12:42:58    INFO:   _total:  0.0394
+2022-11-17-12:42:58    INFO: RESULTS:
+2022-11-17-12:42:58    INFO: --------
+2022-11-17-12:42:58    INFO:   accuracy:  0.988
+2022-11-17-12:42:58    INFO: Calling: save_checkpoint...
+2022-11-17-12:42:58    INFO: Calling: create_directory...
+2022-11-17-12:42:58    INFO: Epoch 9/100
+2022-11-17-12:42:58    INFO: Calling: eval...
+2022-11-17-12:42:58    INFO: Calling: valid_epoch...
+2022-11-17-12:42:59    INFO: LOSS VALUES:
+2022-11-17-12:42:59    INFO: --------
+2022-11-17-12:42:59    INFO:   cross_entropy:  0.03846
+2022-11-17-12:42:59    INFO:   _total:  0.03846
+2022-11-17-12:42:59    INFO: RESULTS:
+2022-11-17-12:42:59    INFO: --------
+2022-11-17-12:42:59    INFO:   accuracy:  0.988
+2022-11-17-12:42:59    INFO: Calling: train...
+2022-11-17-12:42:59    INFO: Calling: train_epoch...
+2022-11-17-12:43:16    INFO: LOSS VALUES:
+2022-11-17-12:43:16    INFO: --------
+2022-11-17-12:43:16    INFO:   cross_entropy:  0.03655
+2022-11-17-12:43:16    INFO:   _total:  0.03655
+2022-11-17-12:43:16    INFO: RESULTS:
+2022-11-17-12:43:16    INFO: --------
+2022-11-17-12:43:16    INFO:   accuracy:  0.989
+2022-11-17-12:43:16    INFO: Calling: save_checkpoint...
+2022-11-17-12:43:16    INFO: Calling: create_directory...
+2022-11-17-12:43:16    INFO: Epoch 10/100
+2022-11-17-12:43:16    INFO: Calling: eval...
+2022-11-17-12:43:16    INFO: Calling: valid_epoch...
+2022-11-17-12:43:17    INFO: LOSS VALUES:
+2022-11-17-12:43:17    INFO: --------
+2022-11-17-12:43:17    INFO:   cross_entropy:  0.04304
+2022-11-17-12:43:17    INFO:   _total:  0.04304
+2022-11-17-12:43:17    INFO: RESULTS:
+2022-11-17-12:43:17    INFO: --------
+2022-11-17-12:43:17    INFO:   accuracy:  0.986
+2022-11-17-12:43:17    INFO: Calling: train...
+2022-11-17-12:43:17    INFO: Calling: train_epoch...
+2022-11-17-12:43:19    INFO: There has been an exception. Saving emergency checkpoint...
+2022-11-17-12:43:19    INFO: Calling: save_checkpoint...
+2022-11-17-12:43:19    INFO: Calling: create_directory...
+2022-11-17-12:43:19    INFO:   --> Saved emergency checkpoint emergency_checkpoint_epoch_10.pth
+2022-11-17-12:43:19    ERROR: Traceback (most recent call last):
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/lib/setup_model.py", line 55, in try_call_except
+    return f(*args, **kwargs)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/base/baseTrainer.py", line 168, in training_loop
+    self.train_epoch(epoch)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/lib/logger.py", line 26, in try_call_log
+    return func(*args, **kwargs)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/base/baseTrainer.py", line 224, in train_epoch
+    for i, (imgs, targets) in progress_bar:
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/tqdm/std.py", line 1180, in __iter__
+    for obj in iterable:
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 561, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/data/SampleDataset.py", line 42, in __getitem__
+    img, lbl, _ = self.augmentator(img, lbl)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/lib/augmentations.py", line 141, in __call__
+    x, y, params = self._augment(x, y)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/lib/augmentations.py", line 120, in _augment
+    x, y = augmentation(x, y)
+  File "/home/villar/Documents/Work Stuff/TemplaTorch/src/lib/augmentations.py", line 274, in __call__
+    x_augment = F.rotate(x, random_angle)
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torchvision/transforms/functional.py", line 1019, in rotate
+    return F_t.rotate(img, matrix=matrix, interpolation=interpolation.value, expand=expand, fill=fill)
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torchvision/transforms/functional_tensor.py", line 738, in rotate
+    return _apply_grid_transform(img, grid, interpolation, fill=fill)
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torchvision/transforms/functional_tensor.py", line 636, in _apply_grid_transform
+    img, need_cast, need_squeeze, out_dtype = _cast_squeeze_in(img, [grid.dtype, ])
+  File "/home/villar/anaconda3/lib/python3.8/site-packages/torchvision/transforms/functional_tensor.py", line 609, in _cast_squeeze_in
+    img = img.unsqueeze(dim=0)
+KeyboardInterrupt
+
+
+
+
+2022-11-17-12:43:36    NEW_EXP: Starting evaluation procedure
+2022-11-17-12:43:36    INFO: Using git sha: bf429ebaad0d5d542f8a8e2d3ba484f5afb6ffe6
+2022-11-17-12:43:36    INFO: Initializing Evaluator...
+2022-11-17-12:43:36    INFO: Calling: __init__...
+2022-11-17-12:43:36    INFO: Calling: create_directory...
+2022-11-17-12:43:36    INFO: Calling: create_directory...
+2022-11-17-12:43:36    INFO: Loading dataset...
+2022-11-17-12:43:36    INFO: Calling: load_data...
+2022-11-17-12:43:36    INFO:   --> Length test set: 10000
+2022-11-17-12:43:36    INFO:   --> Num. Batches test: 79
+2022-11-17-12:43:36    INFO: Setting up model and loading pretrained parameters
+2022-11-17-12:43:36    INFO: Calling: setup_model...
+2022-11-17-12:43:36    INFO: Calling: setup_model...
+2022-11-17-12:43:36    INFO: Calling: log_architecture...
+2022-11-17-12:43:38    INFO: Calling: load_checkpoint...
+2022-11-17-12:43:38    INFO: Starting evaluation
+2022-11-17-12:43:38    INFO: Calling: evaluate...
+2022-11-17-12:43:38    INFO: RESULTS:
+2022-11-17-12:43:38    INFO: --------
+2022-11-17-12:43:38    INFO:   accuracy:  0.987
+2022-11-17-12:43:38    INFO: Calling: create_directory...
