@@ -13,6 +13,7 @@ from lib.loss import LossTracker
 from lib.metrics import MetricTracker
 from lib.schedulers import WarmupVSScehdule, EarlyStop
 from lib.setup_model import emergency_save
+from models.model_utils import GradientInspector
 import lib.setup_model as setup_model
 import lib.utils as utils
 import data
@@ -42,8 +43,8 @@ class BaseTrainer:
         Initializing the trainer object
         """
         self.exp_path = exp_path
-        self.cfg = Config(exp_path)
-        self.exp_params = self.cfg.load_exp_config_file()
+        self.cfg = Config()
+        self.exp_params = self.cfg.load_exp_config_file(exp_path)
         self.checkpoint = checkpoint
         self.resume_training = resume_training
 
@@ -67,6 +68,8 @@ class BaseTrainer:
         batch_size = self.exp_params["training"]["batch_size"]
         shuffle_train = self.exp_params["dataset"]["shuffle_train"]
         shuffle_eval = self.exp_params["dataset"]["shuffle_eval"]
+
+        # initializing datasets and data loaders
         train_set = data.load_data(exp_params=self.exp_params, split="train")
         valid_set = data.load_data(exp_params=self.exp_params, split="valid")
         self.train_loader = data.build_data_loader(
@@ -138,6 +141,12 @@ class BaseTrainer:
                 use_early_stop=self.exp_params["training"]["early_stopping"],
                 patience=self.exp_params["training"]["early_stopping_patience"]
             )
+        self.GradientInspector = GradientInspector(
+                writer=self.writer,
+                stats=["Max", "Mean", "Var", "Norm"],
+                layers=[],
+                names=[]
+            )
         return
 
     @emergency_save
@@ -153,9 +162,9 @@ class BaseTrainer:
         for epoch in range(self.epoch, num_epochs):
             self.epoch = epoch
             log_info(message=f"Epoch {epoch}/{num_epochs}")
-            self.model.eval()
+            self.eval()
             self.valid_epoch(epoch)
-            self.model.train()
+            self.train()
             self.train_epoch(epoch)
             stop_training = self.early_stopping(
                     value=self.validation_losses[-1],
@@ -184,36 +193,21 @@ class BaseTrainer:
 
             # saving backup model checkpoint and (if reached saving frequency) epoch checkpoint
             setup_model.save_checkpoint(  # Gets overriden every epoch: checkpoint_last_saved.pth
-                    model=self.model,
-                    optimizer=self.optimizer,
-                    scheduler=self.warmup_scheduler.scheduler,
-                    lr_warmup=self.warmup_scheduler.lr_warmup,
-                    epoch=epoch,
-                    exp_path=self.exp_path,
+                    trainer=self,
                     savedir="models",
                     savename="checkpoint_last_saved.pth"
                 )
             if(epoch % save_frequency == 0 and epoch != 0):  # checkpoint_epoch_xx.pth
                 print_("Saving model checkpoint")
                 setup_model.save_checkpoint(
-                        model=self.model,
-                        optimizer=self.optimizer,
-                        scheduler=self.warmup_scheduler.scheduler,
-                        lr_warmup=self.warmup_scheduler.lr_warmup,
-                        epoch=epoch,
-                        exp_path=self.exp_path,
+                        trainer=self,
                         savedir="models"
                     )
 
         print_("Finished training procedure")
         print_("Saving final checkpoint")
         setup_model.save_checkpoint(
-                model=self.model,
-                optimizer=self.optimizer,
-                scheduler=self.warmup_scheduler.scheduler,
-                lr_warmup=self.warmup_scheduler.lr_warmup,
-                epoch=epoch,
-                exp_path=self.exp_path,
+                trainer=self,
                 savedir="models",
                 finished=not stop_training
             )
@@ -286,6 +280,7 @@ class BaseTrainer:
         progress_bar = tqdm(enumerate(self.valid_loader), total=len(self.valid_loader))
 
         for i, (imgs, targets) in progress_bar:
+
             # forward pass
             _, loss = self.forward_loss_metric(
                     imgs=imgs,
@@ -315,5 +310,13 @@ class BaseTrainer:
                 dir="Valid Metrics",
             )
         return
+
+    def train(self):
+        """ Setting all the components to training mode """
+        self.model.train()
+
+    def eval(self):
+        """ Setting all the components to evaluation mode """
+        self.model.eval()
 
 #

@@ -151,11 +151,13 @@ class Augmentator:
 
     def train(self):
         """ Setting training state to True """
+        self.training = True
         for augment in self.augmentations:
             augment.training = True
 
     def eval(self):
         """ Setting training state to True """
+        self.training = False
         for augment in self.augmentations:
             augment.training = False
 
@@ -177,7 +179,7 @@ class Augmentation:
         self.training = True
 
         self.params = params
-        self.log = None
+        self.log = {}
         return
 
     def __call__(self, x, y):

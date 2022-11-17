@@ -33,6 +33,10 @@ def load_data(exp_params, split="train"):
 
     # setting up augmentations
     augmentator = Augmentator(augment_params=exp_params["dataset"]["augment_params"])
+    if split == "train":
+        augmentator.train()
+    else:
+        augmentator.eval()
 
     # instanciating dataset
     if(dataset_name == "SampleDataset"):

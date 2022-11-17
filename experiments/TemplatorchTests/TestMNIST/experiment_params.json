@@ -1,8 +1,29 @@
 {
   "dataset": {
-    "dataset_name": "mnist",
+    "dataset_name": "SampleDataset",
     "shuffle_train": true,
-    "shuffle_eval": false
+    "shuffle_eval": false,
+    "augment_params": {
+      "use_augments": [
+        "rotate",
+        "noise"
+      ],
+      "mirror": {
+        "mirror_prob": 0.0,
+        "on_train": true,
+        "on_eval": false
+      },
+      "rotate": {
+        "rotate_degrees": 10,
+        "on_train": true,
+        "on_eval": false
+      },
+      "noise": {
+        "noise_std": 0.05,
+        "on_train": true,
+        "on_eval": false
+      }
+    }
   },
   "model": {
     "model_name": "ConvNet",
@@ -26,19 +47,19 @@
     "metrics": "classification"
   },
   "training": {
-    "num_epochs": 50,
+    "num_epochs": 100,
     "save_frequency": 5,
     "log_frequency": 100,
-    "batch_size": 64,
-    "lr": 0.0003,
+    "batch_size": 128,
+    "lr": 0.001,
     "optimizer": "adam",
     "momentum": 0,
     "weight_decay": 0,
     "nesterov": false,
-    "scheduler": "step",
-    "lr_factor": 0.3333,
-    "patience": 12,
-    "lr_warmup": false,
+    "scheduler": "exponential",
+    "lr_factor": 0.5,
+    "patience": 5,
+    "lr_warmup": true,
     "warmup_steps": 2000,
     "warmup_epochs": 2,
     "early_stopping": true,
@@ -46,7 +67,6 @@
   },
   "_general": {
     "exp_path": "/home/villar/Documents/Work Stuff/TemplaTorch/experiments/TemplatorchTests/TestMNIST",
-    "created_time": "2022-08-11_10-46-01",
-    "last_loaded": "2022-08-11_10-46-01"
+    "created_time": "2022-11-17_12-25-56"
   }
 }
