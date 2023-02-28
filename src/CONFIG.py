@@ -33,35 +33,10 @@ METRIC_SETS = {
 
 # Specific configurations and default values
 DEFAULTS = {
-    "dataset": {
-        "dataset_name": "SampleDataset",
-        "shuffle_train": True,
-        "shuffle_eval": False,
-        "augment_params": {
-            "use_augments": ["mirror", "rotate", "noise"],
-            "mirror": {
-                "mirror_prob": 0.5,
-                "on_train": True,
-                "on_eval": False,
-            },
-            "rotate": {
-                "rotate_degrees": 20,
-                "on_train": True,
-                "on_eval": False,
-            },
-            "noise": {
-                "noise_std": 0.15,
-                "on_train": True,
-                "on_eval": False,
-            }
-        }
-    },
+    "dataset": None,
     "model": {
-        "model_name": "ConvNet",
-        "ConvNet": {
-            "channels": [1, 32, 64, 128],
-            "out_size": 10
-        }
+        "model_name": None,
+        "model_params": None
     },
     "loss": [
         {

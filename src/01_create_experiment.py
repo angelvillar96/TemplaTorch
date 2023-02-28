@@ -20,7 +20,7 @@ def initialize_experiment():
     """
     # reading command line args
     args = create_experiment_arguments()
-    exp_dir, config, exp_name, model_name = args.exp_directory, args.config, args.name, args.model_name
+    exp_dir, config, exp_name = args.exp_directory, args.config, args.name
     exp_name = f"experiment_{timestamp()}" if exp_name is None or len(exp_name) < 1 else exp_name
     exp_path = os.path.join(CONFIG["paths"]["experiments_path"], exp_dir, exp_name)
     if os.path.exists(exp_path):
@@ -35,7 +35,12 @@ def initialize_experiment():
 
     try:
         cfg = Config()
-        cfg.create_exp_config_file(exp_path=exp_path, model_name=model_name, config=config)
+        cfg.create_exp_config_file(
+                exp_path=exp_path,
+                model_name=args.model_name,
+                dataset_name=args.dataset_name,
+                config=config
+            )
         print_(f"Experiment {exp_name} created successfully")
     except Exception:
         print_("An error has occurred...\n Removing experiment directory")

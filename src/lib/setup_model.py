@@ -29,12 +29,12 @@ def setup_model(model_params):
         instanciated model given the parameters
     """
     model_name = model_params["model_name"]
+    model_params = model_params["model_params"]
     if model_name not in MODELS:
         raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
-    cur_model_params = model_params[model_name]
 
     if(model_name == "ConvNet"):
-        model = models.ConvNet(**cur_model_params)
+        model = models.ConvNet(**model_params)
     else:
         raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
 

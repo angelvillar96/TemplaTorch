@@ -8,7 +8,7 @@ import argparse
 from configs import get_available_configs
 from lib.utils import split_path
 
-from CONFIG import CONFIG, MODELS
+from CONFIG import CONFIG, MODELS, DATASETS
 
 
 def create_experiment_arguments():
@@ -21,6 +21,7 @@ def create_experiment_arguments():
                         "folder will be created", required=True, default="test_dir")
     parser.add_argument("--name", help="Name to give to the experiment")
     parser.add_argument("--model_name", help=f"Model name to keep in the exp_params: {MODELS}")
+    parser.add_argument("--dataset_name", help=f"Dataset name to keep in the exp_params: {DATASETS}")
     parser.add_argument("--config", help=f"Name of the predetermined 'config' to use: {configs}")
     args = parser.parse_args()
 

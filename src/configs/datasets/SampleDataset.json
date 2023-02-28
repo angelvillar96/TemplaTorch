@@ -1,0 +1,23 @@
+{
+    "dataset_name": "SampleDataset",
+    "shuffle_train": true,
+    "shuffle_eval": false,
+    "augment_params": {
+        "use_augments": ["mirror", "rotate", "noise"],
+        "mirror": {
+            "mirror_prob": 0.5,
+            "on_train": true,
+            "on_eval": false
+        },
+        "rotate": {
+            "rotate_degrees": 20,
+            "on_train": true,
+            "on_eval": false
+        },
+        "noise": {
+            "noise_std": 0.15,
+            "on_train": true,
+            "on_eval": false
+        }
+    }
+  }
