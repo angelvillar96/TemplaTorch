@@ -98,11 +98,12 @@ class GradientInspector:
         List with the stats to track. Possible stats are: ['Min', 'Max', 'Mean', 'Var', 'Norm']
     """
 
-    STATS = ["Min", "Max", "Mean", "Var", "Norm"]
+    STATS = ["Min", "Max", "Mean", "MeanAbs", "Var", "Norm"]
     FUNCS = {
         "Min": torch.min,
         "Max": torch.max,
         "Mean": torch.mean,
+        "MeanAbs": lambda x: x.abs().mean(),
         "Var": torch.var,
         "Norm": torch.norm,
     }
