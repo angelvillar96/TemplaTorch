@@ -7,13 +7,12 @@ import os
 from tqdm import tqdm
 import torch
 
+from lib.callbacks import Callbacks
 from lib.config import Config
 from lib.logger import print_, log_function, for_all_methods, log_info
 from lib.loss import LossTracker
 from lib.metrics import MetricTracker
-from lib.schedulers import WarmupVSScehdule, EarlyStop
 from lib.setup_model import emergency_save
-from models.model_utils import GradientInspector
 import lib.setup_model as setup_model
 import lib.utils as utils
 import data
@@ -129,20 +128,13 @@ class BaseTrainer:
         self.epoch = epoch
         self.optimizer = optimizer
         self.scheduler = scheduler
+        self.lr_warmup = lr_warmup
         self.loss_tracker = LossTracker(loss_params=self.exp_params["loss"])
         self.metric_tracker = MetricTracker(metrics=self.exp_params["metrics"]["metrics"])
-        self.warmup_scheduler = WarmupVSScehdule(
-                optimizer=self.optimizer,
-                lr_warmup=lr_warmup,
-                scheduler=scheduler
-            )
 
-        self.GradientInspector = GradientInspector(
-                writer=self.writer,
-                stats=["Max", "Mean", "Var", "Norm"],
-                layers=[],
-                names=[]
-            )
+        # setting up callbacks
+        self.callback_manager = Callbacks(trainer=self)
+        self.callback_manager.initialize_callbacks(trainer=self)
         return
 
     @emergency_save
@@ -162,13 +154,6 @@ class BaseTrainer:
             self.valid_epoch(epoch)
             self.train()
             self.train_epoch(epoch)
-            stop_training = self.early_stopping(
-                    value=self.validation_losses[-1],
-                    writer=self.writer,
-                    epoch=epoch
-                )
-            if stop_training:
-                break
 
             # adding to tensorboard plot containing both losses
             self.writer.add_scalars(
@@ -178,22 +163,13 @@ class BaseTrainer:
                     step=epoch+1
                 )
 
-            # updating learning rate scheduler or lr-warmup
-            self.warmup_scheduler(
-                    iter=-1,
-                    epoch=epoch,
-                    exp_params=self.exp_params,
-                    end_epoch=True,
-                    control_metric=self.validation_losses[-1]
-                )
+            callback_returns = self.callback_manager.on_epoch_end(trainer=self)
+            stop_training = callback_returns.get("stop_training", False)
+            if stop_training:
+                break
 
-            # saving backup model checkpoint and (if reached saving frequency) epoch checkpoint
-            setup_model.save_checkpoint(  # Gets overriden every epoch: checkpoint_last_saved.pth
-                    trainer=self,
-                    savedir="models",
-                    savename="checkpoint_last_saved.pth"
-                )
-            if(epoch % save_frequency == 0 and epoch != 0):  # checkpoint_epoch_xx.pth
+            # saving backup model checkpoint if reached saving frequency
+            if(epoch % save_frequency == 0 and epoch != 0):
                 print_("Saving model checkpoint")
                 setup_model.save_checkpoint(
                         trainer=self,
@@ -218,16 +194,8 @@ class BaseTrainer:
         progress_bar = tqdm(enumerate(self.train_loader), total=len(self.train_loader))
 
         for i, (imgs, targets) in progress_bar:
-            iter_ = len(self.train_loader) * epoch + i
-
-            # updating learning rate scheduler or lr-warmup
-            self.warmup_scheduler(
-                    iter=iter_,
-                    epoch=epoch,
-                    exp_params=self.exp_params,
-                    end_epoch=False,
-                    control_metric=self.validation_losses[-1]
-                )
+            self.iter_ = len(self.train_loader) * epoch + i
+            self.callback_manager.on_batch_start(trainer=self)
 
             # forward pass
             _, loss = self.forward_loss_metric(
@@ -236,18 +204,20 @@ class BaseTrainer:
                     training=True
                 )
 
+            self.callback_manager.on_batch_end(trainer=self)
+
             # logging and plots
-            if(iter_ % self.exp_params["training"]["log_frequency"] == 0):
+            if(self.iter_ % self.exp_params["training"]["log_frequency"] == 0):
                 self.writer.log_full_dictionary(
                         dict=self.loss_tracker.get_last_losses(),
-                        step=iter_,
+                        step=self.iter_,
                         plot_name="Train Loss",
                         dir="Train Loss Iter",
                     )
                 self.writer.add_scalar(
                         name="Learning/Learning Rate",
                         val=self.optimizer.param_groups[0]['lr'],
-                        step=iter_
+                        step=self.iter_
                     )
 
             # update progress bar
