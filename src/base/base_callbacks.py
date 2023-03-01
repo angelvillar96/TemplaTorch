@@ -59,7 +59,7 @@ class EarlyStoppingCallback(Callback):
 
     def __init__(self, trainer):
         """ Callback initializer """
-        self.early_stopping = EarlyStop(
+        trainer.early_stopping = EarlyStop(
             mode="min",
             use_early_stop=trainer.exp_params["training"]["early_stopping"],
             patience=trainer.exp_params["training"]["early_stopping_patience"]
@@ -67,7 +67,7 @@ class EarlyStoppingCallback(Callback):
 
     def on_epoch_end(self, trainer):
         """ Calling early stopping on epoch end """
-        stop_training = self.early_stopping(
+        stop_training = trainer.early_stopping(
                 value=trainer.validation_losses[-1],
                 writer=trainer.writer,
                 epoch=trainer.epoch
@@ -82,7 +82,7 @@ class WarmupScheduleCallback(Callback):
 
     def __init__(self, trainer):
         """ Callback initializer """
-        self.warmup_scheduler = WarmupVSScehdule(
+        trainer.warmup_scheduler = WarmupVSScehdule(
                 optimizer=trainer.optimizer,
                 lr_warmup=trainer.lr_warmup,
                 scheduler=trainer.scheduler
@@ -90,7 +90,7 @@ class WarmupScheduleCallback(Callback):
 
     def on_batch_start(self, trainer):
         """ """
-        self.warmup_scheduler(
+        trainer.warmup_scheduler(
                 iter=trainer.iter_,
                 epoch=trainer.epoch,
                 exp_params=trainer.exp_params,
@@ -100,7 +100,7 @@ class WarmupScheduleCallback(Callback):
 
     def on_epoch_end(self, trainer):
         """ Updating at the end of every epoch """
-        self.warmup_scheduler(
+        trainer.warmup_scheduler(
                 iter=-1,
                 epoch=trainer.epoch,
                 exp_params=trainer.exp_params,
