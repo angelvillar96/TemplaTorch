@@ -7,7 +7,6 @@ Utils methods for bunch of purposes, including
 """
 
 import os
-import git
 import pickle
 import shutil
 import random
@@ -231,4 +230,6 @@ class TensorboardWriter:
         plot_name = f"{dir}/{plot_name}" if dir is not None else key
         self.add_scalars(plot_name=plot_name, val_names=dict.keys(), vals=dict.values(), step=step)
         return
+
+
 #

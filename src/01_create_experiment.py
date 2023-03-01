@@ -7,6 +7,7 @@ Creating experiment directory and initalizing it with defauls
 import os
 import traceback
 from lib.arguments import create_experiment_arguments
+from lib.callbacks import create_callbacks_file
 from lib.config import Config
 from lib.logger import Logger, print_
 from lib.utils import create_directory, delete_directory, timestamp, clear_cmd
@@ -32,6 +33,9 @@ def initialize_experiment():
     _ = Logger(exp_path)  # initialize logger once exp_dir is created
     create_directory(dir_path=exp_path, dir_name="plots")
     create_directory(dir_path=exp_path, dir_name="tboard_logs")
+
+    # creating default callbacks file
+    create_callbacks_file(dir_path=exp_path)
 
     try:
         cfg = Config()

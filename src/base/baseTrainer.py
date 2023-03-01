@@ -136,11 +136,7 @@ class BaseTrainer:
                 lr_warmup=lr_warmup,
                 scheduler=scheduler
             )
-        self.early_stopping = EarlyStop(
-                mode="min",
-                use_early_stop=self.exp_params["training"]["early_stopping"],
-                patience=self.exp_params["training"]["early_stopping_patience"]
-            )
+
         self.GradientInspector = GradientInspector(
                 writer=self.writer,
                 stats=["Max", "Mean", "Var", "Norm"],
