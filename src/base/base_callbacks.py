@@ -7,6 +7,37 @@ from lib.schedulers import EarlyStop, WarmupVSScehdule
 from lib.setup_model import save_checkpoint
 
 
+class LogTensorboard(Callback):
+    """
+    Logging stuff onto tensorboard
+    """
+
+    def on_epoch_end(self, trainer):
+        """
+        Logging training and validation loss at the end of every epoch
+        """
+        trainer.writer.add_scalars(
+                plot_name='Total Loss/CE_comb_loss',
+                val_names=["train_loss", "eval_loss"],
+                vals=[trainer.training_losses[-1], trainer.validation_losses[-1]],
+                step=trainer.epoch+1
+            )
+
+    def on_log_frequency(self, trainer):
+        """ Logging losses and learning rate every few iterations """
+        trainer.writer.log_full_dictionary(
+                dict=trainer.loss_tracker.get_last_losses(),
+                step=trainer.iter_,
+                plot_name="Train Loss",
+                dir="Train Loss Iter",
+            )
+        trainer.writer.add_scalar(
+                name="Learning/Learning Rate",
+                val=trainer.optimizer.param_groups[0]['lr'],
+                step=trainer.iter_
+            )
+
+
 class SaveCheckpoint(Callback):
     """
     Saving checkpoint callback

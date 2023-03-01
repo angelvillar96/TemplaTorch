@@ -16,7 +16,7 @@ def create_callbacks_file(dir_path):
     Creating default callbacks file
     """
     shutil.copyfile(
-            os.path.join(CONFIG["paths"]["configs_path"], "base_callbacks.py"),
+            os.path.join(CONFIG["paths"]["base_path"], "base_callbacks.py"),
             os.path.join(dir_path, "callbacks.py")
         )
     return

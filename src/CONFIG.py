@@ -13,6 +13,7 @@ CONFIG = {
         "data_path": os.path.join(os.getcwd(), "..", "datasets"),
         "experiments_path": os.path.join(os.getcwd(), "experiments"),
         "configs_path": os.path.join(os.getcwd(), "src", "configs"),
+        "base_path": os.path.join(os.getcwd(), "src", "base"),
     }
 }
 

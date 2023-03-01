@@ -155,14 +155,6 @@ class BaseTrainer:
             self.train()
             self.train_epoch(epoch)
 
-            # adding to tensorboard plot containing both losses
-            self.writer.add_scalars(
-                    plot_name='Total Loss/CE_comb_loss',
-                    val_names=["train_loss", "eval_loss"],
-                    vals=[self.training_losses[-1], self.validation_losses[-1]],
-                    step=epoch+1
-                )
-
             callback_returns = self.callback_manager.on_epoch_end(trainer=self)
             stop_training = callback_returns.get("stop_training", False)
             if stop_training:
@@ -203,22 +195,8 @@ class BaseTrainer:
                     targets=targets,
                     training=True
                 )
-
             self.callback_manager.on_batch_end(trainer=self)
-
-            # logging and plots
-            if(self.iter_ % self.exp_params["training"]["log_frequency"] == 0):
-                self.writer.log_full_dictionary(
-                        dict=self.loss_tracker.get_last_losses(),
-                        step=self.iter_,
-                        plot_name="Train Loss",
-                        dir="Train Loss Iter",
-                    )
-                self.writer.add_scalar(
-                        name="Learning/Learning Rate",
-                        val=self.optimizer.param_groups[0]['lr'],
-                        step=self.iter_
-                    )
+            self.callback_manager.on_log_frequency(trainer=self)
 
             # update progress bar
             progress_bar.set_description(f"Epoch {epoch+1} iter {i}: train loss {loss.item():.5f}. ")
