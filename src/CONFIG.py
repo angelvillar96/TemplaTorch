@@ -6,6 +6,7 @@ import os
 
 # High level configurations, such as paths or random seed
 CONFIG = {
+    "num_workers": 4,
     "random_seed": 13,
     "epsilon_min": 1e-16,
     "epsilon_max": 1e16,

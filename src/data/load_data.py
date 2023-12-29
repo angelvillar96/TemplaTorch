@@ -68,7 +68,8 @@ def build_data_loader(dataset, batch_size=8, shuffle=False):
     data_loader = DataLoader(
             dataset=dataset,
             batch_size=batch_size,
-            shuffle=shuffle
+            shuffle=shuffle,
+            num_workers=CONFIG["num_workers"]
         )
 
     return data_loader
