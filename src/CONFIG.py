@@ -23,14 +23,6 @@ CONFIG = {
 AUGMENTATIONS = ["mirror", "noise", "color_jitter", "rotate", "scale"]
 
 
-LOSSES = ["mse", "l2", "mae", "l1", "cross_entropy", "ce"]
-METRICS = ["accuracy", "mse"]
-METRIC_SETS = {
-    "classification": ["accuracy"],
-    "regression": ["mse"]
-}
-
-
 # Specific configurations and default values
 DEFAULTS = {
     "dataset": None,

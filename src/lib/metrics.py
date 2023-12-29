@@ -7,7 +7,6 @@ import json
 import torch
 from lib.logger import print_, log_info
 from lib.utils import create_directory
-from CONFIG import METRICS, METRIC_SETS
 
 
 class MetricTracker:
@@ -18,6 +17,7 @@ class MetricTracker:
     def __init__(self, metrics=["accuracy"]):
         """ Module initializer """
         assert isinstance(metrics, (list, str)), f"Metrics argument must be string/list, not {type(metrics)}"
+        METRICS = METRICS_DICT.keys()
         if isinstance(metrics, str):
             if metrics not in METRIC_SETS.keys():
                 raise ValueError(f"If str, metrics must be one of {METRIC_SETS.keys()}, not {metrics}")
@@ -27,7 +27,14 @@ class MetricTracker:
                     raise NotImplementedError(f"Metric {metric} not implemented. Use one of {METRICS}")
 
         metrics = METRIC_SETS[metrics] if isinstance(metrics, str) else metrics
-        self.metric_computers = {m: get_metric(m) for m in metrics}
+        
+        self.metric_computers = {}
+        print_("Using evaluation metrics:")
+        for metric in metrics:
+            print_(f"  --> {metric}")
+            if metric not in METRICS_DICT.keys():
+                raise NotImplementedError(f"Unknown metric {metric}. Use one of {METRICS_DICT.keys()} ...")
+            self.metric_computers[metric] = METRICS_DICT[metric]()
         self.reset()
         return
 
@@ -70,15 +77,10 @@ class MetricTracker:
         return
 
 
-def get_metric(metric):
-    """ """
-    if metric == "accuracy":
-        metric_computer = Accuracy()
-    elif metric == "mse":
-        metric_computer = MSE()
-    else:
-        raise NotImplementedError(f"Unknown metric {metric}. Use one of {METRICS} ...")
-    return metric_computer
+######################
+### METRIC CLASSES ###
+######################
+
 
 
 class Metric:
@@ -86,35 +88,24 @@ class Metric:
 
     def __init__(self):
         """ Metric initializer """
-        self.values = []
+        self.results = None
         self.reset()
 
     def reset(self):
         """ Reseting precomputed metric """
-        self.values = []
+        raise NotImplementedError("Base class does not implement 'reset' functionality")
 
     def accumulate(self):
         """ """
         raise NotImplementedError("Base class does not implement 'accumulate' functionality")
 
     def aggregate(self):
-        """ Computing average metric, both global and framewise"""
-        all_values = torch.cat(self.values, dim=0)
-        mean_value = all_values.mean()
-        return mean_value
-
-    def _shape_check(self, x, name="Preds"):
-        """
-        Checking the shape of the imputs. It must be one of the following:
-        """
-        if len(x.shape) not in [3, 4, 5]:
-            raise ValueError(f"{name} has shape {x.shape}, but it must have one of the folling shapes\n"
-                             " - (B, F, C, H, W) for frame or heatmap prediction.\n"
-                             " - (B, F, D) or (B, F, N_joints, N_coords) for pose skeleton prediction")
+        """ """
+        raise NotImplementedError("Base class does not implement 'aggregate' functionality")
 
 
 class Accuracy(Metric):
-    """ Accuracy computer. Completely overrides the base metric """
+    """ Accuracy computer """
 
     LOWER_BETTER = False
 
@@ -131,8 +122,7 @@ class Accuracy(Metric):
 
     def accumulate(self, preds, targets):
         """ Computing metric """
-        if len(preds.shape) == 2:
-            preds = torch.argmax(preds, dim=-1)
+        preds = torch.argmax(preds, dim=-1)
         cur_correct = len(torch.where(preds == targets)[0])
         cur_total = len(preds)
         self.correct += cur_correct
@@ -152,17 +142,38 @@ class MSE(Metric):
     def __init__(self):
         """ """
         super().__init__()
+        self.values = []
+
+    def reset(self):
+        """ Reseting counters """
+        self.values = []
 
     def accumulate(self, preds, targets):
         """ Computing metric """
-        self._shape_check(tensor=preds, name="Preds")
-        self._shape_check(tensor=targets, name="Targets")
-        if len(preds.shape) == 5 and len(targets.shape) == 5:
-            cur_mse = (preds - targets).pow(2).mean(dim=(-1, -2, -3))
-        elif len(preds.shape) == 3 and len(targets.shape) == 3:
-            cur_mse = (preds - targets).pow(2).mean(dim=-1)
+        cur_mse = (preds.float() - targets.float()).pow(2).mean()
         self.values.append(cur_mse)
-        return
+        return cur_mse
 
+    def aggregate(self):
+        """ Computing average metric, both global and framewise"""
+        all_values = torch.cat(self.values, dim=0)
+        mean_values = all_values.mean().item()
+        return mean_values
+
+
+###################
+### METRICS MAP ###
+###################
+
+
+METRIC_SETS = {
+    "classification": ["accuracy"],
+    "regression": ["mse"]
+}
+
+METRICS_DICT = {
+    "accuracy": Accuracy,
+    "mse": MSE,
+}
 
 #

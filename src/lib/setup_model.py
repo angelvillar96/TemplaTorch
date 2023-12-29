@@ -9,8 +9,7 @@ import torch
 from lib.logger import log_function, print_
 from lib.schedulers import LRWarmUp, ExponentialLRSchedule
 from lib.utils import create_directory
-import models
-from CONFIG import MODELS
+from models import MODEL_MAP
 
 
 @log_function
@@ -30,13 +29,10 @@ def setup_model(model_params):
     """
     model_name = model_params["model_name"]
     model_params = model_params["model_params"]
-    if model_name not in MODELS:
-        raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
+    if model_name not in MODEL_MAP.keys():
+        raise NotImplementedError(f"'{model_name = }' not in recognized models: {MODEL_MAP.keys()}")
 
-    if(model_name == "ConvNet"):
-        model = models.ConvNet(**model_params)
-    else:
-        raise NotImplementedError(f"Model '{model_name}' not in recognized models; {MODELS}")
+    model = MODEL_MAP[model_name](**model_params)
 
     return model
 

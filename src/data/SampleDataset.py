@@ -9,10 +9,10 @@ from CONFIG import CONFIG
 
 class SampleDataset(Dataset):
     """
-    Sample dataset
+    Sample dataset that instanciates the MNIST dataset
     """
 
-    def __init__(self, root, split="train", augmentator=None):
+    def __init__(self, root, split="train", augmentator=None, **kwargs):
         """ Dataset Initializer """
         self.root = root
         self.split = split

@@ -39,6 +39,22 @@ class Callback:
         """ Called at the end of every epoch """
         pass
 
+    def on_train_start(self, trainer):
+        """ Called at the start of every train epoch """
+        pass
+
+    def on_train_end(self, trainer):
+        """ Called at the end of every train epoch """
+        pass
+
+    def on_valid_start(self, trainer):
+        """ Called at the start of every validation epoch """
+        pass
+
+    def on_valid_end(self, trainer):
+        """ Called at the end of every validation epoch """
+        pass
+
     def on_batch_start(self, trainer):
         """ Called at the beginning of every batch """
         pass
@@ -89,6 +105,26 @@ class Callbacks:
         """ Calling callbacks activated on epoch start """
         for callback in self.callbacks:
             callback.on_epoch_end(trainer=trainer)
+            
+    def on_train_start(self, trainer):
+        """ Calling callbacks activated on train start """
+        for callback in self.callbacks:
+            callback.on_train_start(trainer=trainer)
+
+    def on_train_end(self, trainer):
+        """ Calling callbacks activated on train end """
+        for callback in self.callbacks:
+            callback.on_train_end(trainer=trainer)
+
+    def on_valid_start(self, trainer):
+        """ Calling callbacks activated on validation start """
+        for callback in self.callbacks:
+            callback.on_valid_start(trainer=trainer)
+
+    def on_valid_end(self, trainer):
+        """ Calling callbacks activated on validation end """
+        for callback in self.callbacks:
+            callback.on_valid_end(trainer=trainer)
 
     def on_epoch_end(self, trainer):
         """ Calling callbacks activated on epoch end """

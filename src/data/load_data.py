@@ -5,8 +5,8 @@ Methods for loading specific datasets, fitting data loaders and other
 from torch.utils.data import DataLoader
 
 from lib.augmentations import Augmentator
-from data import SampleDataset
-from CONFIG import CONFIG, DATASETS
+from data import DATASET_MAP
+from CONFIG import CONFIG
 
 
 def load_data(exp_params, split="train"):
@@ -27,7 +27,9 @@ def load_data(exp_params, split="train"):
     in_channels: integer
         number of channels in the dataset samples (e.g. 1 for B&W, 3 for RGB)
     """
-    dataset_name = exp_params["dataset"]["dataset_name"]
+    DATASETS = DATASET_MAP.keys()
+    dataset_params = exp_params["dataset"]
+    dataset_name = dataset_params["dataset_name"]
     if dataset_name not in DATASETS:
         raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
 
@@ -39,14 +41,12 @@ def load_data(exp_params, split="train"):
         augmentator.eval()
 
     # instanciating dataset
-    if(dataset_name == "SampleDataset"):
-        dataset = SampleDataset(
-                root=CONFIG["paths"]["data_path"],
-                split=split,
-                augmentator=augmentator
-            )
-    else:
-        raise NotImplementedError(f"Dataset'{dataset_name}' is not available. Use one of {DATASETS}...")
+    dataset = DATASET_MAP[dataset_name](
+        root=CONFIG["paths"]["data_path"],
+        split=split,
+        augmentator=augmentator,
+        **dataset_params
+    )
 
     return dataset
 

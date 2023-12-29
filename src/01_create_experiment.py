@@ -45,6 +45,8 @@ def initialize_experiment():
                 dataset_name=args.dataset_name,
                 config=config
             )
+        print_(f"  --> {args.model_name = }")
+        print_(f"  --> {args.dataset_name = }")
         print_(f"Experiment {exp_name} created successfully")
     except Exception:
         print_("An error has occurred...\n Removing experiment directory")
