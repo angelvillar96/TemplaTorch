@@ -5,10 +5,13 @@ Methods for processing command line arguments
 import os
 import argparse
 
-from configs import get_available_configs
+from configs import get_available_configs, get_available_model_configs, get_available_datasets_configs
 from lib.utils import split_path
 
-from CONFIG import CONFIG, MODELS, DATASETS
+from CONFIG import CONFIG
+
+MODELS = get_available_model_configs()
+DATASETS = get_available_datasets_configs()
 
 
 def create_experiment_arguments():

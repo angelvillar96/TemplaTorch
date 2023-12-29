@@ -11,7 +11,8 @@ import json
 import configs
 from lib.logger import print_
 from lib.utils import timestamp
-from CONFIG import DEFAULTS, CONFIG, MODELS
+from CONFIG import DEFAULTS, CONFIG
+
 
 
 class Config(dict):
@@ -28,6 +29,7 @@ class Config(dict):
         """
         Creating a JSON file with exp configs in the experiment path
         """
+        MODELS = configs.get_available_model_configs()
         if model_name is not None and model_name not in MODELS:
             raise NotImplementedError(f"Given model name {model_name} not in models: {MODELS}...")
 

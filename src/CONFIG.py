@@ -20,10 +20,8 @@ CONFIG = {
 
 
 # Supported datasets, models, metrics, and so on
-DATASETS = ["SampleDataset"]
 AUGMENTATIONS = ["mirror", "noise", "color_jitter", "rotate", "scale"]
 
-MODELS = ["ConvNet"]
 
 LOSSES = ["mse", "l2", "mae", "l1", "cross_entropy", "ce"]
 METRICS = ["accuracy", "mse"]
